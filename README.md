@@ -218,6 +218,46 @@ scheduler ─► POST /internal/run-once
 Interactive docs: http://localhost:8000/docs. Postman: the collection and environment live in
 `infra/postman/` (Postman YAML); select "Price Tracker (local)" and set `internal_secret`.
 
+### MCP server (read-only)
+
+The same data is available to any MCP client (an AI assistant or an IDE), so the pricing team can
+ask "what's waiting for approval?", "why did the AI propose ₹899 for the JBL Go 4?" or "which
+listings are failing?" without opening the dashboard. It lives in `backend/app/mcp/`.
+
+| Tool | Answers |
+|---|---|
+| `list_products` | Every product: our price, lowest competitor and where, position/gap, pending proposal, last check |
+| `get_product` | One product in full: pricing settings and every listing |
+| `get_price_history` | Per-listing latest/lowest/highest price plus recent readings (`days`, `max_points`) |
+| `list_pending_approvals` | The approval queue with reasoning, guardrail checks and staleness |
+| `get_recent_decisions` | The AI's recent decisions for a product, with reasoning and confidence |
+| `get_recent_activity` | Recommendations across all products over the last few days |
+| `get_monitoring` | Scheduler runs, the daily AI cap and per-listing health |
+
+Every tool is read-only and goes through the same handler as the REST endpoint, so the answers
+match the dashboard. Approving, rejecting and editing prices stay in the dashboard, behind the
+human approval step; CI fails if `app/mcp` reaches a write path.
+
+Run it over stdio from `backend/` (it reads `DATABASE_URL` from `infra/.env`):
+
+```bash
+cd backend && ../.venv/bin/python -m app.mcp
+```
+
+Most MCP clients take a config entry like this (use absolute paths):
+
+```json
+{
+  "mcpServers": {
+    "price-tracker": {
+      "command": "/path/to/price-tracker/.venv/bin/python",
+      "args": ["-m", "app.mcp"],
+      "env": { "PYTHONPATH": "/path/to/price-tracker/backend" }
+    }
+  }
+}
+```
+
 ### Demo mode: simulate a competitor move
 
 Competitor prices rarely move while you're presenting, so an internal endpoint simulates **only
@@ -291,7 +331,7 @@ really happened).
 ## Tests, lint, evals
 
 ```bash
-(cd backend && ../.venv/bin/pytest -q)   # 128 tests: API, gate, guardrails, workflow, approvals, runner, parsers, races
+(cd backend && ../.venv/bin/pytest -q)   # 134 tests: API, gate, guardrails, workflow, approvals, runner, parsers, races, MCP
 .venv/bin/ruff check backend
 (cd frontend && npm run typecheck)
 ```
