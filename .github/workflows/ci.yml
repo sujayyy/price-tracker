@@ -56,6 +56,9 @@ jobs:
           # LangChain/LangGraph are only used inside the AI layer.
           grep -rnE "^\s*(from|import) (langchain|langgraph)" backend/app | grep -v "^backend/app/ai/" \
             && fail "LangChain/LangGraph imports belong in app/ai only"
+          # The MCP server (app/mcp) is read-only: it never reaches a write path.
+          grep -rnE "set_our_price|run_once|proposals\.review|create_product|attach_listing|\.commit\(|\.add\(" \
+            backend/app/mcp && fail "app/mcp must stay read-only"
           # No SQLite anywhere: no driver, URL, saver, or database file.
           grep -rnE "sqlite3|sqlite(\+\w+)?://|SqliteSaver|checkpoint-sqlite|checkpoint\.sqlite" \
             --include="*.py" --include="*.toml" --include="*.ini" --include="*.yml" backend infra \
