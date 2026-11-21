@@ -25,6 +25,15 @@ def analyst_middleware() -> list[AgentMiddleware]:
     ]
 
 
+def critic_middleware() -> list[AgentMiddleware]:
+    # A short review: a context read, maybe one history read, then the verdict.
+    return [
+        ModelRetryMiddleware(max_retries=2, on_failure="error"),
+        ModelCallLimitMiddleware(run_limit=4, exit_behavior="end"),
+        ToolCallLimitMiddleware(run_limit=4),
+    ]
+
+
 def intake_middleware() -> list[AgentMiddleware]:
     return [
         ModelRetryMiddleware(max_retries=2, on_failure="error"),

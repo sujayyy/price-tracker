@@ -14,6 +14,7 @@ from pydantic import BaseModel
 
 from app.ai.schemas import (
     CompetitorView,
+    CriticReview,
     HistoryStats,
     Marketplace,
     ObservationView,
@@ -302,6 +303,35 @@ def enforce(
 
     update["data_issues"] = [*decision.data_issues, *notes]
     return GuardrailResult(decision=decision.model_copy(update=update), route=route, proposal=proposal)
+
+
+# Prefix of every note the critic adds to decision.data_issues (the dashboard shows these as a "Second opinion").
+SECOND_OPINION = "second opinion: "
+
+
+def apply_second_opinion(
+    decision: RepricingDecision, route: Route, review: CriticReview | None
+) -> tuple[RepricingDecision, Route]:
+    """What the critic's review is allowed to do, decided in code.
+
+    It records the review in data_issues and can only turn auto_apply into needs_review. The price,
+    the action and the confidence never change, and a human review is never skipped. No review at
+    all (the critic failed) counts as a concern: the move goes to a person.
+    """
+    notes: list[str] = []
+    if review is None:
+        notes.append(f"{SECOND_OPINION}unavailable, so a person reviews this move")
+        concern = True
+    elif review.verdict == "agree":
+        notes.append(f"{SECOND_OPINION}agrees. {review.reasoning}".strip())
+        concern = False
+    else:
+        notes += [f"{SECOND_OPINION}concern: {c}" for c in (review.concerns or [review.reasoning])]
+        concern = True
+    if concern and route == "auto_apply":
+        route = "needs_review"
+        notes.append(f"{SECOND_OPINION}sent to a person instead of being applied automatically")
+    return decision.model_copy(update={"data_issues": [*decision.data_issues, *notes]}), route
 
 
 class ReviewResult(BaseModel):

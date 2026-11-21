@@ -1,13 +1,22 @@
 """Public API of the AI layer. The rest of the backend imports only from here (and `app.ai.schemas`)."""
 
 from app.ai.agents.analyst import DEFAULT_MODEL, build_analyst_agent, decide
+from app.ai.agents.critic import build_critic_agent
 from app.ai.agents.intake import build_intake_agent, resolve_query
 from app.ai.checkpoint import close_checkpointers, get_checkpointer, setup_checkpointer
 from app.ai.errors import AgentDecisionError
-from app.ai.guardrails import ListingSnapshot, build_pricing_context, looks_suspect, position, validate_review
+from app.ai.guardrails import (
+    ListingSnapshot,
+    apply_second_opinion,
+    build_pricing_context,
+    looks_suspect,
+    position,
+    validate_review,
+)
 from app.ai.provider import DataProvider
 from app.ai.schemas import (
     AlertRules,
+    CriticReview,
     HistoryStats,
     IntakeCandidate,
     IntakeResolution,
@@ -44,7 +53,10 @@ __all__ = [
     "RepricingDecision",
     "RepricingOutcome",
     "ReviewAnswer",
+    "CriticReview",
+    "apply_second_opinion",
     "build_analyst_agent",
+    "build_critic_agent",
     "build_intake_agent",
     "build_pricing_context",
     "build_repricing_workflow",
