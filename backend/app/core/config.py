@@ -26,6 +26,10 @@ class Settings(BaseSettings):
     # Proposals below this confidence are flagged "review carefully"; auto-apply needs the second.
     alert_min_confidence: float = 0.7
     auto_apply_min_confidence: float = 0.85
+    # A second agent (the critic) reviews every proposed price change before it is applied or shown
+    # to a person; its concerns can only send an auto-apply to a person. Empty model = AGENT_MODEL.
+    second_opinion_enabled: bool = True
+    second_opinion_model: str = ""
 
     # Every competitor alert goes to the operations team (comma-separated), plus an item's notify_email.
     ops_alert_emails: Annotated[list[str], NoDecode] = []

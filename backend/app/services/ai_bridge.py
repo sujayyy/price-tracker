@@ -91,6 +91,8 @@ def _agent(kind: str):
                     checkpointer=checkpointer,
                     low_confidence=settings.alert_min_confidence,
                     auto_min_confidence=settings.auto_apply_min_confidence,
+                    second_opinion=settings.second_opinion_enabled,
+                    critic_model=settings.second_opinion_model or None,
                 )
             else:
                 _agents[kind] = ai.build_intake_agent(

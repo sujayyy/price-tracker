@@ -1,12 +1,15 @@
-"""The repricing workflow: a LangGraph StateGraph around the analyst, with a human in the loop.
+"""The repricing workflow: a LangGraph StateGraph around two agents, with a human in the loop.
 
-    analyze ──▶ guardrails ──┬─▶ (no change) ─────────────────────▶ END
-                             ├─▶ auto_apply ─────────▶ finalize ──▶ END
-                             └─▶ human_review ⏸ ─────▶ finalize ──▶ END
+    analyze ──▶ guardrails ──┬─▶ (no change) ────────────────────────────────────▶ END
+                             └─▶ second_opinion ──┬─▶ auto_apply ──────▶ finalize ──▶ END
+                                                  └─▶ human_review ⏸ ──▶ finalize ──▶ END
                                  (interrupt: waits, possibly for hours, in the Postgres checkpoint)
 
-- analyze: the LLM agent recommends a move (read-only tools, structured output).
+- analyze: the analyst agent recommends a move (read-only tools, structured output).
 - guardrails: code holds the recommendation to the allowed options, then routes it.
+- second_opinion: only for a proposed price change, the critic agent looks for a data-backed
+  reason the move is wrong. Code (apply_second_opinion) records its review and can only send an
+  auto-apply to a person; the price, action and confidence never change. Off unless enabled.
 - human_review: `interrupt()` pauses the run. The dashboard's Approve/Reject resumes it with
   `Command(resume=ReviewAnswer)`, from any process, because the state lives in Postgres.
 - finalize: re-checks the approval against *fresh* pricing data (our price may have changed
@@ -17,6 +20,7 @@ The workflow never writes: the backend applies an approved price and records the
 
 from __future__ import annotations
 
+import logging
 import uuid
 from typing import TypedDict
 
@@ -26,9 +30,12 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Command, interrupt
 
 from app.ai.agents.analyst import DEFAULT_MODEL, build_analyst_agent, run_analyst
-from app.ai.guardrails import enforce, validate_review
+from app.ai.agents.critic import build_critic_agent, run_critic
+from app.ai.guardrails import apply_second_opinion, enforce, validate_review
 from app.ai.provider import DataProvider
-from app.ai.schemas import Proposal, RepricingDecision, RepricingOutcome, ReviewAnswer, TriggerType
+from app.ai.schemas import CriticReview, Proposal, RepricingDecision, RepricingOutcome, ReviewAnswer, TriggerType
+
+log = logging.getLogger(__name__)
 
 
 class RepricingState(TypedDict, total=False):
@@ -39,6 +46,7 @@ class RepricingState(TypedDict, total=False):
     decision: dict
     route: str
     proposal: dict | None
+    second_opinion: dict | None
     review: dict | None
     result: dict | None
 
@@ -50,10 +58,16 @@ def build_repricing_workflow(
     checkpointer: BaseCheckpointSaver | None = None,
     low_confidence: float = 0.7,
     auto_min_confidence: float = 0.85,
+    second_opinion: bool = False,
+    critic_model: str | BaseChatModel | None = None,
 ):
-    """Compile the workflow. A checkpointer is required to pause for review and resume later."""
-    # The workflow checkpoints the whole run, so the inner agent keeps no checkpoints of its own.
+    """Compile the workflow. A checkpointer is required to pause for review and resume later.
+
+    second_opinion=True adds the critic agent (on critic_model, default: the analyst's model).
+    """
+    # The workflow checkpoints the whole run, so the inner agents keep no checkpoints of their own.
     analyst = build_analyst_agent(provider, model=model, checkpointer=False)
+    critic = build_critic_agent(provider, model=critic_model or model) if second_opinion else None
 
     def analyze(state: RepricingState) -> dict:
         settings = provider.get_product_settings(state["product_id"])
@@ -87,6 +101,33 @@ def build_repricing_workflow(
     def route(state: RepricingState) -> str:
         return {"needs_review": "human_review", "auto_apply": "finalize"}.get(state["route"], END)
 
+    def after_guardrails(state: RepricingState) -> str:
+        # The critic only looks at a price change the guardrails accepted; holds stay cheap.
+        if critic is not None and state["route"] in ("needs_review", "auto_apply"):
+            return "second_opinion"
+        return route(state)
+
+    def second_opinion_node(state: RepricingState) -> dict:
+        decision = RepricingDecision.model_validate(state["decision"])
+        settings = provider.get_product_settings(state["product_id"])
+        review: CriticReview | None = None
+        try:
+            review = run_critic(
+                critic,
+                state["product_id"],
+                decision,
+                Proposal.model_validate(state["proposal"]),
+                listing_ids=tuple(x.listing_id for x in settings.listings) if settings else (),
+            )
+        except Exception as exc:  # model error or call limit: fail safe, a person reviews the move
+            log.warning("critic_unavailable product_id=%s error=%s", state["product_id"], type(exc).__name__)
+        decision, new_route = apply_second_opinion(decision, state["route"], review)  # type: ignore[arg-type]
+        return {
+            "decision": decision.model_dump(mode="json"),
+            "route": new_route,
+            "second_opinion": review.model_dump(mode="json") if review else None,
+        }
+
     def human_review(state: RepricingState) -> dict:
         # Everything before interrupt() re-runs on resume, so this node does nothing else.
         answer = interrupt(
@@ -113,7 +154,12 @@ def build_repricing_workflow(
     graph.add_node("finalize", finalize)
     graph.add_edge(START, "analyze")
     graph.add_edge("analyze", "guardrails")
-    graph.add_conditional_edges("guardrails", route, ["human_review", "finalize", END])
+    if critic is not None:
+        graph.add_node("second_opinion", second_opinion_node)
+        graph.add_conditional_edges("guardrails", after_guardrails, ["second_opinion", "human_review", "finalize", END])
+        graph.add_conditional_edges("second_opinion", route, ["human_review", "finalize"])
+    else:
+        graph.add_conditional_edges("guardrails", route, ["human_review", "finalize", END])
     graph.add_edge("human_review", "finalize")
     graph.add_edge("finalize", END)
     return graph.compile(checkpointer=checkpointer, name="repricing_workflow")

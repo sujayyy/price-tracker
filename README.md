@@ -313,6 +313,7 @@ really happened).
 | `DASHBOARD_URL` | Base URL for the "Review & approve" link in emails (default `http://localhost:5173`) |
 | `MAX_AGENT_INVOCATIONS_PER_DAY` | Cost cap on AI runs |
 | `ALERT_MIN_CONFIDENCE`, `AUTO_APPLY_MIN_CONFIDENCE` | Below the first, proposals are flagged "review carefully"; auto-apply needs the second (default 0.85) |
+| `SECOND_OPINION_ENABLED`, `SECOND_OPINION_MODEL` | The critic agent that reviews each proposed price change (default on; model defaults to `AGENT_MODEL`) |
 | `SMTP_USER`, `SMTP_APP_PASSWORD`, `SMTP_PORT` | Gmail address and a [Google app password](https://myaccount.google.com/apppasswords). 587 = STARTTLS (default), 465 = implicit TLS |
 | `INTERNAL_RUN_SECRET` | Shared secret for `/internal/*`. `python -c "import secrets;print(secrets.token_urlsafe(32))"` |
 | `DEMO_ENDPOINTS_ENABLED` | `true` enables `/internal/demo/price` and the dashboard demo panel |

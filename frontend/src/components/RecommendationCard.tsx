@@ -21,6 +21,19 @@ const STATUS_TONE = {
 
 type Phase = "idle" | "rechecking" | "validating" | "approved" | "rejecting";
 
+/** Notes the critic agent adds to decision.data_issues (backend: app/ai/guardrails.py SECOND_OPINION). */
+const SECOND_OPINION = "second opinion: ";
+
+function secondOpinion(issues: string[] | undefined) {
+  const notes = (issues ?? []).filter((n) => n.startsWith(SECOND_OPINION)).map((n) => n.slice(SECOND_OPINION.length));
+  if (!notes.length) return null;
+  const concerns = notes.filter((n) => n.startsWith("concern: ")).map((n) => n.slice("concern: ".length));
+  const agrees = notes.find((n) => n.startsWith("agrees"));
+  const unavailable = notes.some((n) => n.startsWith("unavailable"));
+  const escalated = notes.some((n) => n.startsWith("sent to a person"));
+  return { concerns, agrees: agrees?.replace(/^agrees\.?\s*/, ""), unavailable, escalated };
+}
+
 interface Props {
   proposal: Proposal;
   onResolved: () => void;
@@ -42,6 +55,7 @@ export default function RecommendationCard({ proposal: p, onResolved, showProduc
   const [verifiedAt, setVerifiedAt] = useState<string | null>(p.latest_checked_at);
   const [error, setError] = useState<string | null>(null);
   const d = p.decision;
+  const opinion = secondOpinion(d?.data_issues);
   const pending = p.status === "pending";
   const price = override != null ? Number(override) : p.to_price_inr;
   const warnings = [
@@ -186,6 +200,30 @@ export default function RecommendationCard({ proposal: p, onResolved, showProduc
                 <span>{d.urgency.charAt(0).toUpperCase() + d.urgency.slice(1)} urgency</span>
                 <ConfidenceBar value={d.confidence} />
               </figcaption>
+            </figure>
+          )}
+
+          {opinion && (
+            <figure className={`rounded-[10px] border px-4 py-3 ${opinion.concerns.length || opinion.unavailable ? "border-warn/40 bg-warn/5" : "border-line bg-raised"}`}>
+              <figcaption className="flex items-center gap-1.5 text-[12px] font-medium text-ink">
+                <Icon name={opinion.concerns.length || opinion.unavailable ? "shield" : "check"} className={`h-3.5 w-3.5 ${opinion.concerns.length || opinion.unavailable ? "text-warn" : "text-good"}`} />
+                Second opinion
+                <span className="font-normal text-muted">
+                  {opinion.concerns.length ? "· raised concerns" : opinion.unavailable ? "· not available" : "· agrees"}
+                </span>
+              </figcaption>
+              {opinion.concerns.length > 0 ? (
+                <ul className="mt-2 space-y-1.5 text-[13px] leading-relaxed text-ink">
+                  {opinion.concerns.map((c) => <li key={c} className="flex gap-2"><span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-warn" aria-hidden />{c}</li>)}
+                </ul>
+              ) : opinion.agrees ? (
+                <p className="mt-1.5 text-[13px] leading-relaxed text-muted">{opinion.agrees}</p>
+              ) : opinion.unavailable ? (
+                <p className="mt-1.5 text-[13px] leading-relaxed text-muted">The reviewing agent could not run, so this change waits for a person.</p>
+              ) : null}
+              {opinion.escalated && (
+                <p className="mt-2 text-[12px] text-warn">Sent to you instead of being applied automatically.</p>
+              )}
             </figure>
           )}
         </div>

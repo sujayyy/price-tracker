@@ -247,6 +247,22 @@ class Proposal(BaseModel):
     limited_by: Literal["floor", "max_change"] | None = None
 
 
+class CriticReview(BaseModel):
+    """The critic's second opinion on a proposed price change.
+
+    It can only raise concerns. Code decides what a concern does (app.ai.guardrails.apply_second_opinion):
+    it can send an auto-apply to a human, and it never changes the price, the action or the confidence.
+    """
+
+    verdict: Literal["agree", "concern"] = Field(
+        description="'concern' only for a specific reason, backed by the data, that the move is wrong or premature."
+    )
+    concerns: list[str] = Field(
+        default=[], max_length=3, description="One sentence each, citing a number from the tools. Empty if you agree."
+    )
+    reasoning: str = Field(max_length=400, description="One or two sentences on why you agree or object.")
+
+
 class ReviewAnswer(BaseModel):
     """What the ops reviewer sent back. `price_inr` overrides the proposed price."""
 
