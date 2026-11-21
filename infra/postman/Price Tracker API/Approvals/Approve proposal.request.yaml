@@ -1,0 +1,22 @@
+$kind: http-request
+description: |-
+  Resumes the paused LangGraph workflow with an approval. It re-checks the price against fresh data, then applies it and writes the audit row.
+  
+  409 = not pending any more (already resolved, or superseded by a newer change / manual edit).
+url: "{{base_url}}/api/proposals/{{proposal_id}}/approve"
+method: POST
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "by": "{{reviewer}}",
+      "note": "Match the competitor"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200 or 409', () => pm.expect(pm.response.code).to.be.oneOf([200, 409]));
+    language: text/javascript
+order: 3000

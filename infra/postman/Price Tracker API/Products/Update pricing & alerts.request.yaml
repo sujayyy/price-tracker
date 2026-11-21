@@ -1,0 +1,23 @@
+$kind: http-request
+description: |-
+  Send only the fields to change. `null` clears min_change_pct (= alert on any change), our_sku, floor_price_inr, notify_email.
+url: "{{base_url}}/api/products/{{product_id}}"
+method: PATCH
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "floor_price_inr": 749,
+      "max_change_pct": 10,
+      "undercut_by_inr": 10,
+      "min_change_pct": null,
+      "auto_apply": false
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 6000

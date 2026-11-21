@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "price-tracker-backend"
+version = "0.1.0"
+description = "FastAPI + PostgreSQL backend for the AI price tracker, including its AI layer (app/ai)."
+requires-python = ">=3.11"
+dependencies = [
+    # Web / data
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "sqlalchemy>=2.0",
+    "alembic>=1.13",
+    "psycopg[binary,pool]>=3.2",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.4",
+    "email-validator>=2.1",
+    "httpx>=0.27",
+    "certifi>=2024.2",
+    "beautifulsoup4>=4.12",
+    "lxml>=5",
+    "jinja2>=3.1",
+    "structlog>=24",
+    # AI layer (app/ai)
+    "langchain>=1.4,<2",
+    "langgraph>=1.2,<2",
+    "langgraph-checkpoint-postgres>=3.1,<4",
+    "langsmith>=0.2",
+]
+
+[project.optional-dependencies]
+# Model provider for AGENT_MODEL's "provider:" prefix. Install the one you use.
+google = ["langchain-google-genai>=4"]
+anthropic = ["langchain-anthropic>=1"]
+openai = ["langchain-openai>=1"]
+ollama = ["langchain-ollama>=1"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app", "evals", "tests"]
+known-third-party = ["alembic"]

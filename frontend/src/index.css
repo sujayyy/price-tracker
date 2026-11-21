@@ -1,0 +1,492 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   Price Tracker design tokens: "Ledger & Petrol".
+   RGB triplets so Tailwind opacity modifiers work. Warm paper neutrals with a
+   petrol tint (never pure #000/#fff). Petrol is the brand: primary actions,
+   the active nav, the Overview band. Aqua is focus and links. Semantic colours
+   have exactly one job each and are never reused for platforms:
+     good (jade)       competitor raised · opportunity · approved · healthy
+     bad  (vermilion)  competitor cut · below floor · rejected · failing
+     warn (saffron)    needs attention · pending approval · we're pricier
+   Platforms own two data colours used nowhere else: Amazon tangerine,
+   Flipkart azure. Every text pair is measured for WCAG AA (see DESIGN.md).
+   ========================================================================== */
+:root {
+  color-scheme: light;
+  --gray-0: 255 253 248;
+  --gray-50: 244 241 234;
+  --gray-100: 237 233 223;
+  --gray-150: 226 221 209;
+  --gray-200: 207 200 184;
+  --gray-300: 181 176 163;
+  --gray-400: 150 153 146;
+  --gray-500: 91 100 97;
+  --gray-600: 67 77 76;
+  --gray-700: 46 56 57;
+  --gray-800: 30 39 41;
+  --gray-900: 18 25 27;
+
+  --surface: var(--gray-50);      /* app canvas (paper) */
+  --raised: var(--gray-0);        /* working surfaces */
+  --sunken: var(--gray-100);      /* insets, table header, hover */
+  --rail: 236 232 222;            /* sidebar */
+  --line: var(--gray-150);
+  --line-strong: var(--gray-200);
+  --ink: var(--gray-900);
+  --muted: var(--gray-500);       /* 5.3:1 on the canvas */
+  --faint: var(--gray-400);       /* decorative only */
+
+  --brand: 15 61 62;              /* petrol */
+  --on-brand: 244 241 234;
+  --band: 15 61 62;
+  --on-band: 244 241 234;
+  --accent: 23 112 127;           /* aqua: focus, links (5.1:1) */
+  --on-accent: 255 255 255;
+
+  --good: 9 112 76;
+  --good-fill: 76 192 141;
+  --bad: 184 48 40;
+  --bad-fill: 200 56 47;
+  --warn: 126 82 0;
+  --warn-fill: 233 169 28;
+  --teal: var(--accent);
+  --info: var(--accent);
+
+  --amazon: 204 98 18;
+  --flipkart: 47 111 235;
+
+  --chart-amazon: rgb(var(--amazon));
+  --chart-flipkart: rgb(var(--flipkart));
+  --chart-ours: #12191b;
+  --chart-floor: #5b6461;
+  --chart-grid: #e6e1d5;
+  --chart-axis: #6b726e;
+  --chart-ref: #b5b0a3;
+
+  --shadow-xs: 0 1px 2px rgb(18 25 27 / 0.05);
+  --shadow-pop: 0 18px 44px -14px rgb(18 25 27 / 0.28), 0 2px 6px rgb(18 25 27 / 0.06), 0 0 0 1px rgb(18 25 27 / 0.04);
+  --shadow-lift: 0 1px 0 rgb(255 255 255 / 0.12) inset, 0 1px 2px rgb(15 61 62 / 0.25), 0 4px 12px -4px rgb(15 61 62 / 0.35);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --gray-0: 17 27 30;
+    --gray-50: 11 18 20;
+    --gray-100: 22 34 37;
+    --gray-150: 32 46 49;
+    --gray-200: 45 62 66;
+    --gray-300: 66 84 88;
+    --gray-400: 98 115 112;
+    --gray-500: 143 160 156;
+    --gray-600: 176 189 186;
+    --gray-700: 204 213 211;
+    --gray-800: 222 229 227;
+    --gray-900: 232 238 236;
+    --rail: 13 21 23;
+    --brand: 237 232 220;
+    --on-brand: 11 18 20;
+    --band: 16 52 52;
+    --on-band: 237 240 236;
+    --accent: 92 200 218;
+    --on-accent: 11 18 20;
+    --good: 74 214 150;
+    --good-fill: 69 196 141;
+    --bad: 242 122 110;
+    --bad-fill: 194 68 60;
+    --warn: 242 184 75;
+    --warn-fill: 242 184 75;
+    --amazon: 221 117 38;
+    --flipkart: 95 143 239;
+    --chart-ours: #ede8dc;
+    --chart-floor: #8fa09c;
+    --chart-grid: #1d2b2e;
+    --chart-axis: #8fa09c;
+    --chart-ref: #42545a;
+    --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-pop: 0 18px 44px -12px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(255 255 255 / 0.05);
+    --shadow-lift: 0 1px 0 rgb(255 255 255 / 0.5) inset, 0 4px 14px -4px rgb(0 0 0 / 0.6);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --gray-0: 17 27 30;
+  --gray-50: 11 18 20;
+  --gray-100: 22 34 37;
+  --gray-150: 32 46 49;
+  --gray-200: 45 62 66;
+  --gray-300: 66 84 88;
+  --gray-400: 98 115 112;
+  --gray-500: 143 160 156;
+  --gray-600: 176 189 186;
+  --gray-700: 204 213 211;
+  --gray-800: 222 229 227;
+  --gray-900: 232 238 236;
+  --rail: 13 21 23;
+  --brand: 237 232 220;
+  --on-brand: 11 18 20;
+  --band: 16 52 52;
+  --on-band: 237 240 236;
+  --accent: 92 200 218;
+  --on-accent: 11 18 20;
+  --good: 74 214 150;
+  --good-fill: 69 196 141;
+  --bad: 242 122 110;
+  --bad-fill: 194 68 60;
+  --warn: 242 184 75;
+  --warn-fill: 242 184 75;
+  --amazon: 221 117 38;
+  --flipkart: 95 143 239;
+  --chart-ours: #ede8dc;
+  --chart-floor: #8fa09c;
+  --chart-grid: #1d2b2e;
+  --chart-axis: #8fa09c;
+  --chart-ref: #42545a;
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-pop: 0 18px 44px -12px rgb(0 0 0 / 0.7), 0 0 0 1px rgb(255 255 255 / 0.05);
+  --shadow-lift: 0 1px 0 rgb(255 255 255 / 0.5) inset, 0 4px 14px -4px rgb(0 0 0 / 0.6);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Fieldsets default to min-width: min-content and refuse to shrink on phones. */
+fieldset {
+  min-width: 0;
+}
+body {
+  @apply bg-surface font-sans text-[14px] leading-[1.5] text-ink antialiased;
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: rgb(var(--accent) / 0.22);
+}
+:focus-visible {
+  outline: 2px solid rgb(var(--accent));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* Text fields show their own ring (see .input); the palette input sits in its own frame. */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[cmdk-input]:focus-visible {
+  outline: none;
+}
+/* Quiet scrollbars that match the paper. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--line-strong)) transparent;
+}
+
+/* Motion: reduced motion keeps fades, drops movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer components {
+  /* Counts and inline figures: Geist with tabular figures. */
+  .num {
+    @apply tabular-nums;
+    font-feature-settings: "tnum" 1, "ss01" 1;
+  }
+  /* Prices in tables, tickets and key figures: the ledger face. */
+  .mono {
+    @apply font-mono tabular-nums;
+    font-feature-settings: "tnum" 1, "zero" 0;
+    letter-spacing: -0.02em;
+  }
+  /* Identifiers only (SKUs, ASINs). */
+  .code {
+    @apply font-mono text-[12px] tracking-tight;
+  }
+  /* The editorial serif: page titles and the one hero figure. Nowhere else. */
+  .display {
+    @apply font-display font-normal;
+    letter-spacing: -0.012em;
+    font-feature-settings: "lnum" 1;
+  }
+  .card {
+    @apply rounded-[10px] border border-line bg-raised;
+  }
+  .card-header {
+    @apply flex items-center justify-between gap-3 border-b border-line px-4 py-3 sm:px-5;
+  }
+  .card-title {
+    @apply text-[14px] font-semibold tracking-[-0.01em] text-ink;
+  }
+  .card-sub {
+    @apply mt-0.5 text-[12px] text-muted;
+  }
+  .eyebrow {
+    @apply text-[11px] font-medium uppercase tracking-[0.07em] text-muted;
+  }
+  .section-title {
+    @apply text-[16px] font-semibold tracking-[-0.015em] text-ink;
+  }
+  .link-quiet {
+    @apply inline-flex items-center gap-1 whitespace-nowrap text-[12px] font-medium text-muted transition-colors duration-150 hover:text-ink;
+  }
+  /* Dense table header: small caps-like labels on a sunken strip. */
+  .thead {
+    @apply bg-sunken/70 text-[11px] font-medium uppercase tracking-[0.06em] text-muted;
+  }
+
+  /* Key figures between two rules: 2-up grid on phones, one row from tablet up. */
+  .stat-band {
+    @apply grid grid-cols-2 border-y border-line;
+  }
+  .stat-band > * {
+    @apply min-w-0 px-4 py-4;
+  }
+  .stat-band > :nth-child(odd) {
+    @apply pl-0;
+  }
+  .stat-band > :nth-child(even) {
+    @apply border-l border-line;
+  }
+  .stat-band > :nth-child(n + 3) {
+    @apply border-t border-line;
+  }
+  .stat-band > :last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+  @media (min-width: 768px) {
+    .stat-band {
+      display: flex;
+    }
+    .stat-band > :nth-child(n) {
+      flex: 1 1 0;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      border-top-width: 0;
+      border-left-width: 1px;
+    }
+    .stat-band > :first-child:nth-child(n) {
+      padding-left: 0;
+      border-left-width: 0;
+    }
+  }
+
+  /* Buttons: 34px (30 small, 40 large), press feedback via scale, colour via ease. */
+  .btn {
+    @apply inline-flex min-h-[34px] cursor-pointer select-none items-center justify-center gap-2 whitespace-nowrap rounded-[7px] px-3 text-[13px] font-medium
+      disabled:pointer-events-none disabled:opacity-50;
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    @apply btn bg-brand text-on-brand;
+    box-shadow: var(--shadow-lift);
+  }
+  .btn-primary:hover {
+    background: rgb(var(--brand) / 0.92);
+  }
+  .btn-accent {
+    @apply btn-primary;
+  }
+  .btn-good {
+    @apply btn bg-good text-on-accent;
+  }
+  .btn-ghost {
+    @apply btn border border-line-strong bg-raised text-ink hover:border-gray-300 hover:bg-sunken/70;
+  }
+  .btn-quiet {
+    @apply btn text-muted hover:bg-sunken hover:text-ink;
+  }
+  .btn-danger {
+    @apply btn border border-bad/35 bg-raised text-bad hover:bg-bad/[0.06];
+  }
+  /* A paper button that sits on the petrol band. */
+  .btn-band {
+    @apply btn bg-on-band text-band hover:bg-on-band/90;
+  }
+  .btn-sm {
+    @apply min-h-[30px] rounded-[6px] px-2.5 text-[12px];
+  }
+  .btn-lg {
+    @apply min-h-[40px] rounded-[8px] px-4 text-[14px];
+  }
+  .icon-btn {
+    @apply inline-grid h-8 w-8 cursor-pointer place-items-center rounded-[7px] text-muted hover:bg-sunken hover:text-ink disabled:pointer-events-none disabled:opacity-40;
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 150ms ease, color 150ms ease;
+  }
+  .icon-btn:active {
+    transform: scale(0.94);
+  }
+
+  .input {
+    @apply h-9 w-full rounded-[7px] border border-line-strong bg-raised px-3 text-[13px] text-ink placeholder:text-faint
+      focus:border-accent focus:outline-none focus:ring-[3px] focus:ring-accent/20;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+  }
+  select.input {
+    @apply pr-8;
+  }
+  .label {
+    @apply mb-1.5 block text-[12px] font-medium text-ink;
+  }
+  .hint {
+    @apply mt-1.5 text-[12px] leading-snug text-muted;
+  }
+  .chip {
+    @apply inline-flex h-[22px] items-center gap-1.5 whitespace-nowrap rounded-[5px] border border-line bg-raised px-1.5 text-[11px] font-medium text-muted;
+  }
+  .kpi-value {
+    @apply font-sans text-[28px] font-semibold leading-none tracking-[-0.035em] tabular-nums;
+  }
+  .divider {
+    @apply border-t border-line;
+  }
+
+  /* Skeleton: a soft sheen moving across (transform only). Visible in both themes. */
+  .skeleton {
+    @apply relative overflow-hidden rounded-[6px];
+    background: rgb(var(--line) / 0.75);
+  }
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgb(var(--raised) / 0.6), transparent);
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
+  /* A changed value is tinted once (competitor cut = vermilion, raise = jade), fading back to ink. */
+  .flash-down {
+    animation: tint-down 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .flash-up {
+    animation: tint-up 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  /* Status dot with a soft pulse for live states (monitoring, rechecking). */
+  .live-dot {
+    position: relative;
+  }
+  .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.35;
+    animation: live-pulse 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+  }
+
+  /* The petrol command band: the only dark block in light mode, with a whisper of grain. */
+  .band {
+    @apply relative isolate overflow-hidden rounded-[14px] bg-band text-on-band;
+  }
+  .band::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.09;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .band::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(120% 90% at 100% 0%, rgb(255 255 255 / 0.07), transparent 55%),
+      repeating-linear-gradient(90deg, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 72px);
+  }
+
+  /* Diagonal hatching in the current colour (floor band, not-comparable segments). */
+  .hatch {
+    background-image: repeating-linear-gradient(135deg, currentColor 0 1px, transparent 1px 5px);
+  }
+
+  /* Rolling digits: each digit is a 0–9 column that slides into place when the value changes. */
+  .roll {
+    display: inline-flex;
+    align-items: flex-start; /* the digit column keeps its full 10-row height */
+    height: 1.15em;
+    line-height: 1.15em;
+    overflow: hidden;
+    vertical-align: bottom;
+  }
+  .roll > span {
+    display: flex;
+    flex-direction: column;
+    transition: transform 520ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .roll > span > span {
+    height: 1.15em;
+    line-height: 1.15em;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes live-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.45;
+  }
+  80%,
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+/* From a tint back to the element's own colour (no "to" frame). */
+@keyframes tint-down {
+  from {
+    color: rgb(var(--bad));
+  }
+}
+@keyframes tint-up {
+  from {
+    color: rgb(var(--good));
+  }
+}
+@keyframes tape {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Confirmation modal (native <dialog>, centred): used for destructive or irreversible actions. */
+dialog.confirm-dialog {
+  margin: auto;
+  padding: 0;
+  border: 1px solid rgb(var(--line));
+  border-radius: 14px;
+  background: rgb(var(--raised));
+  color: rgb(var(--ink));
+  box-shadow: var(--shadow-pop);
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 180ms cubic-bezier(0.23, 1, 0.32, 1), transform 180ms cubic-bezier(0.23, 1, 0.32, 1), overlay 180ms allow-discrete, display 180ms allow-discrete;
+}
+@starting-style {
+  dialog.confirm-dialog[open] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+dialog.confirm-dialog::backdrop {
+  background: rgb(var(--gray-900) / 0.4);
+}

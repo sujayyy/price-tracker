@@ -1,0 +1,29 @@
+# Excerpt from server-8100.log during spike-after1 (fix 1 only, 100 VUs): the pool checkout timeout that
+# answers stuck requests with HTTP 500 after 30 s. The same error appeared in the original code's stress run;
+# that log was overwritten by a later server start, before perf/run.sh serve switched to appending.
+
+                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 1203, in _connection_for_bind
+    conn = bind.connect()
+           ^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3260, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 149, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 3284, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 445, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 1287, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/pool/base.py", line 709, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "/Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/sqlalchemy/pool/impl.py", line 165, in _do_get
+    raise exc.TimeoutError(
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/21/3o7r)

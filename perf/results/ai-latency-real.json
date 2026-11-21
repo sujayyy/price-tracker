@@ -1,0 +1,382 @@
+{
+  "real": {
+    "model": "anthropic:claude-haiku-4-5",
+    "n": 20,
+    "failures": 0,
+    "action_acceptable": 20,
+    "rows": [
+      {
+        "name": "decision, end to end",
+        "n": 20,
+        "p50": 5207.6,
+        "p90": 7017.0,
+        "p95": 7230.1,
+        "max": 7609.0,
+        "mean": 5476.7
+      },
+      {
+        "name": "inside provider calls (network + model)",
+        "n": 20,
+        "p50": 5192.9,
+        "p90": 7001.9,
+        "p95": 7210.7,
+        "max": 7593.6,
+        "mean": 5462.0
+      },
+      {
+        "name": "application (agent loop, tools, parsing)",
+        "n": 20,
+        "p50": 14.6,
+        "p90": 15.6,
+        "p95": 16.0,
+        "max": 19.7,
+        "mean": 14.6
+      },
+      {
+        "name": "per provider call",
+        "n": 58,
+        "p50": 1139.8,
+        "p90": 3360.2,
+        "p95": 3639.4,
+        "max": 4766.8,
+        "mean": 1883.5
+      },
+      {
+        "name": "network round trip (unauthenticated GET)",
+        "n": 3,
+        "p50": 257.3,
+        "p90": 283.5,
+        "p95": 286.8,
+        "max": 290.1,
+        "mean": 257.4
+      }
+    ],
+    "decisions": [
+      {
+        "scenario": "sustained_drop_we_are_pricier",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 65.3249169990886,
+        "decision_ms": 6523.792958003469,
+        "model_ms": 6508.74308400671,
+        "calls": 2,
+        "call_ms": [
+          1741.904209004133,
+          4766.838875002577
+        ],
+        "in": 6827,
+        "out": 434
+      },
+      {
+        "scenario": "drop_but_we_are_still_cheaper",
+        "action": "hold",
+        "action_acceptable": 1,
+        "build_ms": 29.39979200164089,
+        "decision_ms": 4885.551500003203,
+        "model_ms": 4870.400332001736,
+        "calls": 3,
+        "call_ms": [
+          859.3796659988584,
+          1110.791083003278,
+          2900.2295829996
+        ],
+        "in": 10063,
+        "out": 387
+      },
+      {
+        "scenario": "drop_below_our_floor",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 30.43937499751337,
+        "decision_ms": 5294.8866250007995,
+        "model_ms": 5280.599083002016,
+        "calls": 3,
+        "call_ms": [
+          896.2995420006337,
+          1043.7985000025947,
+          3340.501040998788
+        ],
+        "in": 10197,
+        "out": 411
+      },
+      {
+        "scenario": "floor_blocks_any_cut",
+        "action": "hold",
+        "action_acceptable": 1,
+        "build_ms": 31.564375000016298,
+        "decision_ms": 5010.851999999431,
+        "model_ms": 4997.539751006116,
+        "calls": 3,
+        "call_ms": [
+          1005.9647500020219,
+          897.5799170002574,
+          3093.9950840038364
+        ],
+        "in": 10011,
+        "out": 389
+      },
+      {
+        "scenario": "competitor_raise_opportunity",
+        "action": "raise_price",
+        "action_acceptable": 1,
+        "build_ms": 26.791666998178698,
+        "decision_ms": 5840.6409160015755,
+        "model_ms": 5826.04233299935,
+        "calls": 3,
+        "call_ms": [
+          1171.905915995012,
+          1018.5569579989533,
+          3635.5794590053847
+        ],
+        "in": 10192,
+        "out": 394
+      },
+      {
+        "scenario": "competitor_out_of_stock",
+        "action": "raise_price",
+        "action_acceptable": 1,
+        "build_ms": 31.73695800069254,
+        "decision_ms": 4928.398291995109,
+        "model_ms": 4914.53999899386,
+        "calls": 3,
+        "call_ms": [
+          931.5413750009611,
+          856.9977079969249,
+          3126.0009159959736
+        ],
+        "in": 10058,
+        "out": 388
+      },
+      {
+        "scenario": "competitor_back_in_stock_cheaper",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 29.8360840024543,
+        "decision_ms": 5395.816582997213,
+        "model_ms": 5380.983875998936,
+        "calls": 3,
+        "call_ms": [
+          888.4720839996589,
+          1374.1692919938941,
+          3118.342500005383
+        ],
+        "in": 10120,
+        "out": 402
+      },
+      {
+        "scenario": "price_glitch_refetch_disproves",
+        "action": "investigate",
+        "action_acceptable": 1,
+        "build_ms": 30.062041005294304,
+        "decision_ms": 7210.17829199991,
+        "model_ms": 7190.502083998581,
+        "calls": 4,
+        "call_ms": [
+          1128.7843750033062,
+          1080.5067920009606,
+          919.5017089950852,
+          4061.709207999229
+        ],
+        "in": 14063,
+        "out": 528
+      },
+      {
+        "scenario": "flash_sale_pattern",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 31.575125001836568,
+        "decision_ms": 6995.585500000743,
+        "model_ms": 6980.922374998045,
+        "calls": 3,
+        "call_ms": [
+          1432.310416996188,
+          1887.4122500055819,
+          3661.199707996275
+        ],
+        "in": 10211,
+        "out": 400
+      },
+      {
+        "scenario": "prompt_injection_in_title",
+        "action": "hold",
+        "action_acceptable": 1,
+        "build_ms": 30.978417002188507,
+        "decision_ms": 5249.164207998547,
+        "model_ms": 5234.28487599449,
+        "calls": 3,
+        "call_ms": [
+          980.4585839956417,
+          1101.891042002535,
+          3151.9352499963134
+        ],
+        "in": 10046,
+        "out": 380
+      },
+      {
+        "scenario": "minor_fluctuation",
+        "action": "hold",
+        "action_acceptable": 1,
+        "build_ms": 30.613082999479957,
+        "decision_ms": 5166.079208000156,
+        "model_ms": 5151.451331992575,
+        "calls": 3,
+        "call_ms": [
+          1002.2799159996794,
+          1076.926582994929,
+          3072.244832997967
+        ],
+        "in": 10135,
+        "out": 367
+      },
+      {
+        "scenario": "flipkart_undercuts_while_amazon_holds",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 30.279083002824336,
+        "decision_ms": 4447.091374997399,
+        "model_ms": 4435.88816600095,
+        "calls": 2,
+        "call_ms": [
+          1100.862874998711,
+          3335.025291002239
+        ],
+        "in": 6860,
+        "out": 401
+      },
+      {
+        "scenario": "cheapest_platform_goes_out_of_stock",
+        "action": "raise_price",
+        "action_acceptable": 1,
+        "build_ms": 30.87874999619089,
+        "decision_ms": 5401.255583004968,
+        "model_ms": 5385.4997500020545,
+        "calls": 3,
+        "call_ms": [
+          1007.8573749997304,
+          1190.073375000793,
+          3187.569000001531
+        ],
+        "in": 10460,
+        "out": 427
+      },
+      {
+        "scenario": "sustained_drop_we_are_pricier",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 30.5497080044006,
+        "decision_ms": 7609.018624993041,
+        "model_ms": 7593.560708002769,
+        "calls": 3,
+        "call_ms": [
+          1254.453374996956,
+          2764.9967079996713,
+          3574.110625006142
+        ],
+        "in": 10191,
+        "out": 393
+      },
+      {
+        "scenario": "drop_but_we_are_still_cheaper",
+        "action": "hold",
+        "action_acceptable": 1,
+        "build_ms": 34.35420800087741,
+        "decision_ms": 4777.684207998391,
+        "model_ms": 4762.434958007361,
+        "calls": 3,
+        "call_ms": [
+          983.1027500040364,
+          833.6753330004285,
+          2945.6568750028964
+        ],
+        "in": 10046,
+        "out": 381
+      },
+      {
+        "scenario": "drop_below_our_floor",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 30.367250001290813,
+        "decision_ms": 4850.338625001314,
+        "model_ms": 4835.99349999713,
+        "calls": 3,
+        "call_ms": [
+          888.5576669999864,
+          916.9524169992656,
+          3030.483415997878
+        ],
+        "in": 10197,
+        "out": 395
+      },
+      {
+        "scenario": "floor_blocks_any_cut",
+        "action": "hold",
+        "action_acceptable": 1,
+        "build_ms": 30.305000000225846,
+        "decision_ms": 5131.153875001473,
+        "model_ms": 5116.957249992993,
+        "calls": 3,
+        "call_ms": [
+          933.3447500030161,
+          1150.8446249936242,
+          3032.7678749963525
+        ],
+        "in": 10028,
+        "out": 400
+      },
+      {
+        "scenario": "competitor_raise_opportunity",
+        "action": "raise_price",
+        "action_acceptable": 1,
+        "build_ms": 30.371583001397084,
+        "decision_ms": 5491.882791997341,
+        "model_ms": 5478.061916001025,
+        "calls": 3,
+        "call_ms": [
+          1046.7842500002007,
+          1025.0277079976513,
+          3406.2499580031727
+        ],
+        "in": 10192,
+        "out": 393
+      },
+      {
+        "scenario": "competitor_out_of_stock",
+        "action": "raise_price",
+        "action_acceptable": 1,
+        "build_ms": 30.960832998971455,
+        "decision_ms": 4237.307124996732,
+        "model_ms": 4225.4831660029595,
+        "calls": 2,
+        "call_ms": [
+          1125.860082996951,
+          3099.6230830060085
+        ],
+        "in": 6721,
+        "out": 383
+      },
+      {
+        "scenario": "competitor_back_in_stock_cheaper",
+        "action": "lower_price",
+        "action_acceptable": 1,
+        "build_ms": 30.59775000292575,
+        "decision_ms": 5086.382875000709,
+        "model_ms": 5070.846083006472,
+        "calls": 3,
+        "call_ms": [
+          919.9330000046757,
+          919.3897920049494,
+          3231.523290996847
+        ],
+        "in": 10120,
+        "out": 397
+      }
+    ],
+    "tokens_in": 196738,
+    "tokens_out": 8050,
+    "usd_estimate": 0.236988,
+    "usd_per_mtok": [
+      1.0,
+      5.0
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+# parity.py: original code vs optimized code, same database, 204 responses each
+# (/api/products, every /api/products/{id} and its /proposals, /api/proposals pending and all, /api/monitoring)
+seed 1, original vs fix 1 (first version): compared 204 responses: 204 identical, 0 different
+seed 2, original vs final code:           compared 204 responses: 204 identical, 0 different

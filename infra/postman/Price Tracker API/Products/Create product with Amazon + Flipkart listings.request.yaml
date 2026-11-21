@@ -1,0 +1,43 @@
+$kind: http-request
+description: |-
+  Creates our product and attaches every competitor listing (each is fetched once). `product_id` and a `listing_id` (Flipkart if present) are saved.
+  
+  201 = created. 409 = one listing is already monitored (the response carries its product_id). 400 = unsupported URL.
+url: "{{base_url}}/api/products"
+method: POST
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "listings": [
+        {"url": "{{amazon_url}}"},
+        {"url": "{{flipkart_url}}"}
+      ],
+      "pricing": {
+        "our_sku": "BOAT-AD141-BLK",
+        "our_price_inr": 849,
+        "floor_price_inr": 749,
+        "max_change_pct": 10,
+        "undercut_by_inr": 10,
+        "auto_apply": false,
+        "auto_apply_max_pct": 3
+      },
+      "rules": {
+        "min_change_pct": null,
+        "alert_on_stock_change": true,
+        "check_every_hours": 6
+      }
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 201 or 409', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));
+      const j = pm.response.json();
+      const id = pm.response.code === 201 ? j.id : (j.detail && j.detail.product_id);
+      if (id) { pm.environment.set('product_id', id); console.log('product_id =', id); }
+      const fk = (j.listings || []).find(l => l.marketplace === 'flipkart') || (j.listings || [])[0];
+      if (fk) { pm.environment.set('listing_id', fk.id); console.log('listing_id =', fk.id, fk.marketplace); }
+    language: text/javascript
+order: 1000

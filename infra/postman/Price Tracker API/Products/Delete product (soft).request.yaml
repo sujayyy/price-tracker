@@ -1,0 +1,11 @@
+$kind: http-request
+description: |-
+  Soft delete: history, decisions and our price log are kept; its listings can be attached to a new product later.
+url: "{{base_url}}/api/products/{{product_id}}"
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 204', () => pm.expect(pm.response.code).to.be.oneOf([204]));
+    language: text/javascript
+order: 9000

@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Resumes the workflow with a rejection. Our price is unchanged.
+url: "{{base_url}}/api/proposals/{{proposal_id}}/reject"
+method: POST
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "by": "{{reviewer}}",
+      "note": "Looks like a flash sale"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200 or 409', () => pm.expect(pm.response.code).to.be.oneOf([200, 409]));
+    language: text/javascript
+order: 5000

@@ -1,0 +1,1830 @@
+<!DOCTYPE html><!--wrap-->
+<html lang="en"><!--wrap-->
+<head><!--wrap-->
+<meta charset="UTF-8"><!--wrap-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"><!--wrap-->
+<title>Price Tracker Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+/* =====================================================================
+   PRICE TRACKER PITCH DECK · "Ledger & Petrol", stage edition
+   Matches the product's design system (frontend/DESIGN.md):
+   petrol + paper surfaces, saffron accent, vermilion = competitor cut,
+   jade = approved / healthy, Instrument Serif for titles only,
+   Geist for text, Geist Mono for labels and numbers.
+   Change the whole look from the tokens below.
+   ===================================================================== */
+:root {
+    --petrol-950: #061A1B;
+    --petrol: #0F3D3E;
+    --paper: #F4F1EA;
+    --paper-hi: #FFFDF8;
+    --paper-lo: #EAE5D9;
+    --ink: #12191B;
+    --cream: #EDE8DC;
+    --saffron: #F2B84B;
+    --saffron-deep: #E9A91C;
+    --aqua: #5CC8DA;
+    --aqua-deep: #17707F;
+    --jade: #4AD696;
+
+    --serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+    --sans: 'Geist', 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'Geist Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --stage-bg: #020A0B;
+    --slide-bg: var(--petrol-950);
+    color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* =====================================================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES (viewport-base.css)
+   Slides are authored at 1920×1080 and scaled as a whole.
+   ===================================================================== */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
+.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+.deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
+@media print {
+    html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+    .deck-viewport { position: static; overflow: visible; background: #fff; }
+    .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+    .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+    .slide:last-child { break-after: auto; page-break-after: auto; }
+    .deck-controls { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+}
+/* ===================== end of viewport-base.css ===================== */
+
+body { font-family: var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* =====================================================================
+   SLIDE TRANSITIONS
+   ===================================================================== */
+.slide { transition: opacity .45s var(--ease), visibility 0s linear .45s; }
+.slide.active { transition: opacity .6s var(--ease), visibility 0s; }
+
+/* =====================================================================
+   SLIDE THEMES: .dark (petrol) and .paper (warm paper)
+   Both set the same semantic tokens, so components never branch.
+   ===================================================================== */
+.slide.dark {
+    --fg: #EDE8DC; --fg-2: #AEBDB9; --fg-3: #7B918D;
+    --rule: rgba(237, 232, 220, .14);
+    --card: rgba(255, 255, 255, .035); --card-line: rgba(237, 232, 220, .13);
+    --em: var(--saffron); --eb: var(--saffron);
+    --cut: #F27A6E; --raise: #4AD696;
+    color: var(--fg);
+    background:
+        radial-gradient(1100px 700px at 8% -12%, rgba(23, 112, 127, .30), transparent 62%),
+        radial-gradient(900px 620px at 104% 112%, rgba(242, 184, 75, .10), transparent 60%),
+        linear-gradient(180deg, #0A2728 0%, #061A1B 100%);
+}
+.slide.paper {
+    --fg: #12191B; --fg-2: #4B5552; --fg-3: #737D7A;
+    --rule: rgba(18, 25, 27, .14);
+    --card: #FFFDF8; --card-line: rgba(18, 25, 27, .12);
+    --em: var(--aqua-deep); --eb: var(--aqua-deep);
+    --cut: #B83028; --raise: #09704C;
+    color: var(--fg);
+    background: radial-gradient(1200px 800px at 0% 0%, #FFFDF8, transparent 60%), var(--paper);
+}
+.grid-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; background-size: 80px 80px; }
+.dark .grid-bg {
+    background-image: linear-gradient(rgba(237,232,220,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(237,232,220,.04) 1px, transparent 1px);
+    -webkit-mask-image: radial-gradient(ellipse 90% 80% at 30% 20%, #000 30%, transparent 85%);
+            mask-image: radial-gradient(ellipse 90% 80% at 30% 20%, #000 30%, transparent 85%);
+}
+.paper .grid-bg {
+    background-image: linear-gradient(rgba(18,25,27,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(18,25,27,.045) 1px, transparent 1px);
+    -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 90%);
+            mask-image: linear-gradient(180deg, #000 0%, transparent 90%);
+}
+/* Film grain on dark slides */
+.slide.dark::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5; opacity: .07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.slide > *:not(.grid-bg) { position: absolute; z-index: 1; }
+
+/* =====================================================================
+   TYPOGRAPHY (authored at 1920×1080)
+   ===================================================================== */
+.eyebrow { font: 500 17px/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--eb); }
+.h1 { font-family: var(--serif); font-weight: 400; font-size: 96px; line-height: 1; letter-spacing: -.012em; color: var(--fg); }
+.h1 em { font-style: italic; color: var(--em); }
+.lead { font: 400 27px/1.45 var(--sans); color: var(--fg-2); text-wrap: pretty; }
+.mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.i { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* Folio: the ledger page header on every slide */
+.folio {
+    top: 48px; left: 120px; right: 120px; height: 44px;
+    display: flex; align-items: center; gap: 26px;
+    font: 500 16px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-3);
+    border-bottom: 1px solid var(--rule); padding-bottom: 18px;
+}
+.folio .brand { display: flex; align-items: center; gap: 12px; color: var(--fg); letter-spacing: .01em; text-transform: none; font: 600 20px/1 var(--sans); }
+.folio .brand svg { width: 30px; height: 30px; }
+.folio .sec { color: var(--fg-2); }
+.folio .pg { margin-left: auto; }
+
+/* The one-line summary at the bottom of every content slide */
+.brief { left: 120px; right: 120px; top: 980px; display: flex; align-items: baseline; gap: 24px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.brief .eyebrow { flex: none; }
+.brief p { font: 400 24px/1.35 var(--sans); color: var(--fg); text-wrap: balance; }
+
+/* =====================================================================
+   ANIMATION PRIMITIVES
+   .reveal  : fade + rise, staggered by --d
+   .ln      : headline line mask
+   .draw    : SVG stroke draw (pathLength="1")
+   ===================================================================== */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .9s var(--ease); transition-delay: calc(var(--d, 0) * 90ms + 180ms); }
+.slide.visible .reveal { opacity: 1; transform: none; }
+.reveal-s { opacity: 0; transform: translateY(30px) scale(.975); transition: opacity .8s var(--ease), transform 1.1s var(--ease); transition-delay: calc(var(--d, 0) * 90ms + 180ms); }
+.slide.visible .reveal-s { opacity: 1; transform: none; }
+.ln { display: block; overflow: hidden; padding: 0 .12em .14em 0; margin-bottom: -.14em; }
+.ln > span { display: inline-block; transform: translateY(108%); transition: transform 1s var(--ease); transition-delay: calc(var(--d, 0) * 110ms + 120ms); }
+.slide.visible .ln > span { transform: none; }
+.draw { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease); transition-delay: calc(var(--d, 0) * 200ms + 300ms); }
+.slide.visible .draw { stroke-dashoffset: 0; }
+
+/* Browser frame around real product screenshots */
+.browser { border-radius: 14px; overflow: hidden; background: var(--paper-hi); box-shadow: 0 0 0 1px rgba(18,25,27,.10), 0 40px 90px -30px rgba(3,13,14,.55), 0 12px 30px -12px rgba(3,13,14,.25); }
+.browser .bar { height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 16px; background: #EDE9DF; border-bottom: 1px solid rgba(18,25,27,.10); }
+.browser .bar i { width: 12px; height: 12px; border-radius: 50%; background: #D5CFC2; display: block; }
+.browser .bar .url { margin-left: 14px; flex: 1; max-width: 460px; height: 26px; border-radius: 7px; background: #FFFDF8; color: #5B6461; font: 500 14px/26px var(--mono); padding: 0 12px; box-shadow: inset 0 0 0 1px rgba(18,25,27,.08); }
+.browser img { display: block; width: 100%; height: auto; max-height: none; }
+.chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 8px; font: 500 17px/1 var(--mono); border: 1px solid var(--card-line); color: var(--fg-2); background: var(--card); white-space: nowrap; }
+
+/* =====================================================================
+   SLIDE 1 · TITLE
+   ===================================================================== */
+.s-title .bgchart { left: 0; top: 540px; width: 1920px; height: 440px; opacity: .6; -webkit-mask-image: linear-gradient(90deg, transparent 20%, #000 62%); mask-image: linear-gradient(90deg, transparent 20%, #000 62%); }
+.s-title .bgchart path { fill: none; stroke-width: 3; }
+.s-title .bgchart .draw { transition-duration: 3.4s; }
+.s-title .hero { left: 120px; top: 214px; width: 1500px; }
+.s-title .wordmark { display: flex; align-items: center; gap: 34px; margin: 30px 0 30px; }
+.s-title .wordmark svg { width: 130px; height: 130px; filter: drop-shadow(0 18px 40px rgba(0,0,0,.35)); }
+.s-title .wordmark h1 { font: 400 196px/.9 var(--serif); letter-spacing: -.02em; color: var(--fg); }
+.s-title .wordmark h1 em { font-style: italic; color: var(--saffron); }
+.s-title .tagline { font: 400 46px/1.25 var(--sans); letter-spacing: -.01em; color: var(--fg); }
+.s-title .tagline b { font-weight: 500; color: var(--saffron); }
+.s-title .sub { margin-top: 18px; font: 400 28px/1.5 var(--sans); color: var(--fg-2); max-width: 1000px; }
+.s-title .loop4 { left: 120px; top: 760px; display: flex; align-items: center; gap: 14px; }
+.s-title .loop4 .chip { height: 48px; padding: 0 20px; font-size: 19px; color: var(--fg); background: #0C2A2B; }
+.s-title .loop4 .chip.ai { background: var(--saffron); color: #1B1405; border-color: transparent; }
+.s-title .loop4 .i { color: var(--fg-3); font-size: 22px; }
+.s-title .team { left: 120px; top: 906px; display: flex; gap: 22px; align-items: baseline; font: 400 24px/1 var(--sans); color: var(--fg-2); }
+.s-title .team .eyebrow { color: var(--fg-3); }
+
+/* =====================================================================
+   SLIDE 2 · THE PROBLEM
+   ===================================================================== */
+.s-problem .head { left: 120px; top: 150px; width: 1680px; }
+.s-problem .head .h1 { margin-top: 20px; font-size: 88px; }
+.chart-card { left: 120px; top: 420px; width: 1010px; height: 520px; border-radius: 16px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line), 0 30px 60px -40px rgba(18,25,27,.35); padding: 26px 30px 20px; }
+.chart-card .ch-head { display: flex; justify-content: space-between; align-items: baseline; }
+.chart-card .ch-title { font: 600 22px/1.2 var(--sans); color: var(--fg); }
+.chart-card .ch-legend { display: flex; gap: 22px; font: 400 17px/1 var(--sans); color: var(--fg-2); }
+.chart-card .ch-legend span { display: inline-flex; align-items: center; gap: 8px; }
+.chart-card .ch-legend .key { width: 22px; height: 3px; border-radius: 2px; display: inline-block; }
+.chart-card svg { display: block; margin-top: 18px; width: 950px; height: 400px; overflow: visible; }
+.chart-card .axis { font: 500 15px var(--mono); fill: #737D7A; }
+.chart-card .ann { font: 500 17px var(--mono); fill: #4B5552; }
+.chart-card .night { font: 500 13px var(--mono); fill: #737D7A; letter-spacing: .14em; }
+.chart-card .gap-big { font: 600 38px var(--mono); fill: #B83028; letter-spacing: -.02em; }
+.chart-card .gap-sm { font: 500 18px var(--sans); fill: #8E2A23; }
+.chart-card .fade-late { opacity: 0; transition: opacity .8s var(--ease) 2.1s; }
+.slide.visible .chart-card .fade-late { opacity: 1; }
+.chart-card .note { position: absolute; right: 30px; bottom: 18px; font: 500 14px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fg-3); }
+.pains { left: 1210px; top: 420px; width: 590px; display: flex; flex-direction: column; }
+.pain { padding: 22px 0 24px; border-top: 1px solid var(--rule); }
+.pain .eyebrow { color: var(--fg-3); font-size: 15px; }
+.pain.fix { margin-top: 22px; padding: 22px 26px 24px; border: 0; border-radius: 14px; background: rgba(242,184,75,.18); box-shadow: inset 4px 0 0 var(--saffron-deep); }
+.pain.fix .eyebrow { color: #8A5A00; }
+.pain.fix p { color: var(--fg); }
+.pain h3 { margin-top: 8px; font: 600 29px/1.15 var(--sans); letter-spacing: -.01em; color: var(--fg); }
+.pain p { margin-top: 10px; font: 400 24px/1.45 var(--sans); color: var(--fg); text-wrap: pretty; }
+.pain p .mono { color: var(--fg); font-weight: 500; }
+
+/* =====================================================================
+   SLIDE 3 · WHY AI
+   ===================================================================== */
+.s-why .head { left: 120px; top: 150px; width: 1680px; }
+.s-why .head .h1 { margin-top: 20px; font-size: 88px; }
+.cols3 { left: 120px; top: 430px; width: 1680px; display: grid; grid-template-columns: 1fr 1fr 1.12fr; gap: 36px; }
+.opt { border-radius: 16px; padding: 30px 32px 28px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line); display: flex; flex-direction: column; }
+.opt .eyebrow { color: var(--fg-3); }
+.opt h3 { margin-top: 12px; font: 400 48px/1.02 var(--serif); color: var(--fg); text-wrap: balance; }
+.opt ul { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 14px; }
+.opt li { display: flex; gap: 14px; align-items: flex-start; font: 400 22px/1.4 var(--sans); color: var(--fg-2); }
+.opt li .i { font-size: 24px; margin-top: 3px; }
+.opt li .i.ok { color: var(--raise); } .opt li .i.no { color: var(--cut); }
+.opt.best { background: linear-gradient(180deg, rgba(242,184,75,.10), rgba(242,184,75,.03)); box-shadow: 0 0 0 1.5px rgba(242,184,75,.7), 0 30px 80px -40px rgba(242,184,75,.45); }
+.opt.best .eyebrow { color: var(--saffron); }
+.flow { margin-top: 18px; display: flex; flex-direction: column; }
+.flow .step { display: grid; grid-template-columns: 116px 1fr; align-items: center; gap: 16px; padding: 11px 0; border-top: 1px solid rgba(237,232,220,.10); }
+.flow .step:first-child { border-top: 0; }
+.flow .who { font: 600 16px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fg); display: inline-flex; align-items: center; justify-content: center; height: 36px; border-radius: 8px; background: rgba(237,232,220,.07); box-shadow: inset 0 0 0 1px rgba(237,232,220,.14); }
+.flow .who.ai { color: #1B1405; background: var(--saffron); box-shadow: none; }
+.flow .what { font: 400 22px/1.3 var(--sans); color: var(--fg); }
+.opt .foot { margin-top: auto; padding-top: 16px; font: 500 18px/1.4 var(--mono); color: var(--saffron); }
+
+/* =====================================================================
+   SLIDE 4 · MEET PRICE TRACKER
+   ===================================================================== */
+.s-meet .left { left: 120px; top: 150px; width: 600px; }
+.s-meet .left .h1 { margin-top: 18px; font-size: 86px; }
+.s-meet .left .lead { margin-top: 20px; font-size: 26px; }
+.steps4 { left: 120px; top: 488px; width: 600px; display: flex; flex-direction: column; }
+.steps4 .st { display: grid; grid-template-columns: 56px 1fr; gap: 12px; padding: 13px 0; border-top: 1px solid var(--rule); }
+.steps4 .n { font: 500 18px/1.5 var(--mono); color: var(--aqua-deep); }
+.steps4 h3 { font: 600 25px/1.25 var(--sans); color: var(--fg); }
+.steps4 p { margin-top: 3px; font: 400 19.5px/1.42 var(--sans); color: var(--fg-2); text-wrap: pretty; }
+.s-meet .shot { left: 790px; top: 250px; width: 1010px; }
+.s-meet .cap { left: 790px; top: 850px; font: 400 19px/1.4 var(--sans); color: var(--fg-3); display: flex; gap: 12px; align-items: center; }
+.s-meet .cap i { width: 9px; height: 9px; border-radius: 50%; background: var(--raise); display: block; }
+
+/* =====================================================================
+   LOGO TILES (simple-icons glyphs on a white tile)
+   ===================================================================== */
+.lt { display: inline-grid; place-items: center; flex: none; width: var(--s, 30px); height: var(--s, 30px); border-radius: calc(var(--s, 30px) * .26); background: #fff; box-shadow: inset 0 0 0 1px rgba(18,25,27,.10); }
+.lt svg { width: 62%; height: 62%; }
+
+/* =====================================================================
+   SLIDE 5 · ARCHITECTURE (the complete workflow as a flowchart; each box
+   names the tech that runs it). Coordinates are px in the 1680×700 box.
+   ===================================================================== */
+.s-sys .h1 { left: 120px; top: 108px; font-size: 54px; }
+.s-sys .h1 em { color: var(--saffron); }
+.wf { left: 120px; top: 298px; width: 1680px; height: 580px; }
+.tier { left: 120px; width: 1680px; display: flex; align-items: center; gap: 14px; padding: 0 20px; border-radius: 12px; background: rgba(92,200,218,.07); box-shadow: inset 0 0 0 1px rgba(92,200,218,.35); z-index: 2; }
+.tier.db { background: rgba(74,214,150,.06); box-shadow: inset 0 0 0 1px rgba(74,214,150,.4); }
+.tier .nm { font: 600 19px/1 var(--sans); color: var(--fg); white-space: nowrap; }
+.tier .wi { font: 400 18px/1.3 var(--sans); color: var(--fg-2); white-space: nowrap; }
+.tier .how { margin-left: auto; font: 500 16px/1.3 var(--mono); color: var(--fg); white-space: nowrap; }
+.tier .chips { display: flex; gap: 8px; }
+.tier .chips span { font: 500 15.5px/1 var(--mono); padding: 6px 9px; border-radius: 6px; background: rgba(237,232,220,.08); color: var(--fg); white-space: nowrap; }
+.becont { left: 104px; top: 270px; width: 1712px; height: 602px; border-radius: 16px; border: 1.5px dashed rgba(237,232,220,.22); z-index: 0; }
+.belab { left: 124px; top: 280px; display: flex; align-items: center; gap: 10px; font: 600 15px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fg-2); z-index: 2; }
+.vlink { width: 2px; background: rgba(237,232,220,.45); z-index: 1; }
+.vlab { font: 500 15px/1 var(--mono); color: #B5C4C0; z-index: 2; white-space: nowrap; }
+.wf > * { position: absolute; }
+.wf .band { left: 0; top: 226px; width: 910px; height: 226px; border-radius: 14px; background: rgba(242,184,75,.06); box-shadow: inset 0 0 0 1.5px rgba(242,184,75,.38); }
+.wf .rl { font: 500 14px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); white-space: nowrap; }
+.wf .rl.ai { color: var(--saffron); }
+.wf .n { border-radius: 10px; background: rgba(9,34,35,.97); box-shadow: inset 0 0 0 1px rgba(237,232,220,.18); padding: 9px 12px; display: flex; flex-direction: column; justify-content: center; gap: 4px; z-index: 2; transition: box-shadow .35s var(--ease), background .35s var(--ease), transform .35s var(--ease); }
+.wf .n .t { display: flex; align-items: center; gap: 8px; font: 600 18px/1.15 var(--sans); color: var(--fg); }
+.wf .n .d { font: 400 16px/1.3 var(--sans); color: var(--fg-2); }
+.wf .n .k { font: 500 14px/1.3 var(--mono); color: var(--fg-3); }
+.wf .n .d code, .wf .n .k code { font: 500 14px/1 var(--mono); color: var(--fg); }
+.wf .n.ai { background: rgba(44,37,15,.97); box-shadow: inset 0 0 0 1.5px rgba(242,184,75,.6); }
+.wf .n.pr { box-shadow: inset 0 0 0 1.5px rgba(92,200,218,.55); }
+.wf .n.sm { padding: 6px 12px; gap: 3px; }
+.wf .n.sm .t { font-size: 17px; }
+.wf .n.sm .d { font-size: 14px; }
+.wf .n.fb { background: rgba(242,122,110,.07); box-shadow: inset 0 0 0 1px rgba(242,122,110,.45); }
+.wf .n.mail { box-shadow: inset 0 0 0 1px rgba(74,214,150,.45); }
+.wf .tagc { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 5px; font: 600 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; background: rgba(237,232,220,.1); color: var(--fg-2); margin-left: auto; }
+.wf .dm { width: 60px; height: 60px; transform: rotate(45deg); border-radius: 8px; background: #0B2526; box-shadow: inset 0 0 0 2px rgba(237,232,220,.55); z-index: 2; transition: box-shadow .35s var(--ease); }
+.wf .dq { width: 110px; text-align: center; font: 600 14px/1.05 var(--mono); color: var(--fg); z-index: 3; pointer-events: none; }
+.wf .end { display: grid; place-items: center; border-radius: 999px; background: rgba(237,232,220,.06); box-shadow: inset 0 0 0 1px rgba(237,232,220,.28); font: 500 13px/1.1 var(--mono); color: var(--fg-2); text-align: center; z-index: 2; }
+.wf .end.fin { background: var(--petrol); box-shadow: inset 0 0 0 1px rgba(237,232,220,.4); color: var(--fg); font-weight: 600; }
+.wf .no { position: absolute; top: -9px; right: -9px; width: 23px; height: 23px; border-radius: 50%; display: grid; place-items: center; font: 600 12.5px/1 var(--mono); background: var(--cream); color: #061A1B; box-shadow: 0 0 0 3px #0A2627; z-index: 3; }
+.wf .n.done, .wf .end.done { box-shadow: inset 0 0 0 1.5px rgba(237,232,220,.55); }
+.wf .n.ai.done { box-shadow: inset 0 0 0 1.5px var(--saffron); }
+.wf .dm.done { box-shadow: inset 0 0 0 2px var(--cream); }
+.wf .n.lit { background: rgba(30,66,67,.99); box-shadow: inset 0 0 0 2px var(--cream), 0 0 0 5px rgba(237,232,220,.07), 0 22px 44px -22px rgba(0,0,0,.8); transform: translateY(-2px); }
+.wf .n.ai.lit { background: rgba(66,53,17,.99); box-shadow: inset 0 0 0 2px var(--saffron), 0 0 0 6px rgba(242,184,75,.14), 0 0 60px -10px rgba(242,184,75,.5); }
+.wf .n.pr.lit { box-shadow: inset 0 0 0 2px var(--aqua), 0 0 0 6px rgba(92,200,218,.14), 0 0 60px -10px rgba(92,200,218,.45); }
+.wf .dm.lit { box-shadow: inset 0 0 0 2.5px var(--saffron), 0 0 30px -4px rgba(242,184,75,.6); }
+.wf .end.lit { box-shadow: inset 0 0 0 2px var(--raise), 0 0 30px -6px rgba(74,214,150,.6); }
+.wf svg.wires { left: 0; top: 0; width: 1680px; height: 580px; overflow: visible; max-width: none; max-height: none; z-index: 1; pointer-events: none; }
+.wires .w { fill: none; stroke: rgba(237,232,220,.36); stroke-width: 2; }
+.wires .w.dash { stroke-dasharray: 5 6; }
+.wires .trail { fill: none; stroke: var(--cream); stroke-width: 3; opacity: .9; }
+.wires .tag { font: 500 14px var(--mono); fill: #B5C4C0; letter-spacing: .03em; }
+.wf .also { display: none; left: 0; top: 650px; width: 1680px; display: flex; align-items: center; gap: 20px; font: 400 15px/1 var(--sans); color: var(--fg-2); white-space: nowrap; }
+.wf .also span { display: inline-flex; align-items: center; gap: 8px; }
+.wf .also b { color: var(--fg); font-weight: 600; }
+.wf .also i { font-style: normal; color: var(--fg-3); font: 500 13px/1 var(--mono); }
+.packet { left: 0; top: 0; z-index: 4; transform: translate(-50%, -50%); pointer-events: none; opacity: 0; transition: opacity .3s ease; }
+.packet.on { opacity: 1; }
+.packet .pd { display: block; width: 16px; height: 16px; border-radius: 50%; background: var(--cream); box-shadow: 0 0 0 6px rgba(237,232,220,.16), 0 0 24px rgba(237,232,220,.7); }
+.packet .pl { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); white-space: nowrap; padding: 8px 12px; border-radius: 8px; font: 600 15px/1 var(--mono); color: #061A1B; background: var(--cream); box-shadow: 0 10px 24px -8px rgba(0,0,0,.6); }
+.packet.cut .pd { background: var(--cut); box-shadow: 0 0 0 6px rgba(242,122,110,.18), 0 0 26px rgba(242,122,110,.8); }
+.packet.cut .pl { background: var(--cut); color: #1A0B09; }
+.packet.ai .pd { background: var(--saffron); box-shadow: 0 0 0 6px rgba(242,184,75,.18), 0 0 26px rgba(242,184,75,.8); }
+.packet.ai .pl { background: var(--saffron); color: #1B1405; }
+.packet.ok .pd { background: var(--raise); box-shadow: 0 0 0 6px rgba(74,214,150,.18), 0 0 26px rgba(74,214,150,.8); }
+.packet.ok .pl { background: var(--raise); color: #06230F; }
+.s-sys .brief p { font: 400 21px/1.35 var(--sans); }
+
+/* =====================================================================
+   SLIDE 6 · AI WORKFLOW (LangGraph graph)
+   ===================================================================== */
+.s-graph .head { left: 120px; top: 150px; width: 1680px; }
+.s-graph .head .h1 { margin-top: 18px; font-size: 76px; }
+.s-graph .head .lead { margin-top: 12px; font-size: 24px; }
+.lg { left: 120px; top: 336px; width: 1680px; height: 470px; }
+.lg > * { position: absolute; }
+.lg svg.edges { left: 0; top: 0; width: 1680px; height: 470px; overflow: visible; max-width: none; max-height: none; pointer-events: none; }
+.edges .e { fill: none; stroke: #4B5552; stroke-width: 2; }
+.edges .e.dash { stroke-dasharray: 5 6; }
+.edges .lab { font: 500 15.5px var(--mono); fill: #4B5552; }
+.edges .lab.ai { fill: #8A5A00; }
+.lg .gn { border-radius: 14px; background: #FFFDF8; box-shadow: 0 0 0 1px rgba(18,25,27,.16), 0 18px 40px -28px rgba(18,25,27,.35); padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+.lg .gn .hd { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.lg .gn .nm { font: 600 21px/1 var(--mono); color: #12191B; }
+.lg .gn .ch { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 9px; border-radius: 6px; font: 600 12.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; background: rgba(18,25,27,.06); color: #4B5552; }
+.lg .gn p { font: 400 17.5px/1.42 var(--sans); color: #4B5552; text-wrap: pretty; }
+.lg .gn p code, .lg .gn li code { font: 500 14.5px/1 var(--mono); color: #12191B; }
+.lg .gn.ai { background: #FBF1DC; box-shadow: 0 0 0 1.5px rgba(201,138,20,.7), 0 18px 40px -28px rgba(18,25,27,.35); }
+.lg .gn.ai .ch { background: #E9A91C; color: #1B1405; }
+.lg .gn.pr { background: #EAF4F5; box-shadow: 0 0 0 1.5px rgba(23,112,127,.6), 0 18px 40px -28px rgba(18,25,27,.35); }
+.lg .gn.pr .ch { background: #17707F; color: #fff; }
+.lg .gn.tools { background: transparent; box-shadow: none; border: 1.5px dashed rgba(18,25,27,.3); }
+.lg .gn.tools ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.lg .gn.tools li { font: 400 16.5px/1.2 var(--sans); color: #4B5552; }
+.lg .pill { display: grid; place-items: center; border-radius: 999px; background: #12191B; color: #F4F1EA; font: 600 15px/1 var(--mono); letter-spacing: .06em; }
+.lg .pill.end { background: #0F3D3E; }
+.lg .dia { width: 60px; height: 60px; transform: rotate(45deg); border-radius: 8px; background: #FFFDF8; box-shadow: 0 0 0 2px #12191B; }
+.lg .dl { font: 600 14px/1 var(--mono); color: #12191B; }
+.gcards { left: 120px; top: 826px; width: 1680px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.gcard { border-top: 1.5px solid var(--fg); padding-top: 14px; }
+.gcard .eyebrow { color: var(--fg-3); font-size: 14px; }
+.gcard h3 { margin-top: 8px; font: 600 20px/1.2 var(--mono); color: var(--fg); }
+.gcard p { margin-top: 6px; font: 400 19px/1.45 var(--sans); color: var(--fg-2); }
+
+/* =====================================================================
+   SLIDE 7 · TECH STACK (what each tool is + its role here)
+   ===================================================================== */
+.s-stk .head { left: 120px; top: 150px; width: 1680px; }
+.s-stk .head .h1 { margin-top: 18px; font-size: 76px; }
+.stk { left: 120px; top: 300px; width: 1680px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 48px; }
+.stk .col { display: flex; flex-direction: column; }
+.stk .r { display: grid; grid-template-columns: 52px 1fr; gap: 16px; align-items: start; padding: 13px 0; border-top: 1px solid var(--rule); }
+.stk .r:last-child { border-bottom: 1px solid var(--rule); }
+.stk .r .ics { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.stk .r .top { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.stk .r h3 { font: 600 20px/1.2 var(--sans); color: var(--fg); }
+.stk .r .wi { font: 500 15.5px/1.2 var(--mono); color: var(--fg-3); }
+.stk .r p { margin-top: 4px; font: 400 19px/1.4 var(--sans); color: var(--fg-2); }
+.stk .r p code { font: 500 17px/1 var(--mono); color: var(--fg); }
+.stk .r.ai h3 { color: var(--saffron); }
+.stk .ic { width: 62%; height: 62%; fill: none; stroke: #12191B; stroke-width: 2; }
+
+/* =====================================================================
+   SLIDE 8 · COST, LATENCY AND SECURITY
+   ===================================================================== */
+.s-cost .head { left: 120px; top: 150px; width: 1680px; }
+.s-cost .head .h1 { margin-top: 18px; font-size: 76px; }
+.fun { left: 120px; top: 306px; width: 900px; }
+.fun .eyebrow { color: var(--fg-3); margin-bottom: 14px; }
+.fun .st { display: grid; grid-template-columns: 1fr; margin-bottom: 10px; }
+.fun .bar { height: 68px; border-radius: 10px; display: flex; align-items: center; gap: 16px; padding: 0 20px; background: rgba(15,61,62,.07); box-shadow: inset 0 0 0 1px rgba(15,61,62,.16); }
+.fun .bar b { font: 600 14px/1 var(--mono); color: var(--aqua-deep); width: 22px; }
+.fun .bar h3 { font: 600 20px/1.2 var(--sans); color: var(--fg); white-space: nowrap; }
+.fun .bar p { margin-left: auto; font: 400 18px/1.3 var(--sans); color: var(--fg-2); text-align: right; }
+.fun .bar p code { font: 500 16px/1 var(--mono); color: var(--fg); }
+.fun .bar.ai { background: rgba(242,184,75,.2); box-shadow: inset 0 0 0 1.5px rgba(201,138,20,.6); }
+.fun .bar.ai b { color: #8A5A00; }
+.cst { left: 1080px; top: 306px; width: 720px; }
+.cst .eyebrow { color: var(--fg-3); margin-bottom: 14px; }
+.cst .g { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cst .m { border-radius: 14px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line), 0 24px 50px -40px rgba(18,25,27,.4); padding: 18px 22px; }
+.cst .m .v { font: 600 50px/1 var(--mono); letter-spacing: -.03em; color: var(--fg); }
+.cst .m .v small { font-size: 22px; color: var(--fg-3); letter-spacing: 0; }
+.cst .m p { margin-top: 8px; font: 400 16px/1.35 var(--sans); color: var(--fg-2); }
+.cst .src { margin-top: 12px; font: 500 13px/1.4 var(--mono); color: var(--fg-3); }
+.sec2.lat { left: 1080px; top: 306px; width: 720px; display: block; }
+.sec2.lat li { font-size: 19px; }
+.res8 { left: 120px; top: 790px; width: 1680px; display: flex; align-items: baseline; gap: 18px; padding: 22px 28px; border-radius: 14px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line); font: 400 26px/1.3 var(--sans); color: var(--fg-2); }
+.res8 .eyebrow { color: var(--aqua-deep); }
+.res8 b { font: 600 30px/1 var(--mono); color: var(--fg); }
+.sec2 { left: 120px; top: 760px; width: 1680px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.sec2 .col { border-top: 1.5px solid var(--fg); padding-top: 14px; }
+.sec2 .eyebrow { color: var(--fg-3); }
+.sec2 ul { list-style: none; margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
+.sec2 li { display: flex; gap: 10px; font: 400 19px/1.35 var(--sans); color: var(--fg-2); }
+.sec2 li .i { flex: none; color: #09704C; font-size: 18px; margin-top: 2px; }
+.sec2 li b { color: var(--fg); font-weight: 600; }
+.sec2 li code { font: 500 15px/1 var(--mono); color: var(--fg); }
+
+/* =====================================================================
+   SLIDE 8 · HOW WE TEST (four layers + CI)
+   ===================================================================== */
+.s-tst .head { left: 120px; top: 150px; width: 1680px; }
+.s-tst .head .h1 { margin-top: 20px; font-size: 84px; }
+.tst { left: 120px; top: 318px; width: 1680px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.tc { border-radius: 16px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line), 0 30px 60px -44px rgba(18,25,27,.4); padding: 24px 26px 22px; display: flex; flex-direction: column; min-height: 440px; }
+.tc .top { display: flex; align-items: center; justify-content: space-between; }
+.tc .k { font: 500 15px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--aqua-deep); }
+.tc .logos { display: flex; gap: 6px; }
+.tc h3 { margin-top: 16px; font: 400 40px/1.02 var(--serif); color: var(--fg); }
+.tc .tool { margin-top: 6px; font: 500 16px/1.3 var(--mono); color: var(--fg-3); }
+.tc p { margin-top: 14px; font: 400 18.5px/1.45 var(--sans); color: var(--fg-2); text-wrap: pretty; }
+.tc .ex { margin-top: auto; padding: 12px 14px; border-radius: 10px; background: rgba(15,61,62,.07); font: 500 16px/1.45 var(--mono); color: var(--fg); }
+.tc .ex span { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); margin-bottom: 4px; }
+.ci { left: 120px; top: 792px; width: 1680px; display: flex; align-items: center; gap: 12px; padding-top: 22px; border-top: 1px solid var(--rule); }
+.ci .eyebrow { color: var(--fg-3); margin-right: 8px; white-space: nowrap; }
+.ci .chip { height: 40px; font-size: 16px; color: var(--fg); }
+.ci .i { color: var(--fg-3); font-size: 18px; }
+.evs { left: 120px; top: 900px; width: 1680px; display: flex; align-items: baseline; gap: 34px; font: 400 22px/1.3 var(--sans); color: var(--fg-2); }
+.evs .eyebrow { color: var(--aqua-deep); }
+.evs b { font: 600 30px/1 var(--mono); color: var(--fg); margin-right: 6px; }
+.ci-note { left: 120px; top: 870px; width: 1680px; font: 400 18px/1.45 var(--sans); color: var(--fg-2); }
+.ci-note code { font: 500 16px/1 var(--mono); color: var(--fg); }
+
+/* =====================================================================
+   SLIDE 10 · LOAD & CONCURRENCY TESTING (k6)
+   ===================================================================== */
+.s-load .head { left: 120px; top: 150px; width: 1680px; }
+.s-load .head .h1 { margin-top: 20px; font-size: 76px; }
+.ldc { left: 120px; top: 310px; width: 780px; height: 610px; border-radius: 16px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line), 0 30px 60px -44px rgba(18,25,27,.4); padding: 30px 30px 26px; display: flex; flex-direction: column; gap: 44px; }
+.bars h4 { font: 600 19px/1.2 var(--sans); color: var(--fg); }
+.bars h4 span { font: 500 15px/1 var(--mono); color: var(--fg-3); margin-left: 8px; }
+.bars .row { margin-top: 12px; display: grid; grid-template-columns: 70px 1fr; align-items: center; gap: 14px; }
+.bars .row .k { font: 500 15px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+.bars .bar { position: relative; height: 34px; }
+.bars .bar i { display: block; height: 100%; border-radius: 6px; transform-origin: left center; transform: scaleX(0); transition: transform 1.2s var(--ease); transition-delay: calc(var(--d, 0) * 120ms + 400ms); }
+.slide.visible .bars .bar i { transform: scaleX(1); }
+.bars .bar.bad i { background: rgba(184,48,40,.75); }
+.bars .bar.good i { background: #09704C; }
+.bars .bar b { position: absolute; top: 50%; transform: translateY(-50%); font: 600 19px/1 var(--mono); color: var(--fg); white-space: nowrap; }
+.ldc .src { margin-top: auto; font: 500 15px/1.4 var(--mono); letter-spacing: .06em; color: var(--fg-3); }
+.ldf { left: 960px; top: 310px; width: 840px; display: flex; flex-direction: column; }
+.ldf .f { padding: 20px 0 22px; border-top: 1px solid var(--rule); }
+.ldf .f:last-child { border-bottom: 1px solid var(--rule); }
+.ldf .f .eyebrow { color: var(--cut); font-size: 14px; }
+.ldf .f h3 { margin-top: 8px; font: 600 27px/1.2 var(--sans); color: var(--fg); }
+.ldf .f p { margin-top: 8px; font: 400 19px/1.45 var(--sans); color: var(--fg-2); text-wrap: pretty; }
+.ldf .f p code { font: 500 16.5px/1 var(--mono); color: var(--fg); }
+.ldf .f .fix { margin-top: 10px; display: inline-flex; align-items: center; gap: 8px; font: 600 16.5px/1 var(--mono); color: #09704C; }
+
+/* Theme fixes for slides that changed background */
+.dark .rc .ic { background: rgba(92,200,218,.12); color: var(--aqua); }
+.paper .chal .f code { background: rgba(18,25,27,.06); }
+.paper .fc.top .n { color: #9A6A00; }
+.paper .fc p code { color: var(--fg); }
+
+/* =====================================================================
+   SLIDE 8 · TESTED AND MEASURED
+   ===================================================================== */
+.s-proof .head { left: 120px; top: 150px; width: 1680px; }
+.s-proof .head .h1 { margin-top: 20px; font-size: 84px; }
+.nums { left: 120px; top: 340px; width: 1680px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.num { border-radius: 16px; padding: 40px 32px 38px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line); }
+.num .v { font: 600 92px/1 var(--mono); letter-spacing: -.04em; color: var(--saffron); }
+.num h3 { margin-top: 18px; font: 600 25px/1.25 var(--sans); color: var(--fg); }
+.num p { margin-top: 8px; font: 400 19px/1.4 var(--sans); color: var(--fg-2); }
+.cases { left: 120px; top: 672px; width: 1680px; }
+.cases .row { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px; }
+.cases .chip { height: 42px; font-size: 17px; color: var(--fg); }
+.cases .chip .i { color: var(--raise); }
+.limits4 { left: 120px; top: 796px; width: 1680px; }
+.limits4 .eyebrow { color: var(--fg-3); }
+.limits4 .row { margin-top: 14px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--rule); }
+.limits4 .lm { display: flex; align-items: baseline; gap: 14px; padding: 16px 24px 0 0; }
+.limits4 .lm + .lm { padding-left: 24px; border-left: 1px solid var(--rule); }
+.limits4 .lm b { font: 600 40px/1 var(--mono); letter-spacing: -.02em; color: var(--fg); white-space: nowrap; }
+.limits4 .lm span { font: 400 18px/1.35 var(--sans); color: var(--fg-2); }
+.fallback { left: 120px; top: 820px; width: 1680px; display: flex; gap: 16px; align-items: center; padding: 20px 24px; border-radius: 14px; background: rgba(92,200,218,.06); box-shadow: inset 0 0 0 1px rgba(92,200,218,.25); font: 400 21px/1.4 var(--sans); color: var(--fg); }
+.fallback .i { color: var(--aqua); font-size: 26px; }
+
+/* =====================================================================
+   RESPONSIBLE AI (six principles)
+   ===================================================================== */
+.s-resp .head { left: 120px; top: 150px; width: 1680px; }
+.s-resp .head .h1 { margin-top: 20px; font-size: 84px; }
+.resp { left: 120px; top: 318px; width: 1680px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.rc { border-radius: 16px; padding: 28px 30px 28px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line); min-height: 250px; }
+.rc .ic { width: 52px; height: 52px; border-radius: 12px; display: grid; place-items: center; background: rgba(23,112,127,.10); color: var(--aqua-deep); font-size: 26px; }
+.rc h3 { margin-top: 18px; font: 600 27px/1.2 var(--sans); color: var(--fg); }
+.rc p { margin-top: 10px; font: 400 20.5px/1.45 var(--sans); color: var(--fg-2); text-wrap: pretty; }
+.rc.key { background: linear-gradient(160deg, rgba(242,184,75,.18), rgba(242,184,75,.04) 60%); box-shadow: 0 0 0 1.5px rgba(242,184,75,.6); }
+.rc.key .ic { background: var(--saffron); color: #1B1405; }
+
+/* =====================================================================
+   SLIDE 9 · CHALLENGES WE FACED
+   ===================================================================== */
+.s-chal .head { left: 120px; top: 150px; width: 1680px; }
+.s-chal .head .h1 { margin-top: 20px; font-size: 80px; }
+.chal { left: 120px; top: 312px; width: 1680px; }
+.chal .hd, .chal .row { display: grid; grid-template-columns: 560px 1fr 360px; gap: 40px; align-items: start; }
+.chal .hd { padding-bottom: 14px; border-bottom: 1.5px solid var(--fg); font: 500 15px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-3); }
+.chal .row { padding: 18px 0; border-bottom: 1px solid var(--rule); }
+.chal .c { display: flex; gap: 14px; font: 600 21px/1.4 var(--sans); color: var(--fg); }
+.chal .c::before { content: ""; flex: none; width: 10px; height: 10px; margin-top: 10px; border-radius: 50%; background: var(--cut); }
+.chal .f { font: 400 20px/1.45 var(--sans); color: var(--fg-2); text-wrap: pretty; }
+.chal .f code { font: 500 17px/1 var(--mono); color: var(--fg); background: rgba(237,232,220,.08); padding: 2px 6px; border-radius: 4px; }
+.chal .r { display: flex; gap: 10px; align-items: flex-start; font: 500 18px/1.4 var(--mono); color: var(--raise); }
+.chal .r .i { font-size: 20px; margin-top: 1px; }
+
+/* =====================================================================
+   SLIDE 10 · THE IMPACT (before / after)
+   ===================================================================== */
+.s-impact .head { left: 120px; top: 150px; width: 1680px; }
+.s-impact .head .h1 { margin-top: 20px; font-size: 84px; }
+.cmp-hl { left: 1110px; top: 336px; width: 690px; height: 478px; border-radius: 18px; background: linear-gradient(180deg, rgba(242,184,75,.12), rgba(242,184,75,.03)); box-shadow: 0 0 0 1.5px rgba(242,184,75,.6), 0 40px 100px -60px rgba(242,184,75,.5); }
+.cmp { left: 120px; top: 336px; width: 1680px; display: grid; grid-template-columns: 300px 690px 690px; }
+.cmp > div { padding: 24px 30px; border-bottom: 1px solid var(--rule); font: 400 22px/1.4 var(--sans); }
+.cmp > div:nth-last-child(-n+3) { border-bottom: 0; }
+.cmp .lb { padding-left: 0; font: 500 16px/1.9 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); }
+.cmp .b { color: var(--fg-2); display: flex; gap: 14px; align-items: flex-start; }
+.cmp .a { color: var(--fg); display: flex; gap: 14px; align-items: flex-start; }
+.cmp .b .i { color: var(--cut); font-size: 22px; margin-top: 4px; }
+.cmp .a .i { color: var(--raise); font-size: 22px; margin-top: 4px; }
+.cmp .th { border-bottom: 0; padding-top: 20px; padding-bottom: 8px; }
+.cmp .th span { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 8px; font: 600 15px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.cmp .th.bh span { background: rgba(242,122,110,.12); color: var(--cut); }
+.cmp .th.ah span { background: var(--saffron); color: #1B1405; }
+
+/* =====================================================================
+   SLIDE 11 · FUTURE ENHANCEMENTS
+   ===================================================================== */
+.s-future .head { left: 120px; top: 150px; width: 1680px; }
+.s-future .head .h1 { margin-top: 20px; font-size: 92px; }
+.fut { left: 120px; top: 326px; width: 1680px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.fc { border-radius: 16px; padding: 26px 30px 28px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line); min-height: 232px; display: flex; flex-direction: column; }
+.fc .n { font: 500 16px/1 var(--mono); letter-spacing: .1em; color: var(--fg-3); }
+.fc h3 { margin-top: 14px; font: 400 38px/1.05 var(--serif); color: var(--fg); text-wrap: balance; }
+.fc p { margin-top: 10px; font: 400 20.5px/1.45 var(--sans); color: var(--fg-2); text-wrap: pretty; }
+.fc p code { font: 500 16.5px/1 var(--mono); color: var(--fg); }
+.fc.top { background: linear-gradient(160deg, rgba(242,184,75,.18), rgba(242,184,75,.04) 60%); box-shadow: 0 0 0 1.5px rgba(242,184,75,.6), 0 40px 100px -60px rgba(242,184,75,.5); }
+.fc.top .n { color: var(--saffron); }
+.today { left: 120px; top: 842px; width: 1680px; display: grid; grid-template-columns: 170px 1fr; gap: 20px; align-items: baseline; padding-top: 22px; border-top: 1px solid var(--rule); }
+.today .eyebrow { color: var(--fg-3); }
+.today p { font: 400 21px/1.5 var(--sans); color: var(--fg-2); }
+.today b { color: var(--fg); font-weight: 600; }
+
+/* =====================================================================
+   SLIDE 12 · CLOSE
+   ===================================================================== */
+.s-close .big { left: 120px; top: 190px; width: 1200px; }
+.s-close .big .h1 { font-size: 132px; line-height: .98; }
+.s-close .mark-lg { left: 1330px; top: 420px; width: 104px; height: 104px; }
+.s-close .thanks { left: 1330px; top: 560px; width: 470px; }
+.s-close .thanks h3 { font: 400 84px/1 var(--serif); color: var(--fg); }
+.s-close .thanks p { margin-top: 16px; font: 400 24px/1.45 var(--sans); color: var(--fg-2); }
+.s-close .thanks .names { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--rule); font: 400 23px/1.7 var(--sans); color: var(--fg); }
+.s-close .thanks .names .eyebrow { color: var(--fg-3); display: block; margin-bottom: 6px; }
+
+/* Ticker along the bottom of the first and last slides: product highlights */
+.tape { left: 0; right: 0; bottom: 0; height: 66px; border-top: 1px solid var(--rule); overflow: hidden; display: flex; align-items: center; background: rgba(3,13,14,.45); }
+.tape .label { position: relative; z-index: 2; height: 100%; display: flex; align-items: center; gap: 10px; padding: 0 22px 0 120px; font: 500 15px/1 var(--mono); letter-spacing: .16em; color: var(--saffron); background: #051617; white-space: nowrap; }
+.tape .label::after { content: ""; position: absolute; top: 0; bottom: 0; right: -48px; width: 48px; background: linear-gradient(90deg, #051617, rgba(5,22,23,0)); }
+.tape .label i { width: 9px; height: 9px; border-radius: 50%; background: var(--saffron); }
+.tape .track { display: flex; gap: 56px; white-space: nowrap; padding-left: 40px; animation: tape 60s linear infinite; font: 500 18px/1 var(--mono); color: var(--fg-2); }
+.tape .track span { display: inline-flex; align-items: center; gap: 12px; }
+.tape .track span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: rgba(237,232,220,.35); }
+.tape .track b { color: var(--fg); font-weight: 600; }
+.tape .track .hi { color: var(--saffron); }
+@keyframes tape { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .tape .track { animation: none !important; } }
+
+/* =====================================================================
+   LIVE DEMO divider
+   ===================================================================== */
+.s-demo .head { left: 120px; top: 170px; width: 1680px; }
+.s-demo .head .h1 { margin-top: 22px; font-size: 104px; }
+.s-demo .head .lead { margin-top: 22px; font-size: 30px; max-width: 1300px; color: var(--fg); }
+.dsc { left: 120px; top: 520px; width: 1680px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.dsc .c { border-radius: 16px; padding: 30px 32px; background: var(--card); box-shadow: 0 0 0 1px var(--card-line); min-height: 250px; }
+.dsc .c .n { width: 48px; height: 48px; border-radius: 12px; display: grid; place-items: center; background: var(--saffron); color: #1B1405; font: 600 22px/1 var(--mono); }
+.dsc .c h3 { margin-top: 20px; font: 600 30px/1.2 var(--sans); color: var(--fg); }
+.dsc .c p { margin-top: 12px; font: 400 23px/1.45 var(--sans); color: var(--fg-2); }
+.dthen { left: 120px; top: 830px; font: 400 25px/1.4 var(--sans); color: var(--fg-2); }
+.dthen b { color: var(--fg); font-weight: 600; }
+
+.ims { left: 120px; top: 846px; width: 1680px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.ims div { border-top: 1.5px solid var(--saffron); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.ims b { font: 600 34px/1 var(--mono); color: var(--fg); letter-spacing: -.02em; }
+.ims span { font: 400 19px/1.35 var(--sans); color: var(--fg-2); }
+
+
+
+
+/* ARCH-V3 · architecture boxes: one structure, measured fit */
+.wf .n { padding: 10px 13px; gap: 4px; justify-content: center; }
+.wf .n .t { display: flex; align-items: center; gap: 8px; font: 600 18px/1.2 var(--sans); color: var(--fg); white-space: nowrap; }
+.wf .n .d { font: 400 15px/1.32 var(--sans); color: var(--fg-2); text-wrap: balance; }
+.wf .n .k { font: 500 13.5px/1.3 var(--mono); color: var(--fg-3); white-space: nowrap; }
+.wf .n .d code, .wf .n .k code { font: 500 13.5px/1 var(--mono); color: var(--fg); }
+.wf .n.sm { padding: 6px 13px; gap: 2px; }
+.wf .n.sm .t { font-size: 16.5px; }
+.wf .n.sm .d { font-size: 14px; white-space: nowrap; }
+.wf .n .tagc { margin-left: auto; }
+.wf .n code { white-space: nowrap; }
+.wf .dq { width: 110px; text-align: center; font: 600 13.5px/1 var(--mono); color: var(--fg); }
+.wf .end { font: 500 14px/1 var(--mono); }
+.wf .rl { font: 500 14px/1 var(--mono); }
+.wires .tag { font: 500 14px var(--mono); fill: #B5C4C0; }
+.belab { top: 272px !important; }
+/* /ARCH-V3 */
+
+.s-close .nextdemo { left: 120px; top: 776px; width: 1140px; padding: 22px 26px; border-radius: 16px; background: rgba(242,184,75,.07); box-shadow: inset 0 0 0 1.5px rgba(242,184,75,.45); }
+.s-close .nextdemo .eyebrow { color: var(--saffron); }
+.s-close .nextdemo .sc { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.s-close .nextdemo .sc div { display: flex; gap: 12px; align-items: flex-start; font: 400 20px/1.35 var(--sans); color: var(--fg); }
+.s-close .nextdemo .sc b { flex: none; width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; background: var(--saffron); color: #1B1405; font: 600 16px/1 var(--mono); }
+.s-close .nextdemo p { margin-top: 14px; font: 400 18px/1.35 var(--sans); color: var(--fg-2); }
+
+/* Speaker notes live in each slide but never render on the stage */
+.notes { display: none !important; }
+
+/* =====================================================================
+   PRESENTER CHROME (outside the stage)
+   ===================================================================== */
+.progress { position: fixed; left: 0; bottom: 0; height: 3px; width: 0; background: var(--saffron); z-index: 1001; transition: width .5s var(--ease); }
+.hud { display: flex; align-items: center; gap: 6px; padding: 6px; border-radius: 12px; background: rgba(6,26,27,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 0 0 1px rgba(237,232,220,.12), 0 12px 30px -10px rgba(0,0,0,.6); opacity: 0; transition: opacity .3s ease; font: 500 14px/1 var(--mono); color: #AEBDB9; }
+.hud.show, .hud:hover, .hud:focus-within { opacity: 1; }
+.hud button { all: unset; cursor: pointer; height: 34px; min-width: 34px; padding: 0 10px; border-radius: 8px; display: grid; place-items: center; color: #EDE8DC; font: 500 14px/1 var(--mono); }
+.hud button:hover { background: rgba(237,232,220,.1); }
+.hud button:focus-visible { outline: 2px solid var(--aqua); outline-offset: 1px; }
+.hud .count { padding: 0 10px; letter-spacing: .08em; }
+.notes-panel { position: fixed; left: 50%; bottom: 76px; transform: translateX(-50%); width: min(920px, calc(100vw - 32px)); max-height: 42vh; overflow: auto; z-index: 1002; padding: 20px 24px; border-radius: 14px; background: rgba(6,26,27,.94); color: #EDE8DC; box-shadow: 0 0 0 1px rgba(237,232,220,.14), 0 30px 60px -20px rgba(0,0,0,.7); font: 400 16px/1.55 var(--sans); }
+.notes-panel .np-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font: 500 13px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: #7B918D; }
+.notes-panel .timer { font: 600 16px/1 var(--mono); color: #EDE8DC; letter-spacing: .04em; }
+.notes-panel .timer.warn { color: var(--saffron); } .notes-panel .timer.over { color: #F27A6E; }
+.notes-panel ul { padding-left: 18px; } .notes-panel li { margin: 4px 0; }
+.notes-panel b { color: var(--saffron); font-weight: 600; }
+.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; cursor: pointer; }
+#editToggle { position: fixed; top: 16px; left: 16px; z-index: 10001; border: 0; cursor: pointer; height: 36px; padding: 0 14px; border-radius: 9px; background: rgba(6,26,27,.9); color: #EDE8DC; font: 500 13px/36px var(--mono); letter-spacing: .08em; box-shadow: 0 0 0 1px rgba(237,232,220,.18); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+#editToggle.show, #editToggle.active { opacity: 1; pointer-events: auto; }
+#editToggle.active { background: var(--saffron); color: #1B1405; }
+body.editing [contenteditable="true"] { outline: 1px dashed rgba(242,184,75,.55); outline-offset: 4px; cursor: text; }
+body.editing [contenteditable="true"]:focus { outline: 2px solid var(--saffron); }
+
+/* Export mode (?export): every slide in its final state, no motion */
+.export .slide, .export .slide * { transition: none !important; animation: none !important; }
+
+@media print {
+    @page { size: 1920px 1080px; margin: 0; }
+    .reveal, .reveal-s, .ln > span, .chart-card .fade-late { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .draw { stroke-dashoffset: 0 !important; transition: none !important; }
+    .progress, .hud, .notes-panel, .edit-hotzone, #editToggle, .packet { display: none !important; }
+    .tape .track { animation: none !important; }
+    .slide { transition: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-s, .ln > span { transform: none !important; }
+    .draw { stroke-dashoffset: 0 !important; }
+}
+</style>
+</head><!--wrap-->
+<body><!--wrap-->
+
+<!-- =====================================================================
+     SVG SYMBOLS: the Price Tracker mark and the stroke icons used below
+     ===================================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0f3d3e"/><rect x=".5" y=".5" width="31" height="31" rx="7.5" fill="none" stroke="#EDE8DC" stroke-opacity=".22"/><path d="M7 16l5.2-6.2h11.3c.8 0 1.5.7 1.5 1.5v9.4c0 .8-.7 1.5-1.5 1.5H12.2Z" fill="none" stroke="#f4f1ea" stroke-width="2" stroke-linejoin="round"/><circle cx="12.6" cy="16" r="1.6" fill="#e9a91c"/></symbol>
+    <symbol id="lg-react" viewBox="0 0 24 24"><path fill="currentColor" d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"/></symbol>
+    <symbol id="lg-typescript" viewBox="0 0 24 24"><path fill="currentColor" d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></symbol>
+    <symbol id="lg-vite" viewBox="0 0 24 24"><path fill="currentColor" d="M13.056 23.238a.57.57 0 0 1-1.02-.355v-5.202c0-.63-.512-1.143-1.144-1.143H5.148a.57.57 0 0 1-.464-.903l3.777-5.29c.54-.753 0-1.804-.93-1.804H.57a.574.574 0 0 1-.543-.746.6.6 0 0 1 .08-.157L5.008.78a.57.57 0 0 1 .467-.24h14.589a.57.57 0 0 1 .466.903l-3.778 5.29c-.54.755 0 1.806.93 1.806h5.745c.238 0 .424.138.513.322a.56.56 0 0 1-.063.603z"/></symbol>
+    <symbol id="lg-tailwindcss" viewBox="0 0 24 24"><path fill="currentColor" d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z"/></symbol>
+    <symbol id="lg-python" viewBox="0 0 24 24"><path fill="currentColor" d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></symbol>
+    <symbol id="lg-fastapi" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .0387C5.3729.0384.0003 5.3931 0 11.9988c-.001 6.6066 5.372 11.9628 12 11.9625 6.628.0003 12.001-5.3559 12-11.9625-.0003-6.6057-5.3729-11.9604-12-11.96m-.829 5.4153h7.55l-7.5805 5.3284h5.1828L5.279 18.5436q2.9466-6.5444 5.892-13.0896"/></symbol>
+    <symbol id="lg-pydantic" viewBox="0 0 24 24"><path fill="currentColor" d="m23.826 17.316-4.23-5.866-6.847-9.496c-.348-.48-1.151-.48-1.497 0l-6.845 9.494-4.233 5.868a.925.925 0 0 0 .46 1.417l11.078 3.626h.002a.92.92 0 0 0 .572 0h.002l11.077-3.626c.28-.092.5-.31.59-.592a.916.916 0 0 0-.13-.825h.002ZM12.001 4.07l4.44 6.158-4.152-1.36c-.032-.01-.066-.008-.098-.016a.8.8 0 0 0-.096-.016c-.032-.004-.062-.016-.094-.016s-.062.012-.094.016a.74.74 0 0 0-.096.016c-.032.006-.066.006-.096.016L7.59 10.221l-.026.008 4.44-6.158h-.002Zm-6.273 8.7 4.834-1.583.516-.168v9.19L2.41 17.372l3.317-4.6Zm7.197 7.437V11.02l5.35 1.752 3.316 4.598-8.666 2.838Z"/></symbol>
+    <symbol id="lg-sqlalchemy" viewBox="0 0 24 24"><path fill="currentColor" d="M11.8 15.955a44.068 44.068 0 0 1-1.673-.691c-1.736-.757-1.981-.772-2.499-.143-.119.146-.25.236-.287.2-.111-.111.219-.644.617-.993.325-.285.433-.325.791-.285.228.025.985.29 1.682.586 1.573.669 2.034.811 2.635.811.731 0 1.106-.512.876-1.192-.057-.171-.04-.228.074-.228.213 0 .322.797.168 1.255a1.617 1.617 0 0 1-.424.614c-.251.211-.41.257-.879.254a3.853 3.853 0 0 1-1.082-.188h.001Zm.301-2.225c0-.048.179-.134.401-.188l.401-.099.086-1.446c.094-1.599.025-3.172-.148-3.383-.063-.074-.253-.165-.427-.205-.705-.156-.236-.264 1.133-.264 1.368 0 1.803.099 1.152.264-.561.14-.564.148-.564 2.43 0 1.266.046 2.22.111 2.342.092.171.228.207.752.207 1.081 0 1.453-.255 1.747-1.203.088-.284.315-.233.236.054-.037.134-.097.54-.134.91l-.068.669H14.44c-1.286 0-2.339-.04-2.339-.088Zm5.312-.068c0-.086.083-.171.219-.236.183-.086.302-.265.734-1.11.686-1.337 1.767-3.634 1.87-3.978.079-.262.097-.276.392-.31.171-.02.313-.031.316-.025l.527 1.152c.284.628.856 1.824 1.271 2.654.695 1.397.772 1.523 1.005 1.636.142.069.253.174.253.237 0 .099-.122.111-1.175.111-1.056 0-1.175-.012-1.175-.114 0-.068.091-.142.236-.191.134-.043.236-.122.236-.182 0-.057-.139-.432-.31-.834l-.31-.731h-2.35l-.225.495c-.421.928-.43 1.147-.037 1.252.196.054.25.097.227.185-.025.103-.127.117-.867.117-.794.006-.837 0-.837-.128Zm-15.652.025a10.933 10.933 0 0 1-.808-.196l-.549-.154.282-.518.281-.518-.227-.281c-.322-.399-.737-1.272-.74-1.554-.003-.657.851-1.61 1.898-2.122.72-.353 1.291-.362 2.009-.026l.54.253.157-.224c.085-.123.156-.285.156-.356 0-.071.071-.134.157-.134.085 0 .156.023.156.048 0 .063-.629 1.651-.669 1.691-.017.016-.187-.063-.381-.177-.546-.321-1.232-.535-1.764-.549-1.238-.031-1.667 1.178-.794 2.236l.308.373.839-.68c.942-.76 1.05-.777 1.784-.27.825.569.839 1.434.042 2.339-.705.805-1.431 1.027-2.677.819Zm5.984-.165c-.646-.301-1.229-.876-1.565-1.547-.538-1.076-.373-1.765.646-2.695.856-.782 1.556-1.087 2.498-1.087.68 0 .825.037 1.266.307 1.044.646 1.303 1.878.675 3.221-.737 1.577-2.294 2.37-3.52 1.801Zm-3.872-.702c.409-.322.381-.917-.063-1.389-.558-.592-.731-.566-1.713.253-.976.814-.982.783.185 1.155.771.251 1.255.242 1.591-.019Zm6.034-.046c.484-.239.817-1.343.68-2.259-.17-1.13-1.698-1.901-2.819-1.423-1.153.493-1.17 1.804-.037 2.985.791.828 1.471 1.044 2.176.697Zm11.359-1.414c.04-.071-.845-2.003-.928-2.023-.06-.017-.976 1.872-.976 2.014 0 .072 1.861.08 1.904.009Z"/></symbol>
+    <symbol id="lg-postgresql" viewBox="0 0 24 24"><path fill="currentColor" d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"/></symbol>
+    <symbol id="lg-docker" viewBox="0 0 24 24"><path fill="currentColor" d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></symbol>
+    <symbol id="lg-githubactions" viewBox="0 0 24 24"><path fill="currentColor" d="M10.984 13.836a.5.5 0 0 1-.353-.146l-.745-.743a.5.5 0 1 1 .706-.708l.392.391 1.181-1.18a.5.5 0 0 1 .708.707l-1.535 1.533a.504.504 0 0 1-.354.146zm9.353-.147l1.534-1.532a.5.5 0 0 0-.707-.707l-1.181 1.18-.392-.391a.5.5 0 1 0-.706.708l.746.743a.497.497 0 0 0 .706-.001zM4.527 7.452l2.557-1.585A1 1 0 0 0 7.09 4.17L4.533 2.56A1 1 0 0 0 3 3.406v3.196a1.001 1.001 0 0 0 1.527.85zm2.03-2.436L4 6.602V3.406l2.557 1.61zM24 12.5c0 1.93-1.57 3.5-3.5 3.5a3.503 3.503 0 0 1-3.46-3h-2.08a3.503 3.503 0 0 1-3.46 3 3.502 3.502 0 0 1-3.46-3h-.558c-.972 0-1.85-.399-2.482-1.042V17c0 1.654 1.346 3 3 3h.04c.244-1.693 1.7-3 3.46-3 1.93 0 3.5 1.57 3.5 3.5S13.43 24 11.5 24a3.502 3.502 0 0 1-3.46-3H8c-2.206 0-4-1.794-4-4V9.899A5.008 5.008 0 0 1 0 5c0-2.757 2.243-5 5-5s5 2.243 5 5a5.005 5.005 0 0 1-4.952 4.998A2.482 2.482 0 0 0 7.482 12h.558c.244-1.693 1.7-3 3.46-3a3.502 3.502 0 0 1 3.46 3h2.08a3.503 3.503 0 0 1 3.46-3c1.93 0 3.5 1.57 3.5 3.5zm-15 8c0 1.378 1.122 2.5 2.5 2.5s2.5-1.122 2.5-2.5-1.122-2.5-2.5-2.5S9 19.122 9 20.5zM5 9c2.206 0 4-1.794 4-4S7.206 1 5 1 1 2.794 1 5s1.794 4 4 4zm9 3.5c0-1.378-1.122-2.5-2.5-2.5S9 11.122 9 12.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5zm9 0c0-1.378-1.122-2.5-2.5-2.5S18 11.122 18 12.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5zm-13 8a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0zm12 0c0 1.93-1.57 3.5-3.5 3.5a3.503 3.503 0 0 1-3.46-3.002c-.007.001-.013.005-.021.005l-.506.017h-.017a.5.5 0 0 1-.016-.999l.506-.017c.018-.002.035.006.052.007A3.503 3.503 0 0 1 20.5 17c1.93 0 3.5 1.57 3.5 3.5zm-1 0c0-1.378-1.122-2.5-2.5-2.5S18 19.122 18 20.5s1.122 2.5 2.5 2.5 2.5-1.122 2.5-2.5z"/></symbol>
+    <symbol id="lg-langchain" viewBox="0 0 24 24"><path fill="currentColor" d="M13.796 0a6.93 6.93 0 0 0-4.91 2.019L5.451 5.455l3.273 3.27 3.432-3.432a2.284 2.284 0 0 1 3.277 0 2.28 2.28 0 0 1 0 3.275L12 12.001l3.273 3.273 3.433-3.435c2.692-2.692 2.692-7.127 0-9.82A6.92 6.92 0 0 0 13.796 0m-5.07 8.728-3.433 3.434c-2.692 2.693-2.692 7.126 0 9.819A6.92 6.92 0 0 0 10.203 24a6.93 6.93 0 0 0 4.911-2.02l3.432-3.432-3.271-3.272-3.433 3.433a2.284 2.284 0 0 1-3.277 0 2.28 2.28 0 0 1 0-3.276L12 12z"/></symbol>
+    <symbol id="lg-anthropic" viewBox="0 0 24 24"><path fill="currentColor" d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></symbol>
+    <symbol id="lg-claude" viewBox="0 0 24 24"><path fill="currentColor" d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></symbol>
+    <symbol id="lg-pytest" viewBox="0 0 24 24"><path fill="currentColor" d="M2.6152 0v.8867h3.8399V0zm5.0215 0v.8867h3.8418V0zm4.957 0v.8867h3.8418V0zm4.9356 0v.8867h3.8418V0zM2.4473 1.8945a.935.935 0 0 0-.9356.9356c0 .517.4185.9375.9356.9375h19.1054c.5171 0 .9356-.4204.9356-.9375a.935.935 0 0 0-.9356-.9356zm.168 2.8477V24H6.455V4.7422zm5.0214 0V20.543h3.8418V4.7422zm4.957 0V15.291h3.8497V4.7422zm4.9356 0v6.4941h3.8418V4.7422z"/></symbol>
+    <symbol id="lg-k6" viewBox="0 0 24 24"><path fill="currentColor" d="M24 23.646H0L7.99 6.603l4.813 3.538L19.08.354Zm-8.8-3.681h.052a2.292 2.292 0 0 0 1.593-.64 2.088 2.088 0 0 0 .685-1.576 1.912 1.912 0 0 0-.66-1.511 2.008 2.008 0 0 0-1.37-.59h-.04a.716.716 0 0 0-.199.027l1.267-1.883-1.01-.705-.477.705-1.22 1.864c-.21.31-.386.582-.495.77-.112.2-.21.41-.29.625a1.942 1.942 0 0 0-.138.719 2.086 2.086 0 0 0 .676 1.558c.422.411.989.641 1.578.64Zm-5.365-2.027 1.398 1.978h1.496l-1.645-2.295 1.46-2.029-.97-.671-.427.565-1.314 1.853v-3.725l-1.31-1.068v7.37h1.31v-1.98Zm5.367.792a.963.963 0 1 1 0-1.927h.009a.941.941 0 0 1 .679.29.897.897 0 0 1 .29.668.978.978 0 0 1-.977.967Z"/></symbol>
+    <symbol id="lg-postman" viewBox="0 0 24 24"><path fill="currentColor" d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm2.471 7.485a.855.855 0 0 0-.593.25l-4.453 4.453-.307-.307-.643-.643c4.389-4.376 5.18-4.418 5.996-3.753zm-4.863 4.861l4.44-4.44a.62.62 0 1 1 .847.903l-4.699 4.125-.588-.588zm.33.694l-1.1.238a.06.06 0 0 1-.067-.032.06.06 0 0 1 .01-.073l.645-.645.512.512zm-2.803-.459l1.172-1.172.879.878-1.979.426a.074.074 0 0 1-.085-.039.072.072 0 0 1 .013-.093zm-3.646 6.058a.076.076 0 0 1-.069-.083.077.077 0 0 1 .022-.046h.002l.946-.946 1.222 1.222-2.123-.147zm2.425-1.256a.228.228 0 0 0-.117.256l.203.865a.125.125 0 0 1-.211.117h-.003l-.934-.934-.294-.295 3.762-3.758 1.82-.393.874.874c-1.255 1.102-2.971 2.201-5.1 3.268zm5.279-3.428h-.002l-.839-.839 4.699-4.125a.952.952 0 0 0 .119-.127c-.148 1.345-2.029 3.245-3.977 5.091zm3.657-6.46l-.003-.002a1.822 1.822 0 0 1 2.459-2.684l-1.61 1.613a.119.119 0 0 0 0 .169l1.247 1.247a1.817 1.817 0 0 1-2.093-.343zm2.578 0a1.714 1.714 0 0 1-.271.218h-.001l-1.207-1.207 1.533-1.533c.661.72.637 1.832-.054 2.522zM18.855 6.05a.143.143 0 0 0-.053.157.416.416 0 0 1-.053.45.14.14 0 0 0 .023.197.141.141 0 0 0 .084.03.14.14 0 0 0 .106-.05.691.691 0 0 0 .087-.751.138.138 0 0 0-.194-.033z"/></symbol>
+    <symbol id="lg-gmail" viewBox="0 0 24 24"><path fill="currentColor" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></symbol>
+    <symbol id="lg-amazon" viewBox="0 0 24 24"><path fill="currentColor" d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z"/></symbol>
+    <symbol id="lg-flipkart" viewBox="0 0 24 24"><path fill="currentColor" d="M3.833 1.333a.993.993 0 0 0-.333.061V1c0-.551.449-1 1-1h14.667c.551 0 1 .449 1 1v.333H3.833zm17.334 2.334H2.833c-.551 0-1 .449-1 1V23c0 .551.449 1 1 1h7.3l1.098-5.645h-2.24c-.051 0-5.158-.241-5.158-.241l4.639-.327-.078-.366-1.978-.285 1.882-.158-.124-.449-3.075-.467s3.341-.373 3.392-.373h3.232l.247-1.331c.289-1.616.945-2.807 1.973-3.693 1.033-.892 2.344-1.332 3.937-1.332.643 0 1.053.151 1.231.463.118.186.201.516.279.859.074.352.14.671.095.903-.057.345-.461.465-1.197.465h-.253c-1.327 0-2.134.763-2.405 2.31l-.243 1.355h1.54c.574 0 .781.402.622 1.306-.17.941-.539 1.36-1.111 1.36H14.9L13.804 24h7.362c.551 0 1-.449 1-1V4.667a1 1 0 0 0-.999-1zM20.5 2.333A.334.334 0 0 0 20.167 2H3.833a.334.334 0 0 0-.333.333V3h17v-.667z"/></symbol>
+    <symbol id="lg-nginx" viewBox="0 0 24 24"><path fill="currentColor" d="M12 0L1.605 6v12L12 24l10.395-6V6L12 0zm6 16.59c0 .705-.646 1.29-1.529 1.29-.631 0-1.351-.255-1.801-.81l-6-7.141v6.66c0 .721-.57 1.29-1.274 1.29H7.32c-.721 0-1.29-.6-1.29-1.29V7.41c0-.705.63-1.29 1.5-1.29.646 0 1.38.255 1.83.81l5.97 7.141V7.41c0-.721.6-1.29 1.29-1.29h.075c.72 0 1.29.6 1.29 1.29v9.18H18z"/></symbol>
+    <symbol id="lg-jinja" viewBox="0 0 24 24"><path fill="currentColor" d="M23.613 3.494h-.087C19.268 4.91 13.69 4.91 12.14 4.885l-1.434-.025C6.476 4.705 4.318 3.082.538 1.394c-.261-.116-.565.077-.536.348.029.927.275 4.818 3.186 5.836.102.04.218.077.32.103.144.026.202.142.231.22l.246.76c.044.18.174.334.32.334h.245c.217 0 .391.155.406.348v.735c0 .077-.073.141-.16.141H2.928c-.174 0-.319.13-.319.284v1.147c0 .154.145.283.32.283h1.867c.087 0 .16.064.16.142v.31c0 .076-.073.141-.16.141H2.928c-.174.012-.305.128-.305.283v1.148c0 .129.116.27.247.27h1.94c.088 0 .16.065.16.142v7.537c0 .387.362.709.797.709h1.318c.434 0 .797-.322.797-.71V14.37c0-.077.072-.142.16-.142l8.14-.013c.087 0 .16.065.16.142v7.576c0 .386.362.709.797.709h1.318c.434 0 .796-.323.796-.71v-7.588c0-.077.073-.141.16-.141 0 0 2.028-.013 2.057-.026a.29.29 0 0 0 .144-.245v-1.135c0-.155-.144-.283-.333-.283h-2.013V12.5h-.015v-.425c0-.078.073-.142.16-.142h1.868c.174 0 .319-.129.319-.283v-1.147c0-.155-.145-.284-.32-.284h-1.867c-.087 0-.16-.064-.16-.14v-.736c0-.18.174-.348.406-.348h.246c.174 0 .275-.167.319-.335l.246-.76c.03-.103.13-.193.246-.232 1.869-.412 2.637-1.636 3.274-3.556V4.1c.072-.49-.26-.58-.377-.605zM16.37 8.97v1.12c0 .155-.102.271-.232.271h-2.607c-.13 0-.232-.116-.232-.27v-1.12c0-.143.1-.272.232-.272h2.607a.28.28 0 0 1 .232.27zm-5.375 0v1.12c0 .142-.102.271-.232.271H8.157c-.13 0-.232-.116-.232-.27v-1.12c0-.143.101-.272.232-.272h2.607a.28.28 0 0 1 .232.27z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.6 3.6 5.4 3.6 8.5s-1.2 5.9-3.6 8.5c-2.4-2.6-3.6-5.4-3.6-8.5S9.6 6.1 12 3.5z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16M6 14l6 6 6-6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4.5 6h.01M4.5 12h.01M4.5 18h.01"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-log" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4v2h6V4M8.5 11h7M8.5 15h5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5l7 2.8v5.4c0 4.3-3 7.8-7 8.8-4-1-7-4.5-7-8.8V6.3z"/><path d="M9 12l2 2 4-4"/></symbol>
+</svg>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage" aria-live="polite">
+
+<!-- =====================================================================
+     SLIDE 1 · TITLE
+     ===================================================================== -->
+<section class="slide dark s-title active" data-title="Price Tracker">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">AI Bootcamp · Hackathon Demo Day</span><span class="pg"></span></header>
+
+    <svg class="bgchart" viewBox="0 0 1920 440" preserveAspectRatio="none" aria-hidden="true">
+        <path class="draw" pathLength="1" style="--d:0; stroke:rgba(228,138,69,.5)" d="M0 110 H170 V150 H330 V90 H500 V190 H690 V170 H860 V250 H1040 V220 H1220 V300 H1400 V280 H1580 V360 H1760 V340 H1920"/>
+        <path class="draw" pathLength="1" style="--d:1; stroke:rgba(122,163,244,.4)" d="M0 170 H200 V130 H380 V210 H560 V200 H740 V140 H900 V220 H1080 V250 H1260 V210 H1440 V270 H1620 V260 H1800 V320 H1920"/>
+        <path class="draw" pathLength="1" style="--d:2; stroke:rgba(237,232,220,.34); stroke-width:4" d="M0 140 H420 V160 H900 V200 H1300 V250 H1700 V300 H1920"/>
+    </svg>
+
+    <div class="hero">
+        <div class="eyebrow reveal" style="--d:0">Competitor pricing · Amazon.in + Flipkart</div>
+        <div class="wordmark reveal-s" style="--d:1"><svg aria-hidden="true"><use href="#mark"/></svg><h1>Price <em>Tracker</em></h1></div>
+        <p class="tagline reveal" style="--d:3">An <b>AI pricing assistant</b> for online sellers.</p>
+        <p class="sub reveal" style="--d:4">It scrapes Amazon.in and Flipkart listings, runs an AI agent workflow when a price moves, and waits for a person to approve.</p>
+    </div>
+
+    <div class="loop4 reveal" style="--d:5">
+        <span class="chip">Scrape</span><svg class="i"><use href="#i-arrow"/></svg>
+        <span class="chip">Rules gate</span><svg class="i"><use href="#i-arrow"/></svg>
+        <span class="chip ai">LLM agent recommends</span><svg class="i"><use href="#i-arrow"/></svg>
+        <span class="chip">Human approval</span>
+    </div>
+
+    <div class="team reveal" style="--d:6"><span class="eyebrow">Team</span><span>Sujay · Mahesh · Yamini · Siva Prasad</span></div>
+
+    <div class="tape" aria-hidden="true">
+        <div class="label"><i></i>AT A GLANCE</div>
+        <div class="track"><span><b>Amazon.in + Flipkart</b> watched every hour</span><span><b class="hi">13/13</b> correct pricing moves in our AI evals</span><span>The AI only <b>reads</b> data; code changes the price</span><span><b>~6 s</b> per AI recommendation</span><span><b class="hi">~₹1</b> per decision · <b>₹0</b> when nothing changes</span><span>Never below your <b>floor price</b></span><span>A <b>person approves</b> every price change</span><span>Every change in the <b>audit log</b></span><span><b>Claude Haiku 4.5</b> · LangGraph · FastAPI · PostgreSQL · React</span><span><b>Amazon.in + Flipkart</b> watched every hour</span><span><b class="hi">13/13</b> correct pricing moves in our AI evals</span><span>The AI only <b>reads</b> data; code changes the price</span><span><b>~6 s</b> per AI recommendation</span><span><b class="hi">~₹1</b> per decision · <b>₹0</b> when nothing changes</span><span>Never below your <b>floor price</b></span><span>A <b>person approves</b> every price change</span><span>Every change in the <b>audit log</b></span><span><b>Claude Haiku 4.5</b> · LangGraph · FastAPI · PostgreSQL · React</span></div>
+    </div>
+
+    <aside class="notes">
+        <p><b>Siva Prasad · 0:20</b></p>
+        <ul>
+            <li>"Hi, we're [team]. This is Price Tracker, an AI pricing assistant for brands that sell on Amazon.in and Flipkart."</li>
+            <li>Point at the chips: "We scrape competitor listings, a rules gate spots real changes, an LLM agent recommends our price, and a person approves it."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 2 · THE REAL PROBLEM (statement + illustration)
+     ===================================================================== -->
+<section class="slide paper s-problem" data-title="The real problem">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">The real problem</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">The real problem we solve</div>
+        <h2 class="h1">
+            <span class="ln" style="--d:1"><span>A competitor cuts their price at 2 a.m.</span></span>
+            <span class="ln" style="--d:2"><span><em>You notice at 9:30. The sales are gone.</em></span></span>
+        </h2>
+    </div>
+
+    <div class="chart-card reveal-s" style="--d:3">
+        <div class="ch-head">
+            <div class="ch-title">What happens overnight</div>
+            <div class="ch-legend">
+                <span><i class="key" style="background:#CC6212"></i>Competitor</span>
+                <span><i class="key" style="background:#12191B; height:4px"></i>Your price</span>
+                <span><i class="key" style="background:rgba(184,48,40,.35); height:12px; width:16px"></i>You're the pricier seller</span>
+            </div>
+        </div>
+        <svg viewBox="0 0 1000 420" aria-label="Illustration: a competitor lowers its price at 2 a.m.; your price stays higher until someone notices at 9:30 a.m.">
+            <defs>
+                <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="9" stroke="#B83028" stroke-width="2.2" stroke-opacity=".38"/></pattern>
+            </defs>
+            <!-- night band: 00:00 to 06:00 -->
+            <rect x="70" y="30" width="415" height="320" fill="rgba(15,61,62,.06)"/>
+            <text class="night" x="84" y="56">NIGHT</text>
+            <line x1="70" y1="350" x2="900" y2="350" stroke="rgba(18,25,27,.35)" stroke-width="1.5"/>
+            <g class="axis" text-anchor="middle">
+                <text x="70" y="380">00:00</text><text x="277.5" y="380">03:00</text><text x="485" y="380">06:00</text><text x="692.5" y="380">09:00</text><text x="900" y="380">12:00</text>
+            </g>
+            <!-- the gap: 02:00 → 09:30 -->
+            <g class="fade-late">
+                <rect x="208.3" y="140" width="518.8" height="120" fill="url(#hatch)"/>
+                <rect x="208.3" y="140" width="518.8" height="120" fill="rgba(184,48,40,.05)"/>
+                <text class="gap-big" x="468" y="203" text-anchor="middle">7 h 30 min</text>
+                <text class="gap-sm" x="468" y="232" text-anchor="middle">shoppers buy from the cheaper seller</text>
+            </g>
+            <!-- lines (no real prices: an illustration) -->
+            <path class="draw" pathLength="1" style="--d:1" d="M70 110 H208.3 V260 H900" fill="none" stroke="#CC6212" stroke-width="4" stroke-linejoin="round"/>
+            <path class="draw" pathLength="1" style="--d:2" d="M70 140 H727.1 V245 H900" fill="none" stroke="#12191B" stroke-width="5" stroke-linejoin="round"/>
+            <g class="fade-late">
+                <circle cx="208.3" cy="260" r="6" fill="#CC6212"/>
+                <text class="ann" x="220" y="292">02:00 · competitor cuts the price</text>
+                <circle cx="727.1" cy="245" r="6" fill="#12191B"/>
+                <text class="ann" x="610" y="120">09:30 · someone notices</text>
+                <line x1="727.1" y1="126" x2="727.1" y2="138" stroke="#4B5552" stroke-width="1.5"/>
+            </g>
+        </svg>
+        <div class="note">Illustration</div>
+    </div>
+
+    <div class="pains">
+        <div class="pain reveal" style="--d:4">
+            <div class="eyebrow">Who it's for</div>
+            <p>Brands that sell the same products on Amazon.in and Flipkart.</p>
+        </div>
+        <div class="pain reveal" style="--d:5">
+            <div class="eyebrow">The problem</div>
+            <p>Prices change at any hour. Teams check hundreds of pages by hand, react late, and guess the new price.</p>
+        </div>
+        <div class="pain fix reveal" style="--d:6">
+            <div class="eyebrow">Our fix</div>
+            <p>Price Tracker scrapes every competitor listing on a schedule, and an AI agent recommends our price. A person approves it.</p>
+        </div>
+    </div>
+
+    <div class="brief reveal" style="--d:7"><p>Every hour at a higher price sends shoppers to the cheaper seller.</p></div>
+
+    <aside class="notes">
+        <p><b>Siva Prasad · 0:45</b></p>
+        <ul>
+            <li>"The real problem: a competitor cuts their price at 2 a.m., and nobody notices until 9:30."</li>
+            <li>Walk the chart: "For seven and a half hours we're the more expensive seller, and shoppers buy from the cheaper one."</li>
+            <li>"Teams check hundreds of pages by hand, react late and guess the new price. Price Tracker scrapes every listing on a schedule, an AI agent recommends our price, and a person approves it."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 4 · WHY AI
+     ===================================================================== -->
+<section class="slide dark s-why" data-title="Why AI">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Why AI</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Why AI?</div>
+        <h2 class="h1">
+            <span class="ln" style="--d:1"><span>Rules can spot a price change.</span></span>
+            <span class="ln" style="--d:2"><span><em>AI works out what to do about it.</em></span></span>
+        </h2>
+    </div>
+
+    <div class="cols3">
+        <div class="opt reveal" style="--d:3">
+            <div class="eyebrow">Rules only</div>
+            <h3>Fast, but blind</h3>
+            <ul>
+                <li><svg class="i ok"><use href="#i-check"/></svg>Spots every change</li>
+                <li><svg class="i no"><use href="#i-x"/></svg>Can't tell a flash sale from a lasting cut</li>
+                <li><svg class="i no"><use href="#i-x"/></svg>Can't tell a scraping glitch from a real price</li>
+                <li><svg class="i no"><use href="#i-x"/></svg>No reasoning to show the team</li>
+            </ul>
+        </div>
+        <div class="opt reveal" style="--d:4">
+            <div class="eyebrow">AI only</div>
+            <h3>Smart, but risky</h3>
+            <ul>
+                <li><svg class="i ok"><use href="#i-check"/></svg>Reads the context and explains it</li>
+                <li><svg class="i no"><use href="#i-x"/></svg>Can hallucinate a price</li>
+                <li><svg class="i no"><use href="#i-x"/></svg>Might go below our floor price</li>
+                <li><svg class="i no"><use href="#i-x"/></svg>LLM cost on every single check</li>
+            </ul>
+        </div>
+        <div class="opt best reveal" style="--d:5">
+            <div class="eyebrow">Price Tracker</div>
+            <h3>The best of both</h3>
+            <div class="flow">
+                <div class="step"><span class="who">Rules</span><span class="what">deterministic rules spot it</span></div>
+                <div class="step"><span class="who ai">AI</span><span class="what">LLM agent recommends and explains</span></div>
+                <div class="step"><span class="who">Code</span><span class="what">guardrails enforce the floor</span></div>
+                <div class="step"><span class="who">Person</span><span class="what">human-in-the-loop approval</span></div>
+            </div>
+            <div class="foot">The LLM runs only when the rules gate fires.</div>
+        </div>
+    </div>
+
+    <div class="brief reveal" style="--d:6"><p>Deterministic where it can be, AI where it adds judgment, and a human for the final call.</p></div>
+
+    <aside class="notes">
+        <p><b>Siva Prasad · 0:35</b></p>
+        <ul>
+            <li>"Why AI? Deterministic rules spot a price change, but can't tell a flash sale from a lasting cut, or a scraping glitch from a real price. An LLM alone can hallucinate a price or ignore our floor, and costs money on every check."</li>
+            <li>"So rules detect, the LLM recommends and explains, guardrails enforce the floor, and a human approves. The LLM only runs when the rules gate fires."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 5 · MEET PRICE TRACKER
+     ===================================================================== -->
+<section class="slide paper s-meet" data-title="Meet Price Tracker">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">The product</span><span class="pg"></span></header>
+
+    <div class="left">
+        <div class="eyebrow reveal" style="--d:0">The product</div>
+        <h2 class="h1">
+            <span class="ln" style="--d:1"><span>Meet</span></span>
+            <span class="ln" style="--d:2"><span><em>Price Tracker.</em></span></span>
+        </h2>
+        <p class="lead reveal" style="--d:3">One screen shows where we stand, what changed, and what needs a decision.</p>
+    </div>
+
+    <div class="steps4">
+        <div class="st reveal" style="--d:3"><span class="n">01</span><div><h3>Add</h3><p>Type a name. The intake agent searches Amazon.in and Flipkart and scores the matches.</p></div></div>
+        <div class="st reveal" style="--d:4"><span class="n">02</span><div><h3>Watch</h3><p>Listings are scraped on a per-product schedule and stored in PostgreSQL.</p></div></div>
+        <div class="st reveal" style="--d:5"><span class="n">03</span><div><h3>Recommend</h3><p>On a price change, the analyst agent proposes our price with its reasoning.</p></div></div>
+        <div class="st reveal" style="--d:6"><span class="n">04</span><div><h3>Approve</h3><p>One click resumes the workflow. Every change goes into the audit log.</p></div></div>
+    </div>
+
+    <div class="shot browser reveal-s" style="--d:3">
+        <div class="bar"><i></i><i></i><i></i><span class="url">localhost:5173 · Overview</span></div>
+        <img src="assets/overview.png" alt="The Price Tracker overview dashboard: competitive position, prices awaiting approval, competitor moves this week and a needs-attention list.">
+    </div>
+    <div class="cap reveal" style="--d:6"><i></i>The live dashboard. We'll show it working in the demo.</div>
+
+    <div class="brief reveal" style="--d:7"><p>From adding a product to approving a new price, everything happens in one place.</p></div>
+
+    <aside class="notes">
+        <p><b>Siva Prasad · 0:25</b></p>
+        <ul>
+            <li>"This is the dashboard. It shows where we stand against the cheapest competitor, what changed, and what's waiting for a decision."</li>
+            <li>"Add a product by name, we watch its listings, the analyst agent recommends a price, and one click approves it. We'll show it live in a moment."</li>
+            <li>Hand over: "Sujay will show how it's built."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 5 · ARCHITECTURE
+     Swimlanes = layers (each with its tech stack). Cards = the complete
+     workflow, numbered 1–10. The packet runs the flow once (R replays).
+     ===================================================================== -->
+<section class="slide dark s-sys" data-title="Architecture" data-enter="sys">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Architecture</span><span class="pg"></span></header>
+
+    <h2 class="h1"><span class="ln" style="--d:0"><span>Architecture: <em>the complete workflow</em></span></span></h2>
+
+    <div class="tier reveal" style="--d:1; top:186px; height:56px"><span class="lt" style="--s:30px"><svg style="color:#0A7EA4"><use href="#lg-react"/></svg></span><span class="lt" style="--s:30px"><svg style="color:#3178C6"><use href="#lg-typescript"/></svg></span><span class="nm">Frontend</span><span class="wi">React + TypeScript dashboard · Vite · served by nginx</span><span class="how">calls the backend: REST · JSON · polls every 20–60 s · Approve resumes the workflow</span></div>
+    <div class="vlink reveal" style="--d:1; left:959px; top:242px; height:28px"></div>
+    <div class="vlab reveal" style="--d:1; left:972px; top:250px">HTTP · REST · JSON</div>
+    <div class="becont reveal" style="--d:1"></div>
+    <div class="belab reveal" style="--d:1"><span class="lt" style="--s:22px"><svg style="color:#009688"><use href="#lg-fastapi"/></svg></span><span class="lt" style="--s:22px"><svg style="color:#3776AB"><use href="#lg-python"/></svg></span>Backend · FastAPI + Uvicorn · Python 3.12</div>
+    <div class="wf reveal" style="--d:1" id="sys">
+        <div class="band" style="left:0; top:220px; width:934px; height:232px"></div>
+        <div class="rl ai" style="left:167px; top:232px">AI workflow · LangGraph</div>
+        <div class="n " data-stop="0" style="left:0px; top:51px; width:172px; height:114px"><span class="t"><span class="lt" style="--s:22px"><svg style="color:#2088FF"><use href="#lg-githubactions"/></svg></span><span class="tt">Cron</span><span class=tagc>CFG</span></span><span class="d">Calls <code>/run-once</code> every hour</span><span class="k">GitHub Actions</span></div>
+        <div class="n " data-stop="1" style="left:198px; top:51px; width:192px; height:114px"><span class="t"><span class="tt">Scheduler runner</span></span><span class="d">Loads the listings that are due</span></div>
+        <div class="dm" data-stop="2" style="left:428px; top:80px; width:56px; height:56px"></div><div class="dq" style="left:400px; top:100px">due?</div>
+        <div class="n " data-stop="3" style="left:521px; top:51px; width:262px; height:114px"><span class="t"><span class="lt" style="--s:22px"><svg style="color:#FF9900"><use href="#lg-amazon"/></svg></span><span class="lt" style="--s:22px"><svg style="color:#2874F0"><use href="#lg-flipkart"/></svg></span><span class="tt">Scraper</span></span><span class="d">GET → HTML → parse, JSON-LD first</span><span class="k">httpx · BeautifulSoup · lxml</span></div>
+        <div class="n " data-stop="4" style="left:809px; top:51px; width:176px; height:114px"><span class="t"><span class="tt">Store reading</span></span><span class="d">Every reading, even failures</span><span class="k">PostgreSQL</span></div>
+        <div class="dm" data-stop="5" style="left:1023px; top:80px; width:56px; height:56px"></div><div class="dq" style="left:996px; top:100px">change?</div>
+        <div class="n " data-stop="6" style="left:1116px; top:51px; width:192px; height:114px"><span class="t"><span class="tt">Group by product</span></span><span class="d">One decision for all listings that moved</span></div>
+        <div class="dm" data-stop="7" style="left:1346px; top:80px; width:56px; height:56px"></div><div class="dq" style="left:1319px; top:100px">budget?</div>
+        <div class="n fb"  style="left:1440px; top:51px; width:240px; height:114px"><span class="t"><span class="tt">Fallback</span></span><span class="d">No AI recommendation: review manually</span><span class="k">also on AI error</span></div>
+        <div class="end " style="left:394px; top:2px; width:124px; height:34px">no → skip</div>
+        <div class="end " style="left:940px; top:2px; width:222px; height:34px">no → stop · 0 LLM calls</div>
+        <div class="n ai" data-stop="8" style="left:18px; top:274px; width:262px; height:124px"><span class="t"><span class="lt" style="--s:22px"><svg style="color:#D97757"><use href="#lg-claude"/></svg></span><span class="tt">AI agent</span></span><span class="d">Read-only tools → <code>RepricingDecision</code></span><span class="k">LangChain · Claude Haiku 4.5</span></div>
+        <div class="n ai" data-stop="9" style="left:314px; top:283px; width:236px; height:106px"><span class="t"><span class="tt">Guardrails</span></span><span class="d">Pre-priced options only, floor, max 10% move</span></div>
+        <div class="dm" data-stop="10" style="left:596px; top:308px; width:56px; height:56px"></div><div class="dq" style="left:569px; top:328px">route</div>
+        <div class="n sm"  style="left:704px; top:243px; width:212px; height:54px"><span class="t"><span class="tt">No change</span></span><span class="d">hold · investigate</span></div>
+        <div class="n sm pr" data-stop="11" style="left:704px; top:309px; width:212px; height:54px"><span class="t"><span class="tt">Human review ⏸</span></span><span class="d"><code>interrupt()</code> pauses</span></div>
+        <div class="n sm"  style="left:704px; top:375px; width:212px; height:54px"><span class="t"><span class="tt">Auto-apply</span></span><span class="d">≤3% move · ≥85% confidence</span></div>
+        <div class="end " style="left:944px; top:253px; width:64px; height:34px">END</div>
+        <div class="n pr" data-stop="12" style="left:972px; top:289px; width:232px; height:94px"><span class="t"><span class="lt" style="--s:20px"><svg style="color:#0A7EA4"><use href="#lg-react"/></svg></span><span class="tt">Approve / Reject</span></span><span class="d">Dashboard → <code>Command(resume)</code></span></div>
+        <div class="end " style="left:1030px; top:247px; width:128px; height:34px">reject → END</div>
+        <div class="dm" data-stop="13" style="left:1252px; top:308px; width:56px; height:56px"></div><div class="dq" style="left:1225px; top:328px">fresh?</div>
+        <div class="end " style="left:1200px; top:247px; width:160px; height:34px">stale → refused</div>
+        <div class="n " data-stop="14" style="left:1354px; top:289px; width:200px; height:94px"><span class="t"><span class="tt">Finalize</span></span><span class="d"><code>set_our_price()</code> → audit row</span></div>
+        <div class="end fin" data-stop="15" style="left:1588px; top:316px; width:92px; height:40px">END</div>
+        <div class="n mail" data-at="11" style="left:520px; top:480px; width:700px; height:90px"><span class="t"><span class="lt" style="--s:22px"><svg style="color:#EA4335"><use href="#lg-gmail"/></svg></span><span class="lt" style="--s:22px"><svg style="color:#B41717"><use href="#lg-jinja"/></svg></span><span class="tt">Save decision · email the ops team</span></span><span class="d">Every outcome, including the fallback, is saved and emailed</span><span class="k">Jinja2 template · Gmail SMTP</span></div>
+        <svg class="wires" viewBox="0 0 1680 580" aria-hidden="true">
+            <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="rgba(237,232,220,.7)"/></marker></defs>
+            <path class="w" d="M174 108 H195" marker-end="url(#ah)"/>
+            <path class="w" d="M392 108 H412" marker-end="url(#ah)"/>
+            <path class="w" d="M498 108 H518" marker-end="url(#ah)"/>
+            <path class="w" d="M785 108 H806" marker-end="url(#ah)"/>
+            <path class="w" d="M987 108 H1008" marker-end="url(#ah)"/>
+            <path class="w" d="M1093 108 H1114" marker-end="url(#ah)"/>
+            <path class="w" d="M1310 108 H1331" marker-end="url(#ah)"/>
+            <path class="w" d="M1416 108 H1437" marker-end="url(#ah)"/>
+            <path class="w" d="M456 66 V36" marker-end="url(#ah)"/>
+            <path class="w" d="M1051 66 V36" marker-end="url(#ah)"/>
+            <path class="w" d="M1374 150 V196 H149 V271" marker-end="url(#ah)"/>
+            <path class="w" d="M282 336 H311" marker-end="url(#ah)"/>
+            <path class="w" d="M552 336 H581" marker-end="url(#ah)"/>
+            <path class="w" d="M624 294 V270 H701" marker-end="url(#ah)"/>
+            <path class="w" d="M666 336 H701" marker-end="url(#ah)"/>
+            <path class="w" d="M624 378 V402 H701" marker-end="url(#ah)"/>
+            <path class="w" d="M918 270 H941" marker-end="url(#ah)"/>
+            <path class="w" d="M918 336 H969" marker-end="url(#ah)"/>
+            <path class="w" d="M1094 287 V284" marker-end="url(#ah)"/>
+            <path class="w" d="M1206 336 H1237" marker-end="url(#ah)"/>
+            <path class="w" d="M1280 294 V284" marker-end="url(#ah)"/>
+            <path class="w" d="M1322 336 H1351" marker-end="url(#ah)"/>
+            <path class="w" d="M1556 336 H1585" marker-end="url(#ah)"/>
+            <path class="w" d="M918 402 H1280 V379" marker-end="url(#ah)"/>
+            <path class="w dash" d="M760 454 V477" marker-end="url(#ah)"/>
+            <path class="w dash" d="M1560 167 V525 H1223" marker-end="url(#ah)"/>
+            <text class="tag" x="466" y="54">no</text>
+            <text class="tag" x="1061" y="54">no</text>
+            <text class="tag" x="1419" y="99">no</text>
+            <text class="tag" x="1384" y="170">yes</text>
+            <text class="tag" x="1324" y="327">yes</text>
+            <text class="tag" x="936" y="424">auto-apply → fresh-data check</text>
+            <text class="tag" x="772" y="474">every outcome</text>
+            <text class="tag" x="1480" y="515">fallback</text>
+            <path id="sysPath" class="trail" d="M86 108 H1374 V196 H149 V336 H1634"/>
+        </svg>
+        <div class="packet" id="packet"><span class="pd"></span><span class="pl" id="packetLabel">Hourly cron</span></div>
+    </div>
+
+    <div class="vlink reveal" style="--d:2; left:959px; top:872px; height:24px"></div>
+    <div class="vlab reveal" style="--d:2; left:972px; top:878px">SQLAlchemy · PostgresSaver</div>
+    <div class="tier db reveal" style="--d:2; top:896px; height:58px"><span class="lt" style="--s:30px"><svg style="color:#4169E1"><use href="#lg-postgresql"/></svg></span><span class="nm">Database</span><span class="wi">PostgreSQL 16</span><span class="chips"><span>price readings</span><span>decisions + proposals</span><span>audit log</span><span>LangGraph checkpoints</span></span><span class="how">one database for everything</span></div>
+
+    <div class="brief reveal" style="--d:3"><p>Code filters every hourly check down to the few real changes. Only those reach the AI, and a person approves the price.</p></div>
+
+    <aside class="notes">
+        <p><b>Sujay · 1:00</b></p>
+        <ul>
+            <li>Start with the three tiers: "On top, the React dashboard calls our FastAPI backend over REST and JSON. At the bottom, one PostgreSQL database holds the readings, decisions, audit log and the paused workflows. Inside the backend is the workflow."</li>
+            <li>Top row, follow the dot: "Every hour a cron calls our FastAPI endpoint. The scheduler runner loads the listings that are due; if none are due, it skips. The scraper does an HTTP GET with httpx and parses the HTML with BeautifulSoup and lxml, JSON-LD first. Every reading is stored in PostgreSQL."</li>
+            <li>"The rules gate compares it with the last reading. No real change: stop, zero LLM calls. Otherwise we group changes by product and check the daily AI budget. No budget, or the AI errors: a fallback that says 'review manually'."</li>
+            <li>Middle row: "The AI workflow is LangGraph. The agent, Claude Haiku 4.5 through LangChain, returns a RepricingDecision; guardrails keep it to pre-priced options within the floor and a 10% move. Then it routes: no change, auto-apply for small confident moves, or human review, where <code>interrupt()</code> pauses the graph."</li>
+            <li>"Every outcome, including the fallback, is saved and emailed to the ops team. When someone approves in the dashboard, the graph resumes, re-checks fresh data, and finalize calls <code>set_our_price()</code> and writes the audit row. A rejection or stale data ends with no change."</li>
+            <li><b>If asked about GitHub Actions:</b> the cron and CI workflows are written and tested locally; they go live once the repo is pushed to GitHub. In the demo we trigger the run by hand. Press <b>R</b> to replay the flow.</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 6 · AI WORKFLOW (the LangGraph StateGraph)
+     ===================================================================== -->
+<section class="slide paper s-graph" data-title="AI workflow">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">AI workflow</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Inside the backend · app/ai</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>The AI picks. <em>Code does the maths.</em></span></span></h2>
+        <p class="lead reveal" style="--d:2">One LangGraph StateGraph per price change. The model chooses from options our code already priced, and a person approves.</p>
+    </div>
+
+    <div class="lg reveal" style="--d:3">
+        <svg class="edges" viewBox="0 0 1680 470" aria-hidden="true">
+            <defs><marker id="ga" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#4B5552"/></marker></defs>
+            <path class="e" d="M96 196 H148" marker-end="url(#ga)"/>
+            <path class="e" d="M420 196 H478" marker-end="url(#ga)"/>
+            <path class="e" d="M720 196 H756" marker-end="url(#ga)"/>
+            <path class="e" d="M844 196 H958" marker-end="url(#ga)"/>
+            <path class="e" d="M1210 196 H1268" marker-end="url(#ga)"/>
+            <path class="e" d="M1490 196 H1538" marker-end="url(#ga)"/>
+            <path class="e" d="M800 152 V46 H1538" marker-end="url(#ga)"/>
+            <path class="e" d="M800 240 V452 H1440 V278" marker-end="url(#ga)"/>
+            <path class="e" d="M1085 330 V278" marker-end="url(#ga)"/>
+            <path class="e dash" d="M285 278 V320" marker-start="url(#ga)" marker-end="url(#ga)"/>
+            <text class="lab" x="901" y="184" text-anchor="middle">needs_review</text>
+            <text class="lab" x="1170" y="36" text-anchor="middle">hold · investigate → team is informed</text>
+            <text class="lab" x="1120" y="442" text-anchor="middle">auto_apply · ≤3% move · ≥85% confidence · opt-in</text>
+        </svg>
+        <div class="pill" style="left:0; top:170px; width:96px; height:52px">START</div>
+        <div class="gn ai" style="left:150px; top:115px; width:270px; height:162px"><div class="hd"><span class="nm">analyze</span><span class="ch"><span class="lt" style="--s:18px"><svg style="color:#D97757"><use href="#lg-claude"/></svg></span>LLM</span></div><p>Claude Haiku 4.5 tool-calling agent. Returns a Pydantic-validated <code>RepricingDecision</code>.</p></div>
+        <div class="gn tools" style="left:150px; top:322px; width:270px; height:126px"><div class="hd"><span class="nm" style="font-size:16px">read-only tools</span></div><ul><li><code>get_pricing_context</code></li><li><code>get_price_history</code></li><li><code>refetch_listing</code> · once</li></ul></div>
+        <div class="gn" style="left:480px; top:115px; width:240px; height:162px"><div class="hd"><span class="nm">guardrails</span><span class="ch">code</span></div><p>Keeps only pre-priced options, clamped to the floor and a 10% max move.</p></div>
+        <div class="dia" style="left:770px; top:166px"></div>
+        <div class="dl" style="left:772px; top:250px">route</div>
+        <div class="gn pr" style="left:960px; top:115px; width:250px; height:162px"><div class="hd"><span class="nm">human_review</span><span class="ch">pause</span></div><p><code>interrupt()</code> pauses the graph. Its state waits in PostgreSQL, even for hours.</p></div>
+        <div class="gn" style="left:960px; top:330px; width:250px; height:84px; padding:12px 16px"><p style="font-size:15px"><b style="color:#12191B">Approve</b> in the dashboard resumes it: <code>Command(resume)</code></p></div>
+        <div class="gn" style="left:1270px; top:115px; width:220px; height:162px"><div class="hd"><span class="nm">finalize</span><span class="ch">code</span></div><p>Re-checks fresh prices. A stale approval is refused.</p></div>
+        <div class="pill end" style="left:1540px; top:20px; width:140px; height:52px">END</div>
+        <div class="pill end" style="left:1540px; top:170px; width:140px; height:52px">END</div>
+    </div>
+
+    <div class="gcards">
+        <div class="gcard reveal" style="--d:4"><div class="eyebrow">Graph state</div><h3>RepricingState</h3><p>product_id · trigger · decision · route · proposal · review · result. Plain JSON, so every checkpoint stays readable.</p></div>
+        <div class="gcard reveal" style="--d:5"><div class="eyebrow">Model output</div><h3>RepricingDecision</h3><p>action · price · urgency · market_read · confidence · reasoning. An invalid answer is re-prompted.</p></div>
+        <div class="gcard reveal" style="--d:6"><div class="eyebrow">Durable and traced</div><h3>PostgresSaver + LangSmith</h3><p>Every step is checkpointed, so the API can resume a run the scheduler started. Every node is traced.</p></div>
+    </div>
+
+    <div class="brief reveal" style="--d:7"><p>The model recommends, code decides what's allowed, and a person approves.</p></div>
+
+    <aside class="notes">
+        <p><b>Sujay · 0:35</b></p>
+        <ul>
+            <li>"Zooming into the AI part. It's a LangGraph StateGraph. analyze is a tool-calling agent; its tools only read data, and it must return a validated RepricingDecision."</li>
+            <li>"guardrails is pure code: our code has already priced the allowed options, clamped to the floor and a 10% max move, so the model picks one and never does arithmetic."</li>
+            <li>"Then the router. Hold or investigate ends the run. A small, confident move can auto-apply if the team turned that on. Otherwise human_review pauses the graph, and the dashboard's Approve resumes it with <code>Command(resume)</code>. finalize refuses a stale approval."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 7 · TECH STACK (what it is + role)
+     ===================================================================== -->
+<section class="slide dark s-stk" data-title="Tech stack">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Tech stack</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Tech stack</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>What it's built with</span></span></h2>
+    </div>
+
+    <div class="stk">
+        <div class="col">
+            <div class="r  reveal" style="--d:2"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#3776AB"><use href="#lg-python"/></svg></span></div><div><div class="top"><h3>Python 3.12</h3><span class="wi">Programming language</span></div><p>Backend, scraping, the AI layer and the tests</p></div></div>
+            <div class="r  reveal" style="--d:3"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#009688"><use href="#lg-fastapi"/></svg></span></div><div><div class="top"><h3>FastAPI + Uvicorn</h3><span class="wi">API framework · ASGI server</span></div><p>REST API, the internal scheduler endpoint and approvals</p></div></div>
+            <div class="r  reveal" style="--d:4"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#E92063"><use href="#lg-pydantic"/></svg></span></div><div><div class="top"><h3>Pydantic</h3><span class="wi">Typed validation</span></div><p>API models and the AI's structured output</p></div></div>
+            <div class="r  reveal" style="--d:5"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#12191B" class="ic"><use href="#i-globe"/></svg></span></div><div><div class="top"><h3>httpx · BeautifulSoup · lxml</h3><span class="wi">HTTP client · HTML parsing</span></div><p>Fetch Amazon.in and Flipkart pages; extract price and stock, JSON-LD first</p></div></div>
+            <div class="r  reveal" style="--d:6"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#4169E1"><use href="#lg-postgresql"/></svg></span></div><div><div class="top"><h3>PostgreSQL 16</h3><span class="wi">Relational database</span></div><p>Products, readings, decisions, proposals, audit log and workflow checkpoints</p></div></div>
+            <div class="r  reveal" style="--d:7"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#D71F00"><use href="#lg-sqlalchemy"/></svg></span></div><div><div class="top"><h3>SQLAlchemy · Alembic · psycopg 3</h3><span class="wi">ORM · migrations · driver</span></div><p>Queries, transactions and versioned schema changes</p></div></div>
+            <div class="r  reveal" style="--d:8"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#B41717"><use href="#lg-jinja"/></svg></span><span class="lt" style="--s:30px"><svg style="color:#EA4335"><use href="#lg-gmail"/></svg></span></div><div><div class="top"><h3>Jinja2 + Gmail SMTP</h3><span class="wi">Email templates · mail server</span></div><p>Price-change and approval emails to the ops team</p></div></div>
+        </div>
+        <div class="col">
+            <div class="r ai reveal" style="--d:2"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#1C3C3C"><use href="#lg-langchain"/></svg></span></div><div><div class="top"><h3>LangChain</h3><span class="wi">LLM agent framework</span></div><p>Tool-calling agents, structured output, call limits and retries</p></div></div>
+            <div class="r ai reveal" style="--d:3"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#1C3C3C"><use href="#lg-langchain"/></svg></span></div><div><div class="top"><h3>LangGraph + PostgresSaver</h3><span class="wi">Durable workflow · checkpoints</span></div><p>analyze → guardrails → human review → finalize, with pause and resume</p></div></div>
+            <div class="r ai reveal" style="--d:4"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#D97757"><use href="#lg-claude"/></svg></span></div><div><div class="top"><h3>Claude Haiku 4.5</h3><span class="wi">Large language model</span></div><p>Product matching and the repricing analysis</p></div></div>
+            <div class="r ai reveal" style="--d:5"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#1C3C3C"><use href="#lg-langchain"/></svg></span></div><div><div class="top"><h3>LangSmith</h3><span class="wi">LLM observability</span></div><p>Traces every agent and workflow run</p></div></div>
+            <div class="r  reveal" style="--d:6"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#0A7EA4"><use href="#lg-react"/></svg></span><span class="lt" style="--s:30px"><svg style="color:#3178C6"><use href="#lg-typescript"/></svg></span></div><div><div class="top"><h3>React · TypeScript · Vite · Tailwind</h3><span class="wi">UI library · typed JS · build · CSS</span></div><p>The ops dashboard: prices, approvals, monitoring</p></div></div>
+            <div class="r  reveal" style="--d:7"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#2496ED"><use href="#lg-docker"/></svg></span><span class="lt" style="--s:30px"><svg style="color:#009639"><use href="#lg-nginx"/></svg></span></div><div><div class="top"><h3>Docker Compose + nginx</h3><span class="wi">Containers · web server</span></div><p>Runs Postgres, the backend and the frontend; nginx serves the React build</p></div></div>
+            <div class="r  reveal" style="--d:8"><div class="ics"><span class="lt" style="--s:30px"><svg style="color:#2088FF"><use href="#lg-githubactions"/></svg></span></div><div><div class="top"><h3>GitHub Actions</h3><span class="wi">CI + scheduling</span></div><p>Hourly cron and the CI checks · configured, not yet connected</p></div></div>
+        </div>
+    </div>
+
+    <div class="brief reveal" style="--d:9"><p>One Python service, one PostgreSQL database and a React dashboard. <code style="font:500 20px var(--mono)">docker compose up</code> runs it all.</p></div>
+
+    <aside class="notes">
+        <p><b>Sujay · 0:25</b></p>
+        <ul>
+            <li>"Our stack in one line each. Python 3.12 and FastAPI for the backend, Pydantic for validation, httpx with BeautifulSoup and lxml for scraping, and PostgreSQL 16 through SQLAlchemy and Alembic."</li>
+            <li>Point at the right column: "The AI side is LangChain for the agent, LangGraph with PostgresSaver for the pausable workflow, Claude Haiku 4.5 as the model, and LangSmith for tracing. The dashboard is React and TypeScript, and Docker Compose runs it all."</li>
+            <li><b>If asked why Haiku:</b> code prepares the price options, so the model only judges and explains; it's fast and cheap, and the model is one setting.</li>
+            <li><b>If asked why LangGraph:</b> approvals can take hours and arrive in another process; <code>interrupt()</code> plus the PostgreSQL checkpoint lets the API resume the run.</li>
+            
+            <li>Hand over: "Mahesh will show how we keep it cheap and fast, and how we test it."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 8 · COST, LATENCY AND SECURITY
+     ===================================================================== -->
+<section class="slide paper s-cost" data-title="Cost and latency">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Cost &amp; latency</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Cost and latency</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>Cheap and fast <em>by design</em></span></span></h2>
+    </div>
+
+    <div class="fun">
+        <div class="eyebrow reveal" style="--d:1">To cut cost · the AI runs only when it has to</div>
+        <div class="st reveal" style="--d:2"><div class="bar" style="width:900px"><b>1</b><h3>Rules gate first</h3><p>No real change → stop · <code>0 LLM calls</code></p></div></div>
+        <div class="st reveal" style="--d:3"><div class="bar" style="width:830px"><b>2</b><h3>Group by product</h3><p>Amazon + Flipkart moves → one AI run</p></div></div>
+        <div class="st reveal" style="--d:4"><div class="bar" style="width:760px"><b>3</b><h3>Daily budget</h3><p>At most 200 AI runs a day, then fallback</p></div></div>
+        <div class="st reveal" style="--d:5"><div class="bar" style="width:690px"><b>4</b><h3>Call limits</h3><p>≤6 model calls · ≤8 tool calls per run</p></div></div>
+        <div class="st reveal" style="--d:6"><div class="bar ai" style="width:620px"><b>5</b><h3>Small model</h3><p>Claude Haiku 4.5, not a large model</p></div></div>
+    </div>
+
+    <div class="sec2 lat">
+        <div class="col reveal" style="--d:3"><div class="eyebrow">To cut latency</div><ul>
+            <li><svg class="i"><use href="#i-check"/></svg><span><b>Code pre-prices the options,</b> so the model only picks one: short answers, about 400 tokens</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span><b>Read-only tools</b> fetch only the data needed; one live re-check at most</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span><b>Batched database reads:</b> 1,802 queries → 8 for the product list</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span><b>Admission limit:</b> at most 10 API requests at once, so the server never jams</span></li>
+        </ul></div>
+    </div>
+
+    <div class="res8 reveal" style="--d:7"><span class="eyebrow">Result</span><b>~₹1</b> and <b>~6 s</b> per AI decision · <b>₹0</b> when prices don't move</div>
+
+    <div class="brief reveal" style="--d:9"><p>Most checks never reach the AI, so it stays cheap and fast.</p></div>
+
+    <aside class="notes">
+        <p><b>Mahesh · 0:35</b></p>
+        <ul>
+            <li>"To keep cost down, the AI only runs when it has to. The rules gate stops quiet checks with zero LLM calls, changes are grouped so two platforms moving is one AI run, there's a daily budget, call limits per run, and a small model."</li>
+            <li>"For speed, code prepares the price options so the model just picks one, which keeps answers short. We batched database reads and added an admission limit after load testing."</li>
+            <li>"The result: about a rupee and six seconds per AI decision, and nothing when prices are quiet."</li>
+            <li><b>If asked for detail:</b> about 10,000 tokens in and 400 out per decision ($0.012 at $1/$5 per million tokens); slowest run 13.8 s; worst case about ₹200 a day at the 200-run cap.</li>
+            <li><b>If asked "10× the load":</b> one API worker levels off near 50 requests a second and 4 workers reached 109; we'd add workers, cache the fixed prompt and tools, and keep Haiku.</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 8 · HOW WE TEST
+     ===================================================================== -->
+<section class="slide paper s-tst" data-title="How we test">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Testing</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Testing strategy</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>How we test it, <em>layer by layer</em></span></span></h2>
+    </div>
+
+    <div class="tst">
+                <div class="tc reveal" style="--d:2"><div class="top"><span class="k">Layer 1</span><span class="logos"><span class="lt" style="--s:34px"><svg style="color:#0A9EDC"><use href="#lg-pytest"/></svg></span></span></div><h3>Code tests</h3><div class="tool">pytest · separate tracker_test DB</div><p>The rules gate, guardrails, scrapers on saved Amazon.in and Flipkart pages, the real LangGraph runtime with a scripted model, approvals and the API.</p><div class="ex"><span>For example</span>competitor drop → paused workflow → approve over HTTP → price applied</div></div>
+        <div class="tc reveal" style="--d:3"><div class="top"><span class="k">Layer 2</span><span class="logos"><span class="lt" style="--s:34px"><svg style="color:#D97757"><use href="#lg-claude"/></svg></span></span></div><h3>AI evals</h3><div class="tool">Claude Haiku 4.5 · real model</div><p>13 labelled pricing situations with known answers: a broken price, a flash sale, a cut below our floor, a prompt injection and more.</p><div class="ex"><span>For example</span>prompt injection in a product title → the model ignores it</div></div>
+        <div class="tc reveal" style="--d:4"><div class="top"><span class="k">Layer 3</span><span class="logos"><span class="lt" style="--s:34px"><svg style="color:#7D64FF"><use href="#lg-k6"/></svg></span></span></div><h3>Load tests</h3><div class="tool">k6 · isolated copy of the backend</div><p>Smoke, load, stress, spike and soak runs, plus simultaneous approve clicks on the same proposal.</p><div class="ex"><span>For example</span>10 approve clicks at once → exactly one price change</div></div>
+        <div class="tc reveal" style="--d:5"><div class="top"><span class="k">Layer 4</span><span class="logos"><span class="lt" style="--s:34px"><svg style="color:#FF6C37"><use href="#lg-postman"/></svg></span></span></div><h3>Manual + demo</h3><div class="tool">Postman · demo simulator</div><p>A Postman collection for every endpoint, and a simulator that injects one competitor price and runs the real pipeline.</p><div class="ex"><span>For example</span>price glitch ₹32 → live re-check → investigate, no change</div></div>
+    </div>
+
+    <div class="ci reveal" style="--d:6">
+        <span class="eyebrow">CI pipeline · GitHub Actions</span>
+        <span class="chip">ruff lint</span><svg class="i"><use href="#i-arrow"/></svg>
+        <span class="chip">architecture guardrails</span><svg class="i"><use href="#i-arrow"/></svg>
+        <span class="chip">pytest</span><svg class="i"><use href="#i-arrow"/></svg>
+        <span class="chip">TypeScript typecheck</span><svg class="i"><use href="#i-arrow"/></svg>
+        <span class="chip">Vite build</span>
+    </div>
+    <div class="evs reveal" style="--d:7"><span class="eyebrow">AI eval results</span><span><b>13/13</b> right pricing moves</span><span><b>13/13</b> prices from allowed options</span><span><b>0</b> prices below the floor</span><span><b>2</b> real bugs caught</span></div>
+
+    <div class="brief reveal" style="--d:8"><p>Each layer catches a different kind of bug, from pricing logic to load.</p></div>
+
+    <aside class="notes">
+        <p><b>Mahesh · 0:45</b></p>
+        <ul>
+            <li>"We test in four layers. Code tests in pytest cover the rules gate, guardrails, the scrapers on saved Amazon and Flipkart pages, and the real LangGraph runtime with a scripted model, right through to approving over HTTP."</li>
+            <li>"AI evals: 13 pricing situations with known answers, run on the real model. Point at the strip: it picked the right move in all 13, every price came from an allowed option, never below the floor, and the evals caught two real bugs we fixed in code."</li>
+            <li>"k6 load-tests the backend, and we check endpoints in Postman. The CI pipeline is configured in GitHub Actions; we run the same steps locally until the repo is pushed."</li>
+            <li><b>If asked for detail:</b> 128 pytest tests (<code>pytest</code>); each eval answer is scored on 7 checks, 90 of 91 passed (one market-read label on a tiny move; the action was right).</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 10 · LOAD AND CONCURRENCY TESTING (k6)
+     ===================================================================== -->
+<section class="slide paper s-load" data-title="Load testing">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Load testing</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Load and concurrency testing · k6</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>What broke <em>under load</em></span></span></h2>
+    </div>
+
+    <div class="ldc reveal-s" style="--d:2">
+        <div class="bars"><h4>p95 latency<span>load test · 5 → 50 users</span></h4><div class="row"><span class="k">Before</span><div class="bar bad"><i style="width:520px; --d:0"></i><b style="left:532px">6.4 s</b></div></div><div class="row"><span class="k">After</span><div class="bar good"><i style="width:23px; --d:1"></i><b style="left:35px">282 ms</b></div></div></div>
+        <div class="bars"><h4>Error rate<span>stress test · up to 150 users</span></h4><div class="row"><span class="k">Before</span><div class="bar bad"><i style="width:520px; --d:2"></i><b style="left:532px">13.5%</b></div></div><div class="row"><span class="k">After</span><div class="bar good"><i style="width:3px; --d:3"></i><b style="left:15px">0%</b></div></div></div>
+        <div class="bars"><h4>Throughput<span>load test</span></h4><div class="row"><span class="k">Before</span><div class="bar bad"><i style="width:201px; --d:4"></i><b style="left:213px">7.5 req/s</b></div></div><div class="row"><span class="k">After</span><div class="bar good"><i style="width:520px; --d:5"></i><b style="left:532px">19.4 req/s</b></div></div></div>
+        <div class="src">k6 · one laptop · isolated database · 1 Oct 2026 · results for this workload, not a production capacity claim</div>
+    </div>
+
+    <div class="ldf">
+        <div class="f reveal" style="--d:3"><div class="eyebrow">Found · N+1 queries</div><h3>1,802 SQL statements for one request</h3><p><code>/api/products</code> read each listing's history one at a time. Batched listing reads cut it to 8 statements, with identical responses.</p><span class="fix"><svg class="i"><use href="#i-check"/></svg>Fixed · 1,802 → 8 queries</span></div>
+        <div class="f reveal" style="--d:4"><div class="eyebrow">Found · deadlock</div><h3>The server froze at 100+ users</h3><p>All 40 worker threads waited for a DB connection, while all 15 connections waited for a thread. An admission limit now runs at most 10 <code>/api</code> requests at once.</p><span class="fix"><svg class="i"><use href="#i-check"/></svg>Fixed · 0 errors at 150 users</span></div>
+        <div class="f reveal" style="--d:5"><div class="eyebrow">Held · approval race</div><h3>No price is ever applied twice</h3><p>10 simultaneous approve clicks on each of 20 proposals: 20 winners, 180 refused with 409, thanks to <code>SELECT … FOR UPDATE</code>.</p><span class="fix"><svg class="i"><use href="#i-check"/></svg>0 double price changes</span></div>
+    </div>
+
+    <div class="brief reveal" style="--d:6"><p>Load testing found two real bugs. Both are fixed and now covered by tests.</p></div>
+
+    <aside class="notes">
+        <p><b>Mahesh · 0:40</b></p>
+        <ul>
+            <li>"Load testing with k6 found two real bugs. First, one product-list request ran 1,802 SQL statements, an N+1 problem. Batching the reads brought it to 8, with identical responses."</li>
+            <li>"Second, at 100 users the server deadlocked: every worker thread was waiting for a database connection held by a request waiting for a thread. An admission limit of 10 concurrent requests fixed it."</li>
+            <li>"After both fixes, p95 latency dropped from 6.4 seconds to 282 milliseconds, with zero errors at 150 users. And 200 simultaneous approve clicks never applied a price twice, because of the row lock."</li>
+            <li>Hand over: "Yamini on how we keep the AI safe."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     RESPONSIBLE AI
+     ===================================================================== -->
+<section class="slide dark s-resp" data-title="Responsible AI">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Responsible AI</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Responsible AI</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>How we keep the AI <em>safe and honest</em></span></span></h2>
+    </div>
+
+    <div class="resp">
+        <div class="rc key reveal" style="--d:2"><span class="ic"><svg class="i"><use href="#i-user"/></svg></span><h3>A person decides</h3><p>Human-in-the-loop: the graph pauses for approval. Auto-apply is opt-in, for small moves only.</p></div>
+        <div class="rc reveal" style="--d:3"><span class="ic"><svg class="i"><use href="#i-shield"/></svg></span><h3>Rules the AI can't break</h3><p>Floor price and max move are enforced in code, not in the prompt. They bind people too.</p></div>
+        <div class="rc reveal" style="--d:4"><span class="ic"><svg class="i"><use href="#i-list"/></svg></span><h3>No made-up prices</h3><p>The model returns a Pydantic-validated choice from pre-priced options. Anything else is replaced.</p></div>
+        <div class="rc reveal" style="--d:5"><span class="ic"><svg class="i"><use href="#i-doc"/></svg></span><h3>Safe from prompt injection</h3><p>Tool output is data, never instructions, and tools can't read other products. We have an eval for this.</p></div>
+        <div class="rc reveal" style="--d:6"><span class="ic"><svg class="i"><use href="#i-lock"/></svg></span><h3>Secrets and data</h3><p>API keys stay in a git-ignored <code>.env</code>; internal endpoints need a secret header. No shopper data is stored.</p></div>
+        <div class="rc reveal" style="--d:7"><span class="ic"><svg class="i"><use href="#i-log"/></svg></span><h3>Everything is recorded</h3><p>Decisions, approvals and price changes are stored in PostgreSQL, and every run is traced in LangSmith.</p></div>
+    </div>
+
+    <div class="brief reveal" style="--d:8"><p>The AI helps the team decide, inside rules it can't break.</p></div>
+
+    <aside class="notes">
+        <p><b>Yamini · 0:30</b></p>
+        <ul>
+            <li>"Responsible AI was designed in. A person decides; auto-apply is opt-in and only for small moves."</li>
+            <li>"The floor and max move live in code, not the prompt. The model returns a validated choice from options we priced, so it can't invent a number."</li>
+            <li>"Scraped text is data, never instructions, and we have an eval for that. No shopper data is stored, and every decision is in PostgreSQL and traced in LangSmith."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 9 · CHALLENGES WE FACED
+     ===================================================================== -->
+<section class="slide paper s-chal" data-title="Challenges">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Challenges</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Challenges we faced</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>Problems we hit <em>while building</em></span></span></h2>
+    </div>
+
+    <div class="chal">
+        <div class="hd reveal" style="--d:1"><span>Challenge</span><span>How we fixed it</span><span>Result</span></div>
+        <div class="row reveal" style="--d:2"><div class="c">The AI suggested a price rise while a competitor was cutting.</div><div class="f">Guardrails stop offering a raise while any competitor's trend is down.</div><div class="r"><svg class="i"><use href="#i-check"/></svg><span>Found by our evals</span></div></div>
+        <div class="row reveal" style="--d:3"><div class="c">The AI said we'd be the cheapest when we weren't.</div><div class="f">Every option now carries <code>gap_after_inr</code>, the gap it leaves to the cheapest seller.</div><div class="r"><svg class="i"><use href="#i-check"/></svg><span>Honest explanations</span></div></div>
+        <div class="row reveal" style="--d:4"><div class="c">A broken price, like ₹32, looked like a huge cut.</div><div class="f">Readings far outside a listing's history are marked suspect, and the AI re-checks the live page.</div><div class="r"><svg class="i"><use href="#i-check"/></svg><span>No change on bad data</span></div></div>
+        <div class="row reveal" style="--d:5"><div class="c">Approvals can come hours later.</div><div class="f">LangGraph checkpoints the paused run in PostgreSQL, and prices are re-checked before applying.</div><div class="r"><svg class="i"><use href="#i-check"/></svg><span>Stale approvals are refused</span></div></div>
+        <div class="row reveal" style="--d:6"><div class="c">Amazon short links (amzn.in) didn't open the product.</div><div class="f">amzn.in answers HEAD with 404, so we send a GET and read the Location header.</div><div class="r"><svg class="i"><use href="#i-check"/></svg><span>Any Amazon link works</span></div></div>
+        <div class="row reveal" style="--d:7"><div class="c">Flipkart sometimes blocks our checks.</div><div class="f">Per-domain rate limiting; a JavaScript challenge is reported as blocked, never bypassed.</div><div class="r"><svg class="i"><use href="#i-check"/></svg><span>Polite, honest checking</span></div></div>
+    </div>
+
+    <div class="brief reveal" style="--d:9"><p>Every problem we hit became a rule in code, so it can't happen again.</p></div>
+
+    <aside class="notes">
+        <p><b>Yamini · 0:30</b></p>
+        <ul>
+            <li>"A few problems we hit. The evals caught the AI suggesting a raise while a competitor was cutting; we fixed it in the guardrails, not the prompt. It also claimed we'd be cheapest when we weren't, so every option now carries <code>gap_after_inr</code>."</li>
+            <li>"Broken readings are marked suspect and re-checked live. Late approvals resume from the checkpoint and are re-validated. Amazon short links needed a GET instead of HEAD, and Flipkart's JavaScript challenge is reported, never bypassed."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 10 · THE IMPACT
+     ===================================================================== -->
+<section class="slide dark s-impact" data-title="The impact">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">The impact</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">For the operations team</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>The team stops checking <em>and starts deciding.</em></span></span></h2>
+    </div>
+
+    <div class="cmp-hl reveal-s" style="--d:2"></div>
+    <div class="cmp reveal" style="--d:3">
+        <div class="th"></div><div class="th bh"><span>Before</span></div><div class="th ah"><span>With Price Tracker</span></div>
+        <div class="lb">Checking prices</div><div class="b"><svg class="i"><use href="#i-x"/></svg><span>Someone opens every listing by hand</span></div><div class="a"><svg class="i"><use href="#i-check"/></svg><span>Checked by the scheduler, as often as every hour</span></div>
+        <div class="lb">Spotting a change</div><div class="b"><svg class="i"><use href="#i-x"/></svg><span>Hours later, often the next morning</span></div><div class="a"><svg class="i"><use href="#i-check"/></svg><span>At the next scheduled scrape, with an email to the team</span></div>
+        <div class="lb">Choosing a price</div><div class="b"><svg class="i"><use href="#i-x"/></svg><span>A guess, sometimes too low or too high</span></div><div class="a"><svg class="i"><use href="#i-check"/></svg><span>A recommendation with a reason, never below the floor</span></div>
+        <div class="lb">Making the change</div><div class="b"><svg class="i"><use href="#i-x"/></svg><span>No record of who changed what</span></div><div class="a"><svg class="i"><use href="#i-check"/></svg><span>One click resumes the workflow; recorded in the audit log</span></div>
+        <div class="lb">The team's time</div><div class="b"><svg class="i"><use href="#i-x"/></svg><span>Spent opening pages</span></div><div class="a"><svg class="i"><use href="#i-check"/></svg><span>Spent on the decisions that matter</span></div>
+    </div>
+
+    <div class="ims reveal" style="--d:4"><div><b>400 → 0</b><span>pages checked by hand each day, for 200 products on 2 marketplaces</span></div><div><b>hours → 1 check</b><span>a change is seen at the next scheduled check, as often as hourly</span></div><div><b>~6 s</b><span>from a detected change to a recommendation the team can approve</span></div></div>
+
+    <div class="brief reveal" style="--d:5"><p>Less time checking pages, faster reactions, and every price change under control.</p></div>
+
+    <aside class="notes">
+        <p><b>Yamini · 0:20</b></p>
+        <ul>
+            <li>"Before: someone opens every listing by hand and spots cuts the next morning. With Price Tracker, the team gets an email with a recommended price and the reason, and approving is one click, recorded in the audit log."</li>
+            <li>"The team stops checking and starts deciding."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 11 · FUTURE ENHANCEMENTS
+     ===================================================================== -->
+<section class="slide paper s-future" data-title="Future enhancements">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Future enhancements</span><span class="pg"></span></header>
+
+    <div class="head">
+        <div class="eyebrow reveal" style="--d:0">Future enhancements</div>
+        <h2 class="h1"><span class="ln" style="--d:1"><span>What's <em>next</em></span></span></h2>
+    </div>
+
+    <div class="fut">
+        <div class="fc top reveal" style="--d:2"><span class="n">01 · FIRST</span><h3>Publish prices to the marketplace</h3><p>Amazon SP-API and Flipkart Seller APIs. Every change already goes through one function, <code>set_our_price()</code>.</p></div>
+        <div class="fc reveal" style="--d:3"><span class="n">02</span><h3>Team login and roles</h3><p>SSO in front of the API, with roles for who can approve which products.</p></div>
+        <div class="fc reveal" style="--d:4"><span class="n">03</span><h3>Smarter product matching</h3><p>Add image similarity and model-number checks to the intake agent.</p></div>
+        <div class="fc reveal" style="--d:5"><span class="n">04</span><h3>More marketplaces</h3><p>Each site is a new scraper source; the rules gate, workflow and approvals stay the same.</p></div>
+        <div class="fc reveal" style="--d:6"><span class="n">05</span><h3>Alerts where the team works</h3><p>Slack and WhatsApp notifiers next to email, and shorter check intervals for busy products.</p></div>
+        <div class="fc reveal" style="--d:7"><span class="n">06</span><h3>Lower cost at scale</h3><p>Prompt caching for the fixed system prompt and tool definitions.</p></div>
+    </div>
+
+    <div class="today reveal" style="--d:8">
+        <span class="eyebrow">Today</span>
+        <p><b>Approved prices are saved in Price Tracker</b> but not yet sent to Amazon or Flipkart, and a person confirms product matches.</p>
+    </div>
+
+    <div class="brief reveal" style="--d:9"><p>The core loop works today. Next, approved prices go live on Amazon and Flipkart.</p></div>
+
+    <aside class="notes">
+        <p><b>Yamini · 0:25</b></p>
+        <ul>
+            <li>"Next, we'd publish approved prices through Amazon's SP-API and Flipkart's Seller API. Every change already goes through one function, <code>set_our_price()</code>, so that's where it plugs in."</li>
+            <li>Read the other titles only. "Today, approved prices are saved in Price Tracker, and a person confirms product matches."</li>
+        </ul>
+    </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 12 · CLOSE
+     ===================================================================== -->
+<section class="slide dark s-close" data-title="Thank you">
+    <div class="grid-bg"></div>
+    <header class="folio"><span class="brand"><svg><use href="#mark"/></svg>Price Tracker</span><span class="sec">Thank you</span><span class="pg"></span></header>
+
+    <div class="big">
+        <h2 class="h1">
+            <span class="ln" style="--d:0"><span>Rules spot it.</span></span>
+            <span class="ln" style="--d:1"><span>AI recommends it.</span></span>
+            <span class="ln" style="--d:2"><span>Code checks it.</span></span>
+            <span class="ln" style="--d:3"><span><em>People approve it.</em></span></span>
+        </h2>
+    </div>
+
+    <svg class="mark-lg reveal-s" style="--d:4" aria-hidden="true"><use href="#mark"/></svg>
+    <div class="thanks reveal" style="--d:5">
+        <h3>Thank you.</h3>
+        <p>We'd love your questions.</p>
+        <div class="names"><span class="eyebrow">Team Price Tracker</span>Sujay · Mahesh · Yamini · Siva Prasad</div>
+    </div>
+
+    <div class="nextdemo reveal" style="--d:6">
+        <div class="eyebrow">Up next · live demo</div>
+        <div class="sc">
+            <div><b>1</b><span>A competitor cuts 10%: Claude recommends, we approve</span></div>
+            <div><b>2</b><span>They go below our floor: the guardrail stops there</span></div>
+            <div><b>3</b><span>A broken price: re-checked live, nothing changes</span></div>
+        </div>
+        <p>Only the competitor's price is simulated. Everything after it is the real system.</p>
+    </div>
+
+    <div class="tape" aria-hidden="true">
+        <div class="label"><i></i>PRICE TRACKER</div>
+        <div class="track"><span><b>Amazon.in + Flipkart</b> watched every hour</span><span><b class="hi">13/13</b> correct pricing moves in our AI evals</span><span>The AI only <b>reads</b> data; code changes the price</span><span><b>~6 s</b> per AI recommendation</span><span><b class="hi">~₹1</b> per decision · <b>₹0</b> when nothing changes</span><span>Never below your <b>floor price</b></span><span>A <b>person approves</b> every price change</span><span>Every change in the <b>audit log</b></span><span><b>Claude Haiku 4.5</b> · LangGraph · FastAPI · PostgreSQL · React</span><span><b>Amazon.in + Flipkart</b> watched every hour</span><span><b class="hi">13/13</b> correct pricing moves in our AI evals</span><span>The AI only <b>reads</b> data; code changes the price</span><span><b>~6 s</b> per AI recommendation</span><span><b class="hi">~₹1</b> per decision · <b>₹0</b> when nothing changes</span><span>Never below your <b>floor price</b></span><span>A <b>person approves</b> every price change</span><span>Every change in the <b>audit log</b></span><span><b>Claude Haiku 4.5</b> · LangGraph · FastAPI · PostgreSQL · React</span></div>
+    </div>
+
+    <aside class="notes">
+        <p><b>Yamini · 0:10</b></p>
+        <ul>
+            <li>Read the four lines. "Thank you. Now Sujay will show it working, live."</li>
+            <li><b>Q&amp;A, who answers what:</b> problem, users, why AI, the product → Siva Prasad · architecture, AI workflow, tech stack, the demo → Sujay · cost, testing, evals, load tests → Mahesh · responsible AI, challenges, impact, next steps → Yamini.</li>
+            <li>If you don't know: "I don't know. Here's how I'd find out."</li>
+        </ul>
+        <p><b>→ AFTER THE SLIDES · LIVE DEMO · Sujay · 3:00</b></p>
+        <ul>
+            <li>Open with: "We simulate only the competitor's new price. Everything after it is the real system."</li>
+            <li><b>Before you present:</b> backend on :8000 and frontend on :5173, DEMO_ENDPOINTS_ENABLED=true. Open the product page, type the internal secret into the simulator, click "Clear demo readings", and approve or reject any old pending proposal. Check "AI runs today" is well under the limit, keep Gmail open in a second tab, and have a screen recording ready.</li>
+            <li><b>1. Competitor cuts 10%:</b> read out the rule that fired, the recommendation and the reasoning. Open Approvals and approve.</li>
+            <li><b>2. Undercuts our floor:</b> the proposal stops at the floor.</li>
+            <li><b>3. Price glitch</b> (skip and say it in one sentence if you are behind time): the agent re-fetches the live listing, marks it suspect, and recommends investigate, with no price change.</li>
+            <li>Show the email in Gmail, then the product's History tab (the audit log). If anything stalls for more than 10 seconds, switch to the recording calmly.</li>
+            <li>End with: "That's Price Tracker. We're happy to take your questions." Then Q&amp;A.</li>
+        </ul>
+    </aside>
+</section>
+
+</main>
+</div>
+
+<!-- =====================================================================
+     PRESENTER CHROME (outside the 16:9 stage)
+     ===================================================================== -->
+<div class="progress" id="progress"></div>
+<nav class="deck-controls hud" id="hud" aria-label="Slide controls">
+    <button type="button" id="btnPrev" aria-label="Previous slide">←</button>
+    <span class="count" id="count">01 / 15</span>
+    <button type="button" id="btnNext" aria-label="Next slide">→</button>
+    <button type="button" id="btnNotes" aria-label="Speaker notes (N)" title="Speaker notes (N)">N</button>
+    <button type="button" id="btnPresenter" aria-label="Presenter window (P)" title="Presenter window (P)">P</button>
+    <button type="button" id="btnFull" aria-label="Fullscreen (F)" title="Fullscreen (F)">⛶</button>
+</nav>
+<div class="notes-panel" id="notesPanel" hidden>
+    <div class="np-top"><span id="npTitle">Notes</span><span class="timer" id="timer">00:00 / 12:00</span></div>
+    <div id="npBody"></div>
+</div>
+<div class="edit-hotzone" id="editHotzone" aria-hidden="true"></div>
+<button type="button" id="editToggle" title="Edit text (E)">EDIT</button>
+
+<script>
+/* =====================================================================
+   SLIDE PRESENTATION CONTROLLER
+   Keyboard: ← → Space PgUp PgDn Home End · F fullscreen · N notes
+             P presenter window · T restart timer · E edit text
+             R replay the architecture flow
+   Also: swipe, mouse wheel, #N deep links, ?export for static renders.
+   ===================================================================== */
+(() => {
+    const stage = document.getElementById('deckStage');
+    const slides = Array.from(stage.querySelectorAll('.slide'));
+    const total = slides.length;
+    const pad = n => String(n).padStart(2, '0');
+    const EXPORT = /export/.test(location.search);
+    const reduced = EXPORT || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (EXPORT) document.documentElement.classList.add('export');
+    let cur = 0;
+
+    slides.forEach((s, i) => { const pg = s.querySelector('.folio .pg'); if (pg) pg.textContent = `${pad(i + 1)} / ${pad(total)}`; });
+
+    /* ---- Fixed stage scaling: one transform, never reflow ---- */
+    function fit() {
+        const f = Math.min(innerWidth / 1920, innerHeight / 1080);
+        stage.style.transform = `translate(${(innerWidth - 1920 * f) / 2}px, ${(innerHeight - 1080 * f) / 2}px) scale(${f})`;
+    }
+    addEventListener('resize', fit);
+    fit();
+
+    /* =================================================================
+       ARCHITECTURE FLOW (slide 5)
+       One price change travels the diagram ONCE when the slide opens:
+       scheduler → scrapers → rules gate → analyze → guardrails →
+       human_review (pause) → finalize → pricing service. Elements with
+       data-at="k" light while the packet waits at stop k. Press R to replay.
+       ================================================================= */
+    const sys = {
+        root: document.getElementById('sys'),
+        path: document.getElementById('sysPath'),
+        packet: document.getElementById('packet'),
+        label: document.getElementById('packetLabel'),
+        raf: null, timer: null, t0: 0
+    };
+    const SPEED = 720;                                        // px per second
+    const PAUSE = [700, 350, 350, 650, 450, 650, 400, 400, 900, 450, 450, 1700, 650, 500, 800, 700]; // ms at each stop
+    const LABEL = ['Hourly cron', 'Scheduler run', 'Listings due', 'HTTP GET → parse', 'Reading stored', 'Real change',
+                   'Grouped by product', 'Budget OK', 'Claude analyzing', 'Guardrails pass', 'Route → review',
+                   'Paused · team emailed', 'Approved', 'Fresh data OK', 'Applied · audit row', 'Done'];
+    const KIND  = ['', '', '', '', '', 'cut', 'cut', 'cut', 'ai', 'ai', 'ai', 'ai', 'ok', 'ok', 'ok', 'ok'];
+    let len = 0, stops = [], tiles = [], extras = [], timeline = [], cycle = 0;
+
+    function center(el) { return { x: el.offsetLeft + el.offsetWidth / 2, y: el.offsetTop + el.offsetHeight / 2 }; }
+    function distanceAlong(pt) {
+        let best = 0, bestD = Infinity;
+        for (let d = 0; d <= len; d += 2) {
+            const p = sys.path.getPointAtLength(d), dd = (p.x - pt.x) ** 2 + (p.y - pt.y) ** 2;
+            if (dd < bestD) { bestD = dd; best = d; }
+        }
+        return best;
+    }
+    function buildSys() {
+        len = sys.path.getTotalLength();
+        tiles = Array.from(sys.root.querySelectorAll('[data-stop]')).sort((a, b) => a.dataset.stop - b.dataset.stop);
+        extras = Array.from(sys.root.querySelectorAll('[data-at]'));
+        stops = tiles.map(el => distanceAlong(center(el)));
+        timeline = [{ t0: 0, t1: PAUSE[0], d0: stops[0], d1: stops[0], i: 0 }];
+        let d = stops[0], t = PAUSE[0];
+        for (let i = 1; i < stops.length; i++) {
+            const dur = (stops[i] - d) / SPEED * 1000;
+            timeline.push({ t0: t, t1: t + dur, d0: d, d1: stops[i], move: true, i: i - 1 }); t += dur;
+            timeline.push({ t0: t, t1: t + PAUSE[i], d0: stops[i], d1: stops[i], i }); t += PAUSE[i];
+            d = stops[i];
+        }
+        cycle = t;
+        sys.path.style.strokeDasharray = len;
+    }
+    function paint(d, seg) {
+        const p = sys.path.getPointAtLength(d);
+        sys.packet.style.left = p.x + 'px';
+        sys.packet.style.top = p.y + 'px';
+        sys.path.style.strokeDashoffset = len - d;
+        const k = seg.i, waiting = !seg.move;
+        sys.packet.className = 'packet on ' + KIND[k];
+        if (sys.label.textContent !== LABEL[k]) sys.label.textContent = LABEL[k];
+        tiles.forEach((el, i) => {
+            el.classList.toggle('lit', waiting && i === k);
+            el.classList.toggle('done', i < k || (i === k && !waiting));
+        });
+        extras.forEach(el => {
+            const at = el.dataset.at.split(',').map(Number);
+            el.classList.toggle('lit', waiting && at.includes(k));
+            el.classList.toggle('done', at.some(a => a < k || (a === k && !waiting)));
+        });
+    }
+    function finishSys() {
+        paint(stops[stops.length - 1], { i: stops.length - 1, move: true });
+        tiles.concat(extras).forEach(el => { el.classList.remove('lit'); el.classList.add('done'); });
+        sys.packet.className = 'packet';   // the drawn trail and outlined steps stay
+    }
+    function sysFrame(now) {
+        if (!sys.t0) sys.t0 = now;
+        const t = now - sys.t0;
+        if (t >= cycle) { finishSys(); sys.raf = null; return; }   // play once, then rest
+        const seg = timeline.find(s => t >= s.t0 && t < s.t1) || timeline[timeline.length - 1];
+        const q = seg.move ? (t - seg.t0) / (seg.t1 - seg.t0) : 1;
+        const e = seg.move ? (q < .5 ? 2 * q * q : 1 - Math.pow(-2 * q + 2, 2) / 2) : 1;
+        paint(seg.d0 + (seg.d1 - seg.d0) * e, seg);
+        sys.raf = requestAnimationFrame(sysFrame);
+    }
+    function resetSys() {
+        cancelAnimationFrame(sys.raf); clearTimeout(sys.timer); sys.raf = null; sys.t0 = 0;
+        tiles.concat(extras).forEach(el => el.classList.remove('lit', 'done'));
+        sys.packet.className = 'packet';
+    }
+    function startSys() {
+        if (!sys.path) return;
+        buildSys(); resetSys();
+        if (reduced) { finishSys(); return; }       // no motion (or export): show the finished flow
+        sys.path.style.strokeDashoffset = len;
+        sys.timer = setTimeout(() => { if (slides[cur].dataset.enter === 'sys') sys.raf = requestAnimationFrame(sysFrame); }, 1100);
+    }
+
+        function onEnter(s) { if (s.dataset.enter === 'sys') startSys(); }
+    function onLeave(s) { if (s.dataset.enter === 'sys') resetSys(); }
+
+    /* ---- Show a slide ---- */
+    const progress = document.getElementById('progress');
+    const count = document.getElementById('count');
+    function show(i, fromHash) {
+        i = Math.max(0, Math.min(total - 1, i));
+        const prev = slides[cur];
+        if (prev !== slides[i]) { prev.classList.remove('active', 'visible'); onLeave(prev); }
+        cur = i;
+        const s = slides[i];
+        s.classList.add('active');
+        if (EXPORT) s.classList.add('visible');
+        else requestAnimationFrame(() => requestAnimationFrame(() => s.classList.add('visible')));
+        onEnter(s);
+        progress.style.width = `${((i + 1) / total) * 100}%`;
+        count.textContent = `${pad(i + 1)} / ${pad(total)}`;
+        if (!fromHash) { try { history.replaceState(null, '', location.pathname + location.search + '#' + (i + 1)); } catch (e) {} }
+        renderNotes();
+        if (i > 0 && !EXPORT) startTimer();
+    }
+    const next = () => show(cur + 1), prev = () => show(cur - 1);
+
+    /* ---- Keyboard ---- */
+    function onKey(e) {
+        if (e.target && (e.target.isContentEditable || /INPUT|TEXTAREA/.test(e.target.tagName))) return;
+        const k = e.key;
+        if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter'].includes(k)) { e.preventDefault(); next(); }
+        else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); prev(); }
+        else if (k === 'Home') show(0);
+        else if (k === 'End') show(total - 1);
+        else if (k === 'f' || k === 'F') toggleFull();
+        else if (k === 'n' || k === 'N') toggleNotes();
+        else if (k === 'p' || k === 'P') openPresenter();
+        else if (k === 't' || k === 'T') { timerStart = Date.now(); tick(); }
+        else if (k === 'e' || k === 'E') editor.toggle();
+        else if (k === 'r' || k === 'R') { if (slides[cur].dataset.enter === 'sys') startSys(); }
+    }
+    document.addEventListener('keydown', onKey);
+
+    /* ---- Touch swipe ---- */
+    let tx = null, ty = null;
+    document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', e => {
+        if (tx === null) return;
+        const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)();
+        tx = ty = null;
+    }, { passive: true });
+
+    /* ---- Mouse wheel (debounced) ---- */
+    let wheelLock = 0;
+    addEventListener('wheel', e => {
+        if (document.body.classList.contains('editing')) return;
+        const now = Date.now();
+        if (now < wheelLock || Math.abs(e.deltaY) < 30) return;
+        wheelLock = now + 750;
+        (e.deltaY > 0 ? next : prev)();
+    }, { passive: true });
+
+    /* ---- Hash deep links (#1 … #10) ---- */
+    function fromHash() { const n = parseInt(location.hash.slice(1), 10); return Number.isFinite(n) ? n - 1 : null; }
+    addEventListener('hashchange', () => { const n = fromHash(); if (n !== null && n !== cur) show(n, true); });
+
+    /* ---- HUD ---- */
+    const hud = document.getElementById('hud');
+    let hudTimer = null;
+    addEventListener('mousemove', () => { hud.classList.add('show'); clearTimeout(hudTimer); hudTimer = setTimeout(() => hud.classList.remove('show'), 2200); });
+    document.getElementById('btnPrev').addEventListener('click', prev);
+    document.getElementById('btnNext').addEventListener('click', next);
+    document.getElementById('btnNotes').addEventListener('click', () => toggleNotes());
+    document.getElementById('btnPresenter').addEventListener('click', openPresenter);
+    document.getElementById('btnFull').addEventListener('click', toggleFull);
+    function toggleFull() {
+        try {
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+            else document.exitFullscreen().catch(() => {});
+        } catch (e) {}
+    }
+
+    /* ---- 12-minute pitch clock (starts on the first advance) ---- */
+    const LIMIT = 12 * 60;
+    let timerStart = null;
+    const timerEl = document.getElementById('timer');
+    function startTimer() { if (timerStart === null) { timerStart = Date.now(); setInterval(tick, 500); } }
+    function fmt(s) { return `${pad(Math.floor(s / 60))}:${pad(s % 60)}`; }
+    function tick() {
+        const s = timerStart ? Math.floor((Date.now() - timerStart) / 1000) : 0;
+        const txt = `${fmt(s)} / 12:00`, cls = s >= LIMIT ? 'timer over' : s >= LIMIT - 60 ? 'timer warn' : 'timer';
+        timerEl.textContent = txt; timerEl.className = cls;
+        if (presenter && !presenter.closed) { const t = presenter.document.getElementById('pt'); if (t) { t.textContent = txt; t.className = cls; } }
+    }
+
+    /* ---- Notes overlay (N) ---- */
+    const panel = document.getElementById('notesPanel');
+    function notesOf(i) { const a = slides[i] && slides[i].querySelector('.notes'); return a ? a.innerHTML : '<p>No notes.</p>'; }
+    function renderNotes() {
+        document.getElementById('npTitle').textContent = `${pad(cur + 1)} · ${slides[cur].dataset.title || ''}`;
+        document.getElementById('npBody').innerHTML = notesOf(cur);
+        updatePresenter();
+    }
+    function toggleNotes(force) { panel.hidden = typeof force === 'boolean' ? !force : !panel.hidden; }
+
+    /* ---- Presenter window (P) ---- */
+    let presenter = null;
+    function openPresenter() {
+        let w = null;
+        try { w = window.open('', 'pricetracker-presenter', 'width=980,height=720'); } catch (e) {}
+        if (!w) { toggleNotes(true); return; }
+        presenter = w;
+        w.document.open();
+        w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>Presenter · Price Tracker</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&family=Geist+Mono:wght@500;600&display=swap">
+<style>body{margin:0;padding:28px 34px;background:#061A1B;color:#EDE8DC;font:400 18px/1.6 Geist,Arial,sans-serif}
+.top{display:flex;justify-content:space-between;align-items:center;font:500 14px/1 'Geist Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#7B918D}
+#pt{font:600 34px/1 'Geist Mono',monospace;color:#EDE8DC;letter-spacing:0}#pt.warn{color:#F2B84B}#pt.over{color:#F27A6E}
+h1{font:600 30px/1.2 Geist,Arial,sans-serif;margin:18px 0 6px}#pn{font:500 16px/1 'Geist Mono',monospace;color:#AEBDB9;margin-bottom:18px}
+#pb{border-top:1px solid rgba(237,232,220,.14);padding-top:14px}#pb b{color:#F2B84B}#pb li{margin:6px 0}
+.hint{margin-top:26px;font:500 13px/1.5 'Geist Mono',monospace;color:#7B918D}</style></head>
+<body><div class="top"><span id="pc"></span><span id="pt">00:00 / 12:00</span></div><h1 id="ph"></h1><div id="pn"></div><div id="pb"></div>
+<div class="hint">← → to move · T restarts the clock · R replays the architecture flow</div></body></html>`);
+        w.document.close();
+        w.addEventListener('keydown', onKey);
+        updatePresenter(); tick();
+    }
+    function updatePresenter() {
+        if (!presenter || presenter.closed) return;
+        const d = presenter.document, g = id => d.getElementById(id);
+        if (!g('ph')) return;
+        g('pc').textContent = `Slide ${pad(cur + 1)} / ${pad(total)}`;
+        g('ph').textContent = slides[cur].dataset.title || '';
+        g('pn').textContent = cur + 1 < total ? `Next: ${slides[cur + 1].dataset.title}` : 'Last slide';
+        g('pb').innerHTML = notesOf(cur);
+    }
+
+    /* =================================================================
+       INLINE EDITING (E, or hover the top-left corner)
+       Edits save to this browser only; Ctrl/Cmd+S downloads an edited copy.
+       ================================================================= */
+    const EDIT_KEY = 'pricetracker-pitch-edits-v2';
+    const editable = () => Array.from(stage.querySelectorAll('.slide h1, .slide h2, .slide h3, .slide p, .slide li, .slide td, .slide th, .slide .eyebrow, .slide .chip, .slide .tile .t, .slide .tile .d, .slide .estep .t, .slide .estep .d'));
+    const toggleBtn = document.getElementById('editToggle');
+    const editor = {
+        isActive: false,
+        toggle() {
+            this.isActive = !this.isActive;
+            document.body.classList.toggle('editing', this.isActive);
+            editable().forEach(el => { if (this.isActive) el.setAttribute('contenteditable', 'true'); else el.removeAttribute('contenteditable'); });
+            toggleBtn.classList.toggle('active', this.isActive);
+            toggleBtn.textContent = this.isActive ? 'EDITING · E TO STOP' : 'EDIT';
+            if (!this.isActive) this.save();
+        },
+        save() {
+            try { const map = {}; editable().forEach((el, i) => { if (el.dataset.orig !== undefined && el.innerHTML !== el.dataset.orig) map[i] = el.innerHTML; }); localStorage.setItem(EDIT_KEY, JSON.stringify(map)); } catch (e) {}
+        },
+        load() {
+            const els = editable(); els.forEach(el => { el.dataset.orig = el.innerHTML; });
+            if (EXPORT) return;
+            try { const map = JSON.parse(localStorage.getItem(EDIT_KEY) || '{}'); Object.keys(map).forEach(i => { if (els[i]) els[i].innerHTML = map[i]; }); } catch (e) {}
+        },
+        exportFile() {
+            const clone = document.documentElement.cloneNode(true);
+            clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+            clone.querySelectorAll('[data-orig]').forEach(el => el.removeAttribute('data-orig'));
+            const body = clone.querySelector('body'); if (body) body.classList.remove('editing');
+            const blob = new Blob(['<!DOCTYPE html>\n' + clone.outerHTML], { type: 'text/html' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'price-tracker-pitch-edited.html'; a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+        }
+    };
+    const hotzone = document.getElementById('editHotzone');
+    let hideTimeout = null;
+    toggleBtn.addEventListener('click', () => editor.toggle());
+    hotzone.addEventListener('click', () => editor.toggle());
+    hotzone.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); toggleBtn.classList.add('show'); });
+    hotzone.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) toggleBtn.classList.remove('show'); }, 400); });
+    toggleBtn.addEventListener('mouseenter', () => clearTimeout(hideTimeout));
+    toggleBtn.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { if (!editor.isActive) toggleBtn.classList.remove('show'); }, 400); });
+    stage.addEventListener('input', () => { clearTimeout(editor._t); editor._t = setTimeout(() => editor.save(), 400); });
+    document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') { e.preventDefault(); editor.save(); editor.exportFile(); } });
+    editor.load();
+
+    /* ---- Start ---- */
+    const start = fromHash();
+    slides.forEach(s => s.classList.remove('active', 'visible'));
+    cur = start !== null ? Math.max(0, Math.min(total - 1, start)) : 0;
+    show(cur, true);
+    tick();
+})();
+</script>
+</body><!--wrap-->
+</html><!--wrap-->

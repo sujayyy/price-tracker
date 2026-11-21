@@ -1,0 +1,15 @@
+$kind: http-request
+description: Live-fetches every active item now. Can call the LLM and send real alert emails if a rule fires.
+url: "{{base_url}}/internal/run-once?force=true"
+method: POST
+headers:
+  X-Internal-Secret: "{{internal_secret}}"
+queryParams:
+  - key: force
+    value: "true"
+    description: check every active item now
+scripts:
+  - type: afterResponse
+    code: pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 2000

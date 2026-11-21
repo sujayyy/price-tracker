@@ -1,0 +1,20 @@
+$kind: http-request
+description: |-
+  Manual change to our price. Recorded in the price log with `changed_by`, and closes any open proposal. 422 if below the floor.
+url: "{{base_url}}/api/products/{{product_id}}"
+method: PATCH
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "our_price_inr": 849,
+      "changed_by": "{{reviewer}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200 or 422', () => pm.expect(pm.response.code).to.be.oneOf([200, 422]));
+    language: text/javascript
+order: 7000

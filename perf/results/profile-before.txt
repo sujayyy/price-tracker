@@ -1,0 +1,36 @@
+         3463292 function calls (3360320 primitive calls) in 2.022 seconds
+
+   Ordered by: cumulative time
+   List reduced from 1095 to 28 due to restriction <28>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+10566/10551    0.002    0.000    2.043    0.000 {built-in method builtins.next}
+    24/18    0.000    0.000    2.024    0.112 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/contextlib.py:141(__exit__)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/httpx2/_client.py:1096(get)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/starlette/testclient.py:438(request)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/httpx2/_client.py:743(request)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/httpx2/_client.py:949(send)
+        6    0.000    0.000    2.023    0.337 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/starlette/testclient.py:430(_portal_factory)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/httpx2/_client.py:996(_send_handling_auth)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/httpx2/_client.py:1030(_send_handling_redirects)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/httpx2/_client.py:1065(_send_single_request)
+        6    0.000    0.000    2.023    0.337 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/anyio/from_thread.py:505(start_blocking_portal)
+        3    0.000    0.000    2.023    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/starlette/testclient.py:223(handle_request)
+        3    0.000    0.000    2.022    0.674 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/threading.py:1117(join)
+   177/42    0.000    0.000    2.022    0.048 {method 'acquire' of '_thread.lock' objects}
+        3    0.000    0.000    2.022    0.674 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/threading.py:1155(_wait_for_tstate_lock)
+      6/3    0.000    0.000    2.022    0.674 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/threading.py:1018(_bootstrap)
+      6/3    0.000    0.000    2.022    0.674 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/threading.py:1058(_bootstrap_inner)
+        3    0.000    0.000    2.022    0.674 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/threading.py:1001(run)
+        3    0.000    0.000    2.021    0.674 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/anyio/from_thread.py:535(run_blocking_portal)
+        9    0.000    0.000    2.021    0.225 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py:655(run_until_complete)
+        3    0.000    0.000    2.020    0.673 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/anyio/_core/_eventloop.py:38(run)
+        3    0.000    0.000    2.020    0.673 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py:2516(run)
+        3    0.000    0.000    2.020    0.673 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py:61(__exit__)
+        3    0.000    0.000    2.020    0.673 /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py:64(close)
+        9    0.000    0.000    2.020    0.224 /Users/ivar/Documents/price-tracker/.venv/lib/python3.12/site-packages/anyio/from_thread.py:325(call)
+  150/138    0.000    0.000    2.019    0.015 {method 'run' of '_contextvars.Context' objects}
+        3    0.001    0.000    2.013    0.671 /Users/ivar/Documents/price-tracker/backend/app/api/routes/products.py:55(list_products)
+      300    0.005    0.000    2.005    0.007 /Users/ivar/Documents/price-tracker/backend/app/services/products.py:136(to_out)
+
+

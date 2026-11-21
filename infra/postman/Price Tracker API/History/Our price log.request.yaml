@@ -1,0 +1,11 @@
+$kind: http-request
+description: |-
+  Audit log of our price: old → new, source (manual / approved / auto), actor, proposal and note.
+url: "{{base_url}}/api/products/{{product_id}}/our-price-history"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 3000

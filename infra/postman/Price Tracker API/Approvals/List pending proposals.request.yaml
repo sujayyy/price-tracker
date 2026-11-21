@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  The ops approval queue across all items. The newest proposal's id is saved as `proposal_id`.
+url: "{{base_url}}/api/proposals?status=pending"
+method: GET
+queryParams:
+  - key: status
+    value: "pending"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      const ps = pm.response.json();
+      if (ps.length) { pm.environment.set('proposal_id', ps[0].id); console.log('proposal_id =', ps[0].id, ps[0].from_price_inr, '->', ps[0].to_price_inr); }
+    language: text/javascript
+order: 1000

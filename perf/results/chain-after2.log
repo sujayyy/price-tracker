@@ -1,0 +1,76 @@
+source: /Users/ivar/Documents/price-tracker/perf/results/stress-after2.json
+requests 10,642 · throughput 33.2 req/s · error rate 0.00% · iterations 10,641 · max VUs 150
+
+| endpoint | count | p50 ms | p90 ms | p95 ms | p99 ms | max ms |
+|---|---:|---:|---:|---:|---:|---:|
+| all requests | 10642 | 709 | 2,425 | 2,603 | 2,849 | 3,130 |
+| /api/products | 2102 | 1,079 | 2,668 | 2,807 | 2,953 | 3,130 |
+| /api/monitoring | 896 | 997 | 2,656 | 2,786 | 2,920 | 2,973 |
+| /api/proposals | 2671 | 832 | 2,423 | 2,567 | 2,748 | 2,939 |
+| /api/activity | 1083 | 739 | 2,334 | 2,502 | 2,636 | 2,758 |
+| /api/products/:id | 1240 | 781 | 2,341 | 2,484 | 2,693 | 2,849 |
+| /api/products/:id/decisions | 518 | 795 | 2,322 | 2,466 | 2,620 | 2,801 |
+| /api/products/:id/history | 1320 | 688 | 2,323 | 2,452 | 2,610 | 2,787 |
+| /api/products/:id/our-price-history | 324 | 295 | 2,190 | 2,418 | 2,596 | 2,635 |
+| /health | 487 | 32.2 | 80.6 | 93.8 | 120 | 129 |
+
+server (159 samples): CPU median 97% max 114% · RSS start 133 MB max 236 MB end 227 MB · DB connections max 12 · held by a request (idle in transaction) max 10 · executing a query max 2
+perf/run.sh: line 22: 44222 Terminated: 15          "$PY" "$ROOT/perf/harness/sampler.py" --pid "$(cat "$RESULTS/server-$PORT.pid")" --out "$RESULTS/$t-$label-sampler.csv" --every 2
+stopped
+{"status":"ok","demo_endpoints":false,"ai":{"runs_today":40,"daily_limit":200}} (pid 46523, workers 1)
+source: /Users/ivar/Documents/price-tracker/perf/results/spike-after2.json
+requests 4,998 · throughput 19.9 req/s · error rate 0.00% · iterations 4,997 · max VUs 100
+
+| endpoint | count | p50 ms | p90 ms | p95 ms | p99 ms | max ms |
+|---|---:|---:|---:|---:|---:|---:|
+| all requests | 4998 | 832 | 1,390 | 1,507 | 1,705 | 2,019 |
+| /api/monitoring | 368 | 1,142 | 1,573 | 1,630 | 1,807 | 1,876 |
+| /api/products | 1033 | 1,071 | 1,555 | 1,623 | 1,785 | 2,019 |
+| /api/proposals | 1229 | 910 | 1,368 | 1,478 | 1,632 | 1,806 |
+| /api/products/:id | 630 | 807 | 1,288 | 1,365 | 1,560 | 1,692 |
+| /api/products/:id/history | 610 | 798 | 1,238 | 1,357 | 1,498 | 1,710 |
+| /api/activity | 496 | 809 | 1,228 | 1,323 | 1,479 | 1,538 |
+| /api/products/:id/decisions | 249 | 586 | 1,207 | 1,288 | 1,407 | 1,452 |
+| /api/products/:id/our-price-history | 143 | 732 | 1,174 | 1,232 | 1,526 | 1,632 |
+| /health | 239 | 37.5 | 75.1 | 89.5 | 122 | 153 |
+
+server (124 samples): CPU median 31% max 112% · RSS start 147 MB max 230 MB end 213 MB · DB connections max 13 · held by a request (idle in transaction) max 10 · executing a query max 1
+perf/run.sh: line 22: 46555 Terminated: 15          "$PY" "$ROOT/perf/harness/sampler.py" --pid "$(cat "$RESULTS/server-$PORT.pid")" --out "$RESULTS/$t-$label-sampler.csv" --every 2
+stopped
+{"status":"ok","demo_endpoints":false,"ai":{"runs_today":40,"daily_limit":200}} (pid 48313, workers 1)
+source: /Users/ivar/Documents/price-tracker/perf/results/smoke-after2.json
+requests 613 · throughput 20.3 req/s · error rate 0.00% · iterations 68 · max VUs 1
+
+| endpoint | count | p50 ms | p90 ms | p95 ms | p99 ms | max ms |
+|---|---:|---:|---:|---:|---:|---:|
+| all requests | 613 | 4.6 | 96.9 | 130 | 144 | 147 |
+| /api/products | 68 | 127 | 144 | 146 | 147 | 147 |
+| /api/monitoring | 68 | 75.6 | 80.8 | 82.4 | 83.7 | 83.9 |
+| /api/proposals | 68 | 26.8 | 50.5 | 53.9 | 59.5 | 66.4 |
+| /api/activity | 68 | 4.5 | 5.5 | 5.8 | 8.4 | 8.4 |
+| /api/products/:id | 68 | 5.4 | 5.6 | 5.7 | 6.1 | 6.2 |
+| /api/products/:id/history | 68 | 2.5 | 2.6 | 2.6 | 3.2 | 3.8 |
+| /api/products/:id/decisions | 68 | 1.6 | 2.3 | 2.4 | 2.7 | 2.7 |
+| /api/products/:id/our-price-history | 68 | 1.6 | 1.7 | 1.8 | 2.3 | 2.4 |
+| /health | 68 | 1.1 | 1.2 | 1.2 | 1.3 | 1.4 |
+
+server (15 samples): CPU median 40% max 47% · RSS start 147 MB max 158 MB end 158 MB · DB connections max 2 · held by a request (idle in transaction) max 1 · executing a query max 1
+perf/run.sh: line 22: 48416 Terminated: 15          "$PY" "$ROOT/perf/harness/sampler.py" --pid "$(cat "$RESULTS/server-$PORT.pid")" --out "$RESULTS/$t-$label-sampler.csv" --every 2
+source: /Users/ivar/Documents/price-tracker/perf/results/load-after2.json
+requests 6,558 · throughput 19.2 req/s · error rate 0.00% · iterations 6,557 · max VUs 50
+
+| endpoint | count | p50 ms | p90 ms | p95 ms | p99 ms | max ms |
+|---|---:|---:|---:|---:|---:|---:|
+| all requests | 6558 | 68.7 | 225 | 306 | 450 | 645 |
+| /api/monitoring | 559 | 138 | 344 | 429 | 539 | 645 |
+| /api/products | 1286 | 151 | 368 | 425 | 506 | 596 |
+| /api/proposals | 1655 | 78.5 | 212 | 251 | 332 | 432 |
+| /api/products/:id | 756 | 31.1 | 134 | 170 | 284 | 402 |
+| /api/activity | 624 | 22.7 | 105 | 143 | 231 | 389 |
+| /api/products/:id/decisions | 324 | 23.3 | 84.8 | 125 | 209 | 220 |
+| /api/products/:id/history | 804 | 16.9 | 81.2 | 122 | 191 | 261 |
+| /api/products/:id/our-price-history | 227 | 17.4 | 81.6 | 105 | 172 | 194 |
+| /health | 322 | 10.7 | 47.2 | 65.2 | 97.5 | 122 |
+
+server (168 samples): CPU median 34% max 109% · RSS start 158 MB max 215 MB end 208 MB · DB connections max 11 · held by a request (idle in transaction) max 10 · executing a query max 2
+perf/run.sh: line 22: 48685 Terminated: 15          "$PY" "$ROOT/perf/harness/sampler.py" --pid "$(cat "$RESULTS/server-$PORT.pid")" --out "$RESULTS/$t-$label-sampler.csv" --every 2

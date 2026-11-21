@@ -1,0 +1,132 @@
+name: ci
+
+# Pull requests run the checks and build the images. A push to main (or a v* tag) runs the same
+# checks and then publishes the images to GitHub Container Registry.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: tracker
+          POSTGRES_PASSWORD: tracker
+          POSTGRES_DB: tracker_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U tracker -d tracker_test"
+          --health-interval 5s --health-timeout 3s --health-retries 20
+    env:
+      TEST_DATABASE_URL: postgresql+psycopg://tracker:tracker@localhost:5432/tracker_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/pyproject.toml
+      - name: Install
+        run: pip install -e "./backend[dev]"
+      - name: Lint
+        run: ruff check backend
+      - name: Architecture guardrails
+        run: |
+          # `set -e` ignores failures of `!`-negated commands, so each check fails explicitly.
+          fail() { echo "::error::$1"; exit 1; }
+          # The AI layer (app/ai) stays framework-free: no FastAPI, and no reaching into the
+          # web/DB code; it gets data only through the DataProvider protocol.
+          grep -rnE "^\s*(from|import) fastapi" backend/app/ai && fail "app/ai must not import FastAPI"
+          grep -rnE "^\s*(from|import) app\.(api|db|services|core|schemas|deps|main|cli)\b" backend/app/ai \
+            && fail "app/ai must not import web/DB code; use the DataProvider protocol"
+          # LangChain/LangGraph are only used inside the AI layer.
+          grep -rnE "^\s*(from|import) (langchain|langgraph)" backend/app | grep -v "^backend/app/ai/" \
+            && fail "LangChain/LangGraph imports belong in app/ai only"
+          # No SQLite anywhere: no driver, URL, saver, or database file.
+          grep -rnE "sqlite3|sqlite(\+\w+)?://|SqliteSaver|checkpoint-sqlite|checkpoint\.sqlite" \
+            --include="*.py" --include="*.toml" --include="*.ini" --include="*.yml" backend infra \
+            && fail "SQLite reference found"
+          find . -path ./frontend/node_modules -prune -o \( -name "*.sqlite*" -o -name "*.db" \) -print | grep . \
+            && fail "SQLite database file found"
+          echo "guardrails OK"
+      - name: Test (API, rules, scrapers, AI layer, evals harness)
+        working-directory: backend
+        run: pytest -q
+
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run build
+
+  # Delivery: build both Docker images on every run (so a broken Dockerfile fails the PR) and
+  # publish them to ghcr.io only after a push to main or a v* tag, once the checks above pass.
+  # Optional repository variables: AI_PROVIDER (default anthropic) and VITE_API_BASE_URL.
+  docker:
+    name: docker (${{ matrix.image }})
+    needs: [python, frontend]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: backend
+            build-args: AI_PROVIDER=${{ vars.AI_PROVIDER || 'anthropic' }}
+          - image: frontend
+            build-args: VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL || 'http://localhost:8000' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Log in to ghcr.io
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}-${{ matrix.image }}
+          tags: |
+            type=sha,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+      - uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.image }}
+          build-args: ${{ matrix.build-args }}
+          push: ${{ github.event_name == 'push' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha,scope=${{ matrix.image }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}

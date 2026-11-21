@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  Repricing decisions for the product (action, recommended price, market read, urgency, reasoning), each with the platform that triggered it and `alerted`.
+url: "{{base_url}}/api/products/{{product_id}}/decisions?limit=50"
+method: GET
+queryParams:
+  - key: limit
+    value: "50"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 2000

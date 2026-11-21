@@ -1,0 +1,9 @@
+tests/test_approval_concurrency.py::test_concurrent_approvals_apply_the_price_once PASSED [ 25%]
+tests/test_approval_concurrency.py::test_approve_and_reject_racing_have_one_winner PASSED [ 50%]
+tests/test_approval_concurrency.py::test_without_the_row_lock_the_race_double_applies PASSED [ 75%]
+tests/test_approval_concurrency.py::test_reviews_of_different_proposals_do_not_wait_on_each_other[5] PASSED [100%]
+0.34s call     tests/test_approval_concurrency.py::test_concurrent_approvals_apply_the_price_once
+0.33s call     tests/test_approval_concurrency.py::test_approve_and_reject_racing_have_one_winner
+0.26s call     tests/test_approval_concurrency.py::test_reviews_of_different_proposals_do_not_wait_on_each_other[5]
+0.25s call     tests/test_approval_concurrency.py::test_without_the_row_lock_the_race_double_applies
+============================== 4 passed in 1.41s ===============================

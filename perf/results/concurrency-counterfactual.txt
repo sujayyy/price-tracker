@@ -1,0 +1,12 @@
+# 10 threads released by a barrier call proposals.review(approve) on the same proposal; resume takes 0.2 s.
+# 5 attempts each, with the SELECT ... FOR UPDATE row lock (production) and with it removed (counterfactual).
+RESULT locked=True resumes=1 price_changes=1 ok=1 closed=9 wall_ms=230
+RESULT locked=False resumes=10 price_changes=10 ok=10 closed=0 wall_ms=243
+RESULT locked=True resumes=1 price_changes=1 ok=1 closed=9 wall_ms=226
+RESULT locked=False resumes=10 price_changes=10 ok=10 closed=0 wall_ms=244
+RESULT locked=True resumes=1 price_changes=1 ok=1 closed=9 wall_ms=226
+RESULT locked=False resumes=10 price_changes=10 ok=10 closed=0 wall_ms=239
+RESULT locked=True resumes=1 price_changes=1 ok=1 closed=9 wall_ms=232
+RESULT locked=False resumes=10 price_changes=10 ok=10 closed=0 wall_ms=240
+RESULT locked=True resumes=1 price_changes=1 ok=1 closed=9 wall_ms=220
+RESULT locked=False resumes=10 price_changes=10 ok=10 closed=0 wall_ms=247

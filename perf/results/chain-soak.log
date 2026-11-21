@@ -1,0 +1,19 @@
+source: /Users/ivar/Documents/price-tracker/perf/results/soak-final.json
+requests 17,102 · throughput 9.5 req/s · error rate 0.00% · iterations 17,101 · max VUs 10
+
+| endpoint | count | p50 ms | p90 ms | p95 ms | p99 ms | max ms |
+|---|---:|---:|---:|---:|---:|---:|
+| all requests | 17102 | 40.9 | 118 | 132 | 163 | 294 |
+| /api/products | 3359 | 110 | 147 | 160 | 185 | 294 |
+| /api/monitoring | 1439 | 93.0 | 133 | 146 | 168 | 214 |
+| /api/proposals | 4276 | 53.7 | 92.8 | 101 | 126 | 197 |
+| /api/products/:id | 1976 | 14.6 | 42.6 | 57.3 | 75.0 | 128 |
+| /api/activity | 1767 | 14.0 | 35.2 | 48.9 | 69.0 | 79.3 |
+| /api/products/:id/history | 2075 | 9.2 | 30.5 | 46.1 | 66.1 | 128 |
+| /api/products/:id/our-price-history | 517 | 6.3 | 20.2 | 39.6 | 60.0 | 97.7 |
+| /health | 852 | 4.8 | 22.2 | 36.5 | 56.6 | 66.9 |
+| /api/products/:id/decisions | 840 | 6.8 | 24.1 | 35.4 | 57.3 | 100 |
+
+server (886 samples): CPU median 23% max 69% · RSS start 151 MB max 201 MB end 180 MB · DB connections max 5 · held by a request (idle in transaction) max 5 · executing a query max 3
+perf/run.sh: line 22: 69420 Terminated: 15          "$PY" "$ROOT/perf/harness/sampler.py" --pid "$(cat "$RESULTS/server-$PORT.pid")" --out "$RESULTS/$t-$label-sampler.csv" --every 2
+perf/run.sh: line 77: syntax error near unexpected token `;;'

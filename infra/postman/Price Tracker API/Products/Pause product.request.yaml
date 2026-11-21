@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Stops monitoring all of the product's listings.
+url: "{{base_url}}/api/products/{{product_id}}"
+method: PATCH
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "active": false
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 8000

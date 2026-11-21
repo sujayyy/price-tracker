@@ -1,0 +1,1328 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/ivar/Documents/price-tracker/perf/k6/api_stress.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 150 max VUs, 5m50s max duration (incl. graceful stop):
+              * stress: Up to 150 looping VUs for 5m20s over 11 stages (gracefulRampDown: 1m0s, gracefulStop: 30s)
+
+
+running (0m01.0s), 000/150 VUs, 0 complete and 0 interrupted iterations
+stress   [   0% ] 000/150 VUs  0m00.5s/5m20.0s
+
+running (0m02.0s), 001/150 VUs, 0 complete and 0 interrupted iterations
+stress   [   0% ] 001/150 VUs  0m01.5s/5m20.0s
+
+running (0m03.0s), 001/150 VUs, 0 complete and 0 interrupted iterations
+stress   [   1% ] 001/150 VUs  0m02.5s/5m20.0s
+
+running (0m04.0s), 002/150 VUs, 1 complete and 0 interrupted iterations
+stress   [   1% ] 002/150 VUs  0m03.5s/5m20.0s
+
+running (0m05.0s), 003/150 VUs, 1 complete and 0 interrupted iterations
+stress   [   1% ] 003/150 VUs  0m04.5s/5m20.0s
+
+running (0m06.0s), 003/150 VUs, 3 complete and 0 interrupted iterations
+stress   [   2% ] 003/150 VUs  0m05.5s/5m20.0s
+
+running (0m07.0s), 004/150 VUs, 5 complete and 0 interrupted iterations
+stress   [   2% ] 004/150 VUs  0m06.5s/5m20.0s
+
+running (0m08.0s), 005/150 VUs, 9 complete and 0 interrupted iterations
+stress   [   2% ] 005/150 VUs  0m07.5s/5m20.0s
+
+running (0m09.0s), 005/150 VUs, 13 complete and 0 interrupted iterations
+stress   [   3% ] 005/150 VUs  0m08.5s/5m20.0s
+
+running (0m10.0s), 006/150 VUs, 17 complete and 0 interrupted iterations
+stress   [   3% ] 006/150 VUs  0m09.5s/5m20.0s
+
+running (0m11.0s), 007/150 VUs, 22 complete and 0 interrupted iterations
+stress   [   3% ] 007/150 VUs  0m10.5s/5m20.0s
+
+running (0m12.0s), 007/150 VUs, 27 complete and 0 interrupted iterations
+stress   [   4% ] 007/150 VUs  0m11.5s/5m20.0s
+
+running (0m13.0s), 008/150 VUs, 33 complete and 0 interrupted iterations
+stress   [   4% ] 008/150 VUs  0m12.5s/5m20.0s
+
+running (0m14.0s), 009/150 VUs, 40 complete and 0 interrupted iterations
+stress   [   4% ] 009/150 VUs  0m13.5s/5m20.0s
+
+running (0m15.0s), 009/150 VUs, 47 complete and 0 interrupted iterations
+stress   [   5% ] 009/150 VUs  0m14.5s/5m20.0s
+
+running (0m16.0s), 010/150 VUs, 54 complete and 0 interrupted iterations
+stress   [   5% ] 010/150 VUs  0m15.5s/5m20.0s
+
+running (0m17.0s), 010/150 VUs, 61 complete and 0 interrupted iterations
+stress   [   5% ] 010/150 VUs  0m16.5s/5m20.0s
+
+running (0m18.0s), 010/150 VUs, 70 complete and 0 interrupted iterations
+stress   [   5% ] 010/150 VUs  0m17.5s/5m20.0s
+
+running (0m19.0s), 010/150 VUs, 79 complete and 0 interrupted iterations
+stress   [   6% ] 010/150 VUs  0m18.5s/5m20.0s
+
+running (0m20.0s), 010/150 VUs, 86 complete and 0 interrupted iterations
+stress   [   6% ] 010/150 VUs  0m19.5s/5m20.0s
+
+running (0m21.0s), 010/150 VUs, 96 complete and 0 interrupted iterations
+stress   [   6% ] 010/150 VUs  0m20.5s/5m20.0s
+
+running (0m22.0s), 010/150 VUs, 102 complete and 0 interrupted iterations
+stress   [   7% ] 010/150 VUs  0m21.5s/5m20.0s
+
+running (0m23.0s), 010/150 VUs, 110 complete and 0 interrupted iterations
+stress   [   7% ] 010/150 VUs  0m22.5s/5m20.0s
+
+running (0m24.0s), 010/150 VUs, 119 complete and 0 interrupted iterations
+stress   [   7% ] 010/150 VUs  0m23.5s/5m20.0s
+
+running (0m25.0s), 010/150 VUs, 127 complete and 0 interrupted iterations
+stress   [   8% ] 010/150 VUs  0m24.5s/5m20.0s
+
+running (0m26.0s), 010/150 VUs, 135 complete and 0 interrupted iterations
+stress   [   8% ] 010/150 VUs  0m25.5s/5m20.0s
+
+running (0m27.0s), 010/150 VUs, 144 complete and 0 interrupted iterations
+stress   [   8% ] 010/150 VUs  0m26.5s/5m20.0s
+
+running (0m28.0s), 010/150 VUs, 154 complete and 0 interrupted iterations
+stress   [   9% ] 010/150 VUs  0m27.5s/5m20.0s
+
+running (0m29.0s), 010/150 VUs, 163 complete and 0 interrupted iterations
+stress   [   9% ] 010/150 VUs  0m28.5s/5m20.0s
+
+running (0m30.0s), 010/150 VUs, 171 complete and 0 interrupted iterations
+stress   [   9% ] 010/150 VUs  0m29.5s/5m20.0s
+
+running (0m31.0s), 010/150 VUs, 180 complete and 0 interrupted iterations
+stress   [  10% ] 010/150 VUs  0m30.5s/5m20.0s
+
+running (0m32.0s), 010/150 VUs, 189 complete and 0 interrupted iterations
+stress   [  10% ] 010/150 VUs  0m31.5s/5m20.0s
+
+running (0m33.0s), 010/150 VUs, 198 complete and 0 interrupted iterations
+stress   [  10% ] 010/150 VUs  0m32.5s/5m20.0s
+
+running (0m34.0s), 010/150 VUs, 200 complete and 0 interrupted iterations
+stress   [  10% ] 010/150 VUs  0m33.5s/5m20.0s
+
+running (0m35.0s), 010/150 VUs, 210 complete and 0 interrupted iterations
+stress   [  11% ] 010/150 VUs  0m34.5s/5m20.0s
+
+running (0m36.0s), 010/150 VUs, 219 complete and 0 interrupted iterations
+stress   [  11% ] 010/150 VUs  0m35.5s/5m20.0s
+
+running (0m37.0s), 010/150 VUs, 222 complete and 0 interrupted iterations
+stress   [  11% ] 010/150 VUs  0m36.5s/5m20.0s
+
+running (0m38.0s), 010/150 VUs, 231 complete and 0 interrupted iterations
+stress   [  12% ] 010/150 VUs  0m37.5s/5m20.0s
+
+running (0m39.0s), 010/150 VUs, 241 complete and 0 interrupted iterations
+stress   [  12% ] 010/150 VUs  0m38.5s/5m20.0s
+
+running (0m40.0s), 010/150 VUs, 250 complete and 0 interrupted iterations
+stress   [  12% ] 010/150 VUs  0m39.5s/5m20.0s
+
+running (0m41.0s), 010/150 VUs, 259 complete and 0 interrupted iterations
+stress   [  13% ] 010/150 VUs  0m40.5s/5m20.0s
+
+running (0m42.0s), 010/150 VUs, 267 complete and 0 interrupted iterations
+stress   [  13% ] 010/150 VUs  0m41.5s/5m20.0s
+
+running (0m43.0s), 010/150 VUs, 273 complete and 0 interrupted iterations
+stress   [  13% ] 010/150 VUs  0m42.5s/5m20.0s
+
+running (0m44.0s), 010/150 VUs, 280 complete and 0 interrupted iterations
+stress   [  14% ] 010/150 VUs  0m43.5s/5m20.0s
+
+running (0m45.0s), 010/150 VUs, 288 complete and 0 interrupted iterations
+stress   [  14% ] 010/150 VUs  0m44.5s/5m20.0s
+
+running (0m46.0s), 010/150 VUs, 297 complete and 0 interrupted iterations
+stress   [  14% ] 010/150 VUs  0m45.5s/5m20.0s
+
+running (0m47.0s), 010/150 VUs, 302 complete and 0 interrupted iterations
+stress   [  15% ] 010/150 VUs  0m46.5s/5m20.0s
+
+running (0m48.0s), 010/150 VUs, 312 complete and 0 interrupted iterations
+stress   [  15% ] 010/150 VUs  0m47.5s/5m20.0s
+
+running (0m49.0s), 010/150 VUs, 321 complete and 0 interrupted iterations
+stress   [  15% ] 010/150 VUs  0m48.5s/5m20.0s
+
+running (0m50.0s), 010/150 VUs, 329 complete and 0 interrupted iterations
+stress   [  15% ] 010/150 VUs  0m49.5s/5m20.0s
+
+running (0m51.0s), 010/150 VUs, 336 complete and 0 interrupted iterations
+stress   [  16% ] 010/150 VUs  0m50.5s/5m20.0s
+
+running (0m52.0s), 010/150 VUs, 344 complete and 0 interrupted iterations
+stress   [  16% ] 010/150 VUs  0m51.5s/5m20.0s
+
+running (0m53.0s), 010/150 VUs, 353 complete and 0 interrupted iterations
+stress   [  16% ] 010/150 VUs  0m52.5s/5m20.0s
+
+running (0m54.0s), 010/150 VUs, 361 complete and 0 interrupted iterations
+stress   [  17% ] 010/150 VUs  0m53.5s/5m20.0s
+
+running (0m55.0s), 010/150 VUs, 369 complete and 0 interrupted iterations
+stress   [  17% ] 010/150 VUs  0m54.5s/5m20.0s
+
+running (0m56.0s), 010/150 VUs, 376 complete and 0 interrupted iterations
+stress   [  17% ] 010/150 VUs  0m55.5s/5m20.0s
+
+running (0m57.0s), 010/150 VUs, 385 complete and 0 interrupted iterations
+stress   [  18% ] 010/150 VUs  0m56.5s/5m20.0s
+
+running (0m58.0s), 010/150 VUs, 394 complete and 0 interrupted iterations
+stress   [  18% ] 010/150 VUs  0m57.5s/5m20.0s
+
+running (0m59.0s), 010/150 VUs, 403 complete and 0 interrupted iterations
+stress   [  18% ] 010/150 VUs  0m58.5s/5m20.0s
+
+running (1m00.0s), 010/150 VUs, 411 complete and 0 interrupted iterations
+stress   [  19% ] 010/150 VUs  0m59.5s/5m20.0s
+
+running (1m01.0s), 010/150 VUs, 419 complete and 0 interrupted iterations
+stress   [  19% ] 010/150 VUs  1m00.5s/5m20.0s
+
+running (1m02.0s), 011/150 VUs, 428 complete and 0 interrupted iterations
+stress   [  19% ] 011/150 VUs  1m01.5s/5m20.0s
+
+running (1m03.0s), 012/150 VUs, 435 complete and 0 interrupted iterations
+stress   [  20% ] 012/150 VUs  1m02.5s/5m20.0s
+
+running (1m04.0s), 013/150 VUs, 445 complete and 0 interrupted iterations
+stress   [  20% ] 013/150 VUs  1m03.5s/5m20.0s
+
+running (1m05.0s), 014/150 VUs, 451 complete and 0 interrupted iterations
+stress   [  20% ] 014/150 VUs  1m04.5s/5m20.0s
+
+running (1m06.0s), 015/150 VUs, 465 complete and 0 interrupted iterations
+stress   [  20% ] 015/150 VUs  1m05.5s/5m20.0s
+
+running (1m07.0s), 016/150 VUs, 480 complete and 0 interrupted iterations
+stress   [  21% ] 016/150 VUs  1m06.5s/5m20.0s
+
+running (1m08.0s), 017/150 VUs, 487 complete and 0 interrupted iterations
+stress   [  21% ] 017/150 VUs  1m07.5s/5m20.0s
+
+running (1m09.0s), 018/150 VUs, 496 complete and 0 interrupted iterations
+stress   [  21% ] 018/150 VUs  1m08.5s/5m20.0s
+
+running (1m10.0s), 019/150 VUs, 502 complete and 0 interrupted iterations
+stress   [  22% ] 019/150 VUs  1m09.5s/5m20.0s
+
+running (1m11.0s), 020/150 VUs, 518 complete and 0 interrupted iterations
+stress   [  22% ] 020/150 VUs  1m10.5s/5m20.0s
+
+running (1m12.0s), 021/150 VUs, 527 complete and 0 interrupted iterations
+stress   [  22% ] 021/150 VUs  1m11.5s/5m20.0s
+
+running (1m13.0s), 022/150 VUs, 535 complete and 0 interrupted iterations
+stress   [  23% ] 022/150 VUs  1m12.5s/5m20.0s
+
+running (1m14.0s), 023/150 VUs, 545 complete and 0 interrupted iterations
+stress   [  23% ] 023/150 VUs  1m13.5s/5m20.0s
+
+running (1m15.0s), 024/150 VUs, 546 complete and 0 interrupted iterations
+stress   [  23% ] 024/150 VUs  1m14.5s/5m20.0s
+
+running (1m16.0s), 025/150 VUs, 557 complete and 0 interrupted iterations
+stress   [  24% ] 025/150 VUs  1m15.5s/5m20.0s
+
+running (1m17.0s), 025/150 VUs, 569 complete and 0 interrupted iterations
+stress   [  24% ] 025/150 VUs  1m16.5s/5m20.0s
+
+running (1m18.0s), 025/150 VUs, 580 complete and 0 interrupted iterations
+stress   [  24% ] 025/150 VUs  1m17.5s/5m20.0s
+
+running (1m19.0s), 025/150 VUs, 595 complete and 0 interrupted iterations
+stress   [  25% ] 025/150 VUs  1m18.5s/5m20.0s
+
+running (1m20.0s), 025/150 VUs, 606 complete and 0 interrupted iterations
+stress   [  25% ] 025/150 VUs  1m19.5s/5m20.0s
+
+running (1m21.0s), 025/150 VUs, 617 complete and 0 interrupted iterations
+stress   [  25% ] 025/150 VUs  1m20.5s/5m20.0s
+
+running (1m22.0s), 025/150 VUs, 624 complete and 0 interrupted iterations
+stress   [  25% ] 025/150 VUs  1m21.5s/5m20.0s
+
+running (1m23.0s), 025/150 VUs, 633 complete and 0 interrupted iterations
+stress   [  26% ] 025/150 VUs  1m22.5s/5m20.0s
+
+running (1m24.0s), 025/150 VUs, 645 complete and 0 interrupted iterations
+stress   [  26% ] 025/150 VUs  1m23.5s/5m20.0s
+
+running (1m25.0s), 025/150 VUs, 657 complete and 0 interrupted iterations
+stress   [  26% ] 025/150 VUs  1m24.5s/5m20.0s
+
+running (1m26.0s), 025/150 VUs, 667 complete and 0 interrupted iterations
+stress   [  27% ] 025/150 VUs  1m25.5s/5m20.0s
+
+running (1m27.0s), 025/150 VUs, 674 complete and 0 interrupted iterations
+stress   [  27% ] 025/150 VUs  1m26.5s/5m20.0s
+
+running (1m28.0s), 025/150 VUs, 684 complete and 0 interrupted iterations
+stress   [  27% ] 025/150 VUs  1m27.5s/5m20.0s
+
+running (1m29.0s), 025/150 VUs, 689 complete and 0 interrupted iterations
+stress   [  28% ] 025/150 VUs  1m28.5s/5m20.0s
+
+running (1m30.0s), 025/150 VUs, 701 complete and 0 interrupted iterations
+stress   [  28% ] 025/150 VUs  1m29.5s/5m20.0s
+
+running (1m31.0s), 025/150 VUs, 707 complete and 0 interrupted iterations
+stress   [  28% ] 025/150 VUs  1m30.5s/5m20.0s
+
+running (1m32.0s), 025/150 VUs, 717 complete and 0 interrupted iterations
+stress   [  29% ] 025/150 VUs  1m31.5s/5m20.0s
+
+running (1m33.0s), 025/150 VUs, 725 complete and 0 interrupted iterations
+stress   [  29% ] 025/150 VUs  1m32.5s/5m20.0s
+
+running (1m34.0s), 025/150 VUs, 736 complete and 0 interrupted iterations
+stress   [  29% ] 025/150 VUs  1m33.5s/5m20.0s
+
+running (1m35.0s), 025/150 VUs, 747 complete and 0 interrupted iterations
+stress   [  30% ] 025/150 VUs  1m34.5s/5m20.0s
+
+running (1m36.0s), 025/150 VUs, 758 complete and 0 interrupted iterations
+stress   [  30% ] 025/150 VUs  1m35.5s/5m20.0s
+
+running (1m37.0s), 025/150 VUs, 769 complete and 0 interrupted iterations
+stress   [  30% ] 025/150 VUs  1m36.5s/5m20.0s
+
+running (1m38.0s), 025/150 VUs, 777 complete and 0 interrupted iterations
+stress   [  30% ] 025/150 VUs  1m37.5s/5m20.0s
+
+running (1m39.0s), 025/150 VUs, 783 complete and 0 interrupted iterations
+stress   [  31% ] 025/150 VUs  1m38.5s/5m20.0s
+
+running (1m40.0s), 025/150 VUs, 789 complete and 0 interrupted iterations
+stress   [  31% ] 025/150 VUs  1m39.5s/5m20.0s
+
+running (1m41.0s), 025/150 VUs, 797 complete and 0 interrupted iterations
+stress   [  31% ] 025/150 VUs  1m40.5s/5m20.0s
+
+running (1m42.0s), 025/150 VUs, 805 complete and 0 interrupted iterations
+stress   [  32% ] 025/150 VUs  1m41.5s/5m20.0s
+
+running (1m43.0s), 025/150 VUs, 814 complete and 0 interrupted iterations
+stress   [  32% ] 025/150 VUs  1m42.5s/5m20.0s
+
+running (1m44.0s), 025/150 VUs, 819 complete and 0 interrupted iterations
+stress   [  32% ] 025/150 VUs  1m43.5s/5m20.0s
+
+running (1m45.0s), 025/150 VUs, 825 complete and 0 interrupted iterations
+stress   [  33% ] 025/150 VUs  1m44.5s/5m20.0s
+
+running (1m46.0s), 025/150 VUs, 829 complete and 0 interrupted iterations
+stress   [  33% ] 025/150 VUs  1m45.5s/5m20.0s
+
+running (1m47.0s), 025/150 VUs, 833 complete and 0 interrupted iterations
+stress   [  33% ] 025/150 VUs  1m46.5s/5m20.0s
+
+running (1m48.0s), 025/150 VUs, 850 complete and 0 interrupted iterations
+stress   [  34% ] 025/150 VUs  1m47.5s/5m20.0s
+
+running (1m49.0s), 025/150 VUs, 861 complete and 0 interrupted iterations
+stress   [  34% ] 025/150 VUs  1m48.5s/5m20.0s
+
+running (1m50.0s), 025/150 VUs, 871 complete and 0 interrupted iterations
+stress   [  34% ] 025/150 VUs  1m49.5s/5m20.0s
+
+running (1m51.0s), 025/150 VUs, 884 complete and 0 interrupted iterations
+stress   [  35% ] 025/150 VUs  1m50.5s/5m20.0s
+
+running (1m52.0s), 025/150 VUs, 893 complete and 0 interrupted iterations
+stress   [  35% ] 025/150 VUs  1m51.5s/5m20.0s
+
+running (1m53.0s), 025/150 VUs, 902 complete and 0 interrupted iterations
+stress   [  35% ] 025/150 VUs  1m52.5s/5m20.0s
+
+running (1m54.0s), 025/150 VUs, 905 complete and 0 interrupted iterations
+stress   [  35% ] 025/150 VUs  1m53.5s/5m20.0s
+
+running (1m55.0s), 025/150 VUs, 910 complete and 0 interrupted iterations
+stress   [  36% ] 025/150 VUs  1m54.5s/5m20.0s
+
+running (1m56.0s), 025/150 VUs, 919 complete and 0 interrupted iterations
+stress   [  36% ] 025/150 VUs  1m55.5s/5m20.0s
+
+running (1m57.0s), 025/150 VUs, 925 complete and 0 interrupted iterations
+stress   [  36% ] 025/150 VUs  1m56.5s/5m20.0s
+
+running (1m58.0s), 025/150 VUs, 936 complete and 0 interrupted iterations
+stress   [  37% ] 025/150 VUs  1m57.5s/5m20.0s
+
+running (1m59.0s), 025/150 VUs, 944 complete and 0 interrupted iterations
+stress   [  37% ] 025/150 VUs  1m58.5s/5m20.0s
+
+running (2m00.0s), 025/150 VUs, 949 complete and 0 interrupted iterations
+stress   [  37% ] 025/150 VUs  1m59.5s/5m20.0s
+
+running (2m01.0s), 025/150 VUs, 958 complete and 0 interrupted iterations
+stress   [  38% ] 025/150 VUs  2m00.5s/5m20.0s
+
+running (2m02.0s), 027/150 VUs, 961 complete and 0 interrupted iterations
+stress   [  38% ] 027/150 VUs  2m01.5s/5m20.0s
+
+running (2m03.0s), 029/150 VUs, 970 complete and 0 interrupted iterations
+stress   [  38% ] 029/150 VUs  2m02.5s/5m20.0s
+
+running (2m04.0s), 030/150 VUs, 979 complete and 0 interrupted iterations
+stress   [  39% ] 030/150 VUs  2m03.5s/5m20.0s
+
+running (2m05.0s), 032/150 VUs, 993 complete and 0 interrupted iterations
+stress   [  39% ] 032/150 VUs  2m04.5s/5m20.0s
+
+running (2m06.0s), 034/150 VUs, 1000 complete and 0 interrupted iterations
+stress   [  39% ] 034/150 VUs  2m05.5s/5m20.0s
+
+running (2m07.0s), 035/150 VUs, 1007 complete and 0 interrupted iterations
+stress   [  40% ] 035/150 VUs  2m06.5s/5m20.0s
+
+running (2m08.0s), 037/150 VUs, 1020 complete and 0 interrupted iterations
+stress   [  40% ] 037/150 VUs  2m07.5s/5m20.0s
+
+running (2m09.0s), 039/150 VUs, 1030 complete and 0 interrupted iterations
+stress   [  40% ] 039/150 VUs  2m08.5s/5m20.0s
+
+running (2m10.0s), 040/150 VUs, 1043 complete and 0 interrupted iterations
+stress   [  40% ] 040/150 VUs  2m09.5s/5m20.0s
+
+running (2m11.0s), 042/150 VUs, 1053 complete and 0 interrupted iterations
+stress   [  41% ] 042/150 VUs  2m10.5s/5m20.0s
+
+running (2m12.0s), 044/150 VUs, 1062 complete and 0 interrupted iterations
+stress   [  41% ] 044/150 VUs  2m11.5s/5m20.0s
+
+running (2m13.0s), 045/150 VUs, 1077 complete and 0 interrupted iterations
+stress   [  41% ] 045/150 VUs  2m12.5s/5m20.0s
+
+running (2m14.0s), 047/150 VUs, 1079 complete and 0 interrupted iterations
+stress   [  42% ] 047/150 VUs  2m13.5s/5m20.0s
+
+running (2m15.0s), 049/150 VUs, 1098 complete and 0 interrupted iterations
+stress   [  42% ] 049/150 VUs  2m14.5s/5m20.0s
+
+running (2m16.0s), 050/150 VUs, 1098 complete and 0 interrupted iterations
+stress   [  42% ] 050/150 VUs  2m15.5s/5m20.0s
+
+running (2m17.0s), 050/150 VUs, 1099 complete and 0 interrupted iterations
+stress   [  43% ] 050/150 VUs  2m16.5s/5m20.0s
+
+running (2m18.0s), 050/150 VUs, 1115 complete and 0 interrupted iterations
+stress   [  43% ] 050/150 VUs  2m17.5s/5m20.0s
+
+running (2m19.0s), 050/150 VUs, 1132 complete and 0 interrupted iterations
+stress   [  43% ] 050/150 VUs  2m18.5s/5m20.0s
+
+running (2m20.0s), 050/150 VUs, 1141 complete and 0 interrupted iterations
+stress   [  44% ] 050/150 VUs  2m19.5s/5m20.0s
+
+running (2m21.0s), 050/150 VUs, 1142 complete and 0 interrupted iterations
+stress   [  44% ] 050/150 VUs  2m20.5s/5m20.0s
+
+running (2m22.0s), 050/150 VUs, 1143 complete and 0 interrupted iterations
+stress   [  44% ] 050/150 VUs  2m21.5s/5m20.0s
+
+running (2m23.0s), 050/150 VUs, 1168 complete and 0 interrupted iterations
+stress   [  45% ] 050/150 VUs  2m22.5s/5m20.0s
+
+running (2m24.0s), 050/150 VUs, 1169 complete and 0 interrupted iterations
+stress   [  45% ] 050/150 VUs  2m23.5s/5m20.0s
+
+running (2m25.0s), 050/150 VUs, 1170 complete and 0 interrupted iterations
+stress   [  45% ] 050/150 VUs  2m24.5s/5m20.0s
+
+running (2m26.0s), 050/150 VUs, 1203 complete and 0 interrupted iterations
+stress   [  45% ] 050/150 VUs  2m25.5s/5m20.0s
+
+running (2m27.0s), 050/150 VUs, 1203 complete and 0 interrupted iterations
+stress   [  46% ] 050/150 VUs  2m26.5s/5m20.0s
+
+running (2m28.0s), 050/150 VUs, 1204 complete and 0 interrupted iterations
+stress   [  46% ] 050/150 VUs  2m27.5s/5m20.0s
+
+running (2m29.0s), 050/150 VUs, 1217 complete and 0 interrupted iterations
+stress   [  46% ] 050/150 VUs  2m28.5s/5m20.0s
+
+running (2m30.0s), 050/150 VUs, 1234 complete and 0 interrupted iterations
+stress   [  47% ] 050/150 VUs  2m29.5s/5m20.0s
+
+running (2m31.0s), 050/150 VUs, 1251 complete and 0 interrupted iterations
+stress   [  47% ] 050/150 VUs  2m30.5s/5m20.0s
+
+running (2m32.0s), 050/150 VUs, 1251 complete and 0 interrupted iterations
+stress   [  47% ] 050/150 VUs  2m31.5s/5m20.0s
+
+running (2m33.0s), 050/150 VUs, 1254 complete and 0 interrupted iterations
+stress   [  48% ] 050/150 VUs  2m32.5s/5m20.0s
+
+running (2m34.0s), 050/150 VUs, 1282 complete and 0 interrupted iterations
+stress   [  48% ] 050/150 VUs  2m33.5s/5m20.0s
+
+running (2m35.0s), 050/150 VUs, 1282 complete and 0 interrupted iterations
+stress   [  48% ] 050/150 VUs  2m34.5s/5m20.0s
+
+running (2m36.0s), 050/150 VUs, 1304 complete and 0 interrupted iterations
+stress   [  49% ] 050/150 VUs  2m35.5s/5m20.0s
+
+running (2m37.0s), 050/150 VUs, 1305 complete and 0 interrupted iterations
+stress   [  49% ] 050/150 VUs  2m36.5s/5m20.0s
+
+running (2m38.0s), 050/150 VUs, 1305 complete and 0 interrupted iterations
+stress   [  49% ] 050/150 VUs  2m37.5s/5m20.0s
+
+running (2m39.0s), 050/150 VUs, 1339 complete and 0 interrupted iterations
+stress   [  50% ] 050/150 VUs  2m38.5s/5m20.0s
+
+running (2m40.0s), 050/150 VUs, 1340 complete and 0 interrupted iterations
+stress   [  50% ] 050/150 VUs  2m39.5s/5m20.0s
+
+running (2m41.0s), 050/150 VUs, 1342 complete and 0 interrupted iterations
+stress   [  50% ] 050/150 VUs  2m40.5s/5m20.0s
+
+running (2m42.0s), 050/150 VUs, 1343 complete and 0 interrupted iterations
+stress   [  50% ] 050/150 VUs  2m41.5s/5m20.0s
+
+running (2m43.0s), 050/150 VUs, 1368 complete and 0 interrupted iterations
+stress   [  51% ] 050/150 VUs  2m42.5s/5m20.0s
+
+running (2m44.0s), 050/150 VUs, 1369 complete and 0 interrupted iterations
+stress   [  51% ] 050/150 VUs  2m43.5s/5m20.0s
+
+running (2m45.0s), 050/150 VUs, 1369 complete and 0 interrupted iterations
+stress   [  51% ] 050/150 VUs  2m44.5s/5m20.0s
+
+running (2m46.0s), 050/150 VUs, 1388 complete and 0 interrupted iterations
+stress   [  52% ] 050/150 VUs  2m45.5s/5m20.0s
+
+running (2m47.0s), 050/150 VUs, 1388 complete and 0 interrupted iterations
+stress   [  52% ] 050/150 VUs  2m46.5s/5m20.0s
+
+running (2m48.0s), 050/150 VUs, 1400 complete and 0 interrupted iterations
+stress   [  52% ] 050/150 VUs  2m47.5s/5m20.0s
+
+running (2m49.0s), 050/150 VUs, 1402 complete and 0 interrupted iterations
+stress   [  53% ] 050/150 VUs  2m48.5s/5m20.0s
+
+running (2m50.0s), 050/150 VUs, 1425 complete and 0 interrupted iterations
+stress   [  53% ] 050/150 VUs  2m49.5s/5m20.0s
+
+running (2m51.0s), 050/150 VUs, 1425 complete and 0 interrupted iterations
+stress   [  53% ] 050/150 VUs  2m50.5s/5m20.0s
+
+running (2m52.0s), 050/150 VUs, 1449 complete and 0 interrupted iterations
+stress   [  54% ] 050/150 VUs  2m51.5s/5m20.0s
+
+running (2m53.0s), 050/150 VUs, 1450 complete and 0 interrupted iterations
+stress   [  54% ] 050/150 VUs  2m52.5s/5m20.0s
+
+running (2m54.0s), 050/150 VUs, 1462 complete and 0 interrupted iterations
+stress   [  54% ] 050/150 VUs  2m53.5s/5m20.0s
+
+running (2m55.0s), 050/150 VUs, 1462 complete and 0 interrupted iterations
+stress   [  55% ] 050/150 VUs  2m54.5s/5m20.0s
+
+running (2m56.0s), 050/150 VUs, 1481 complete and 0 interrupted iterations
+stress   [  55% ] 050/150 VUs  2m55.5s/5m20.0s
+
+running (2m57.0s), 050/150 VUs, 1481 complete and 0 interrupted iterations
+stress   [  55% ] 050/150 VUs  2m56.5s/5m20.0s
+
+running (2m58.0s), 050/150 VUs, 1483 complete and 0 interrupted iterations
+stress   [  55% ] 050/150 VUs  2m57.5s/5m20.0s
+
+running (2m59.0s), 050/150 VUs, 1500 complete and 0 interrupted iterations
+stress   [  56% ] 050/150 VUs  2m58.5s/5m20.0s
+
+running (3m00.0s), 050/150 VUs, 1516 complete and 0 interrupted iterations
+stress   [  56% ] 050/150 VUs  2m59.5s/5m20.0s
+
+running (3m01.0s), 051/150 VUs, 1527 complete and 0 interrupted iterations
+stress   [  56% ] 051/150 VUs  3m00.5s/5m20.0s
+
+running (3m02.0s), 055/150 VUs, 1529 complete and 0 interrupted iterations
+stress   [  57% ] 055/150 VUs  3m01.5s/5m20.0s
+
+running (3m03.0s), 058/150 VUs, 1530 complete and 0 interrupted iterations
+stress   [  57% ] 058/150 VUs  3m02.5s/5m20.0s
+
+running (3m04.0s), 061/150 VUs, 1554 complete and 0 interrupted iterations
+stress   [  57% ] 061/150 VUs  3m03.5s/5m20.0s
+
+running (3m05.0s), 065/150 VUs, 1554 complete and 0 interrupted iterations
+stress   [  58% ] 065/150 VUs  3m04.5s/5m20.0s
+
+running (3m06.0s), 068/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  58% ] 068/150 VUs  3m05.5s/5m20.0s
+
+running (3m07.0s), 071/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  58% ] 071/150 VUs  3m06.5s/5m20.0s
+
+running (3m08.0s), 075/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  59% ] 075/150 VUs  3m07.5s/5m20.0s
+
+running (3m09.0s), 078/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  59% ] 078/150 VUs  3m08.5s/5m20.0s
+
+running (3m10.0s), 081/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  59% ] 081/150 VUs  3m09.5s/5m20.0s
+
+running (3m11.0s), 084/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  60% ] 084/150 VUs  3m10.5s/5m20.0s
+
+running (3m12.0s), 088/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  60% ] 088/150 VUs  3m11.5s/5m20.0s
+
+running (3m13.0s), 091/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  60% ] 091/150 VUs  3m12.5s/5m20.0s
+
+running (3m14.0s), 094/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  60% ] 094/150 VUs  3m13.5s/5m20.0s
+
+running (3m15.0s), 098/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  61% ] 098/150 VUs  3m14.5s/5m20.0s
+
+running (3m16.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  61% ] 100/150 VUs  3m15.5s/5m20.0s
+
+running (3m17.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  61% ] 100/150 VUs  3m16.5s/5m20.0s
+
+running (3m18.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  62% ] 100/150 VUs  3m17.5s/5m20.0s
+
+running (3m19.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  62% ] 100/150 VUs  3m18.5s/5m20.0s
+
+running (3m20.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  62% ] 100/150 VUs  3m19.5s/5m20.0s
+
+running (3m21.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  63% ] 100/150 VUs  3m20.5s/5m20.0s
+
+running (3m22.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  63% ] 100/150 VUs  3m21.5s/5m20.0s
+
+running (3m23.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  63% ] 100/150 VUs  3m22.5s/5m20.0s
+
+running (3m24.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  64% ] 100/150 VUs  3m23.5s/5m20.0s
+
+running (3m25.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  64% ] 100/150 VUs  3m24.5s/5m20.0s
+
+running (3m26.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  64% ] 100/150 VUs  3m25.5s/5m20.0s
+
+running (3m27.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  65% ] 100/150 VUs  3m26.5s/5m20.0s
+
+running (3m28.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  65% ] 100/150 VUs  3m27.5s/5m20.0s
+
+running (3m29.0s), 100/150 VUs, 1558 complete and 0 interrupted iterations
+stress   [  65% ] 100/150 VUs  3m28.5s/5m20.0s
+
+running (3m30.0s), 100/150 VUs, 1559 complete and 0 interrupted iterations
+stress   [  65% ] 100/150 VUs  3m29.5s/5m20.0s
+
+running (3m31.0s), 100/150 VUs, 1559 complete and 0 interrupted iterations
+stress   [  66% ] 100/150 VUs  3m30.5s/5m20.0s
+
+running (3m32.0s), 100/150 VUs, 1559 complete and 0 interrupted iterations
+stress   [  66% ] 100/150 VUs  3m31.5s/5m20.0s
+
+running (3m33.0s), 100/150 VUs, 1578 complete and 0 interrupted iterations
+stress   [  66% ] 100/150 VUs  3m32.5s/5m20.0s
+
+running (3m34.0s), 100/150 VUs, 1581 complete and 0 interrupted iterations
+stress   [  67% ] 100/150 VUs  3m33.5s/5m20.0s
+
+running (3m35.0s), 100/150 VUs, 1581 complete and 0 interrupted iterations
+stress   [  67% ] 100/150 VUs  3m34.5s/5m20.0s
+
+running (3m36.0s), 100/150 VUs, 1591 complete and 0 interrupted iterations
+stress   [  67% ] 100/150 VUs  3m35.5s/5m20.0s
+
+running (3m37.0s), 100/150 VUs, 1598 complete and 0 interrupted iterations
+stress   [  68% ] 100/150 VUs  3m36.5s/5m20.0s
+
+running (3m38.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  68% ] 100/150 VUs  3m37.5s/5m20.0s
+
+running (3m39.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  68% ] 100/150 VUs  3m38.5s/5m20.0s
+
+running (3m40.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  69% ] 100/150 VUs  3m39.5s/5m20.0s
+
+running (3m41.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  69% ] 100/150 VUs  3m40.5s/5m20.0s
+
+running (3m42.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  69% ] 100/150 VUs  3m41.5s/5m20.0s
+
+running (3m43.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  70% ] 100/150 VUs  3m42.5s/5m20.0s
+
+running (3m44.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  70% ] 100/150 VUs  3m43.5s/5m20.0s
+
+running (3m45.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  70% ] 100/150 VUs  3m44.5s/5m20.0s
+
+running (3m46.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  70% ] 100/150 VUs  3m45.5s/5m20.0s
+
+running (3m47.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  71% ] 100/150 VUs  3m46.5s/5m20.0s
+
+running (3m48.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  71% ] 100/150 VUs  3m47.5s/5m20.0s
+
+running (3m49.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  71% ] 100/150 VUs  3m48.5s/5m20.0s
+
+running (3m50.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  72% ] 100/150 VUs  3m49.5s/5m20.0s
+
+running (3m51.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  72% ] 100/150 VUs  3m50.5s/5m20.0s
+
+running (3m52.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  72% ] 100/150 VUs  3m51.5s/5m20.0s
+
+running (3m53.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  73% ] 100/150 VUs  3m52.5s/5m20.0s
+
+running (3m54.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  73% ] 100/150 VUs  3m53.5s/5m20.0s
+
+running (3m55.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  73% ] 100/150 VUs  3m54.5s/5m20.0s
+
+running (3m56.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  74% ] 100/150 VUs  3m55.5s/5m20.0s
+
+running (3m57.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  74% ] 100/150 VUs  3m56.5s/5m20.0s
+
+running (3m58.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  74% ] 100/150 VUs  3m57.5s/5m20.0s
+
+running (3m59.0s), 100/150 VUs, 1599 complete and 0 interrupted iterations
+stress   [  75% ] 100/150 VUs  3m58.5s/5m20.0s
+
+running (4m00.0s), 100/150 VUs, 1600 complete and 0 interrupted iterations
+stress   [  75% ] 100/150 VUs  3m59.5s/5m20.0s
+
+running (4m01.0s), 101/150 VUs, 1600 complete and 0 interrupted iterations
+stress   [  75% ] 101/150 VUs  4m00.5s/5m20.0s
+time="2026-10-01T20:21:38+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:21:38+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (4m02.0s), 105/150 VUs, 1600 complete and 0 interrupted iterations
+stress   [  75% ] 105/150 VUs  4m01.5s/5m20.0s
+
+running (4m03.0s), 108/150 VUs, 1624 complete and 0 interrupted iterations
+stress   [  76% ] 108/150 VUs  4m02.5s/5m20.0s
+
+running (4m04.0s), 111/150 VUs, 1624 complete and 0 interrupted iterations
+stress   [  76% ] 111/150 VUs  4m03.5s/5m20.0s
+
+running (4m05.0s), 114/150 VUs, 1624 complete and 0 interrupted iterations
+stress   [  76% ] 114/150 VUs  4m04.5s/5m20.0s
+time="2026-10-01T20:21:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:21:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:21:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:21:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:21:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/89/history?days=7\": request timeout"
+
+running (4m06.0s), 118/150 VUs, 1632 complete and 0 interrupted iterations
+stress   [  77% ] 118/150 VUs  4m05.5s/5m20.0s
+time="2026-10-01T20:21:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:21:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (4m07.0s), 121/150 VUs, 1644 complete and 0 interrupted iterations
+stress   [  77% ] 121/150 VUs  4m06.5s/5m20.0s
+time="2026-10-01T20:21:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/35\": request timeout"
+time="2026-10-01T20:21:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (4m08.0s), 125/150 VUs, 1647 complete and 0 interrupted iterations
+stress   [  77% ] 125/150 VUs  4m07.5s/5m20.0s
+time="2026-10-01T20:21:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/87/our-price-history\": request timeout"
+time="2026-10-01T20:21:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:21:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:21:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (4m09.0s), 128/150 VUs, 1650 complete and 0 interrupted iterations
+stress   [  78% ] 128/150 VUs  4m08.5s/5m20.0s
+time="2026-10-01T20:21:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (4m10.0s), 131/150 VUs, 1653 complete and 0 interrupted iterations
+stress   [  78% ] 131/150 VUs  4m09.5s/5m20.0s
+
+running (4m11.0s), 134/150 VUs, 1654 complete and 0 interrupted iterations
+stress   [  78% ] 135/150 VUs  4m10.5s/5m20.0s
+
+running (4m12.0s), 138/150 VUs, 1654 complete and 0 interrupted iterations
+stress   [  79% ] 138/150 VUs  4m11.5s/5m20.0s
+
+running (4m13.0s), 141/150 VUs, 1654 complete and 0 interrupted iterations
+stress   [  79% ] 141/150 VUs  4m12.5s/5m20.0s
+time="2026-10-01T20:21:50+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/12\": request timeout"
+
+running (4m14.0s), 145/150 VUs, 1654 complete and 0 interrupted iterations
+stress   [  79% ] 145/150 VUs  4m13.5s/5m20.0s
+time="2026-10-01T20:21:51+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/33\": request timeout"
+time="2026-10-01T20:21:52+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (4m15.0s), 148/150 VUs, 1655 complete and 0 interrupted iterations
+stress   [  80% ] 148/150 VUs  4m14.5s/5m20.0s
+time="2026-10-01T20:21:52+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/11\": request timeout"
+
+running (4m16.0s), 150/150 VUs, 1657 complete and 0 interrupted iterations
+stress   [  80% ] 150/150 VUs  4m15.5s/5m20.0s
+
+running (4m17.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  80% ] 150/150 VUs  4m16.5s/5m20.0s
+
+running (4m18.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  80% ] 150/150 VUs  4m17.5s/5m20.0s
+
+running (4m19.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  81% ] 150/150 VUs  4m18.5s/5m20.0s
+
+running (4m20.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  81% ] 150/150 VUs  4m19.5s/5m20.0s
+
+running (4m21.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  81% ] 150/150 VUs  4m20.5s/5m20.0s
+
+running (4m22.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  82% ] 150/150 VUs  4m21.5s/5m20.0s
+
+running (4m23.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  82% ] 150/150 VUs  4m22.5s/5m20.0s
+
+running (4m24.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  82% ] 150/150 VUs  4m23.5s/5m20.0s
+
+running (4m25.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  83% ] 150/150 VUs  4m24.5s/5m20.0s
+
+running (4m26.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  83% ] 150/150 VUs  4m25.5s/5m20.0s
+
+running (4m27.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  83% ] 150/150 VUs  4m26.5s/5m20.0s
+
+running (4m28.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  84% ] 150/150 VUs  4m27.5s/5m20.0s
+
+running (4m29.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  84% ] 150/150 VUs  4m28.5s/5m20.0s
+time="2026-10-01T20:22:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (4m30.0s), 150/150 VUs, 1658 complete and 0 interrupted iterations
+stress   [  84% ] 150/150 VUs  4m29.5s/5m20.0s
+
+running (4m31.0s), 150/150 VUs, 1659 complete and 0 interrupted iterations
+stress   [  85% ] 150/150 VUs  4m30.5s/5m20.0s
+
+running (4m32.0s), 150/150 VUs, 1659 complete and 0 interrupted iterations
+stress   [  85% ] 150/150 VUs  4m31.5s/5m20.0s
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/1/history?days=7\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/51/history?days=7\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/78/history?days=7\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:10+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/14\": request timeout"
+
+running (4m33.0s), 150/150 VUs, 1667 complete and 0 interrupted iterations
+stress   [  85% ] 150/150 VUs  4m32.5s/5m20.0s
+time="2026-10-01T20:22:10+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/26/decisions\": request timeout"
+time="2026-10-01T20:22:10+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:11+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/62\": request timeout"
+
+running (4m34.0s), 150/150 VUs, 1679 complete and 0 interrupted iterations
+stress   [  85% ] 150/150 VUs  4m33.5s/5m20.0s
+
+running (4m35.0s), 150/150 VUs, 1682 complete and 0 interrupted iterations
+stress   [  86% ] 150/150 VUs  4m34.5s/5m20.0s
+time="2026-10-01T20:22:12+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:12+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:12+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/82/history?days=7\": request timeout"
+
+running (4m36.0s), 150/150 VUs, 1687 complete and 0 interrupted iterations
+stress   [  86% ] 150/150 VUs  4m35.5s/5m20.0s
+time="2026-10-01T20:22:14+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:14+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:14+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:14+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (4m37.0s), 150/150 VUs, 1694 complete and 0 interrupted iterations
+stress   [  86% ] 150/150 VUs  4m36.5s/5m20.0s
+time="2026-10-01T20:22:14+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (4m38.0s), 150/150 VUs, 1699 complete and 0 interrupted iterations
+stress   [  87% ] 150/150 VUs  4m37.5s/5m20.0s
+
+running (4m39.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  87% ] 150/150 VUs  4m38.5s/5m20.0s
+
+running (4m40.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  87% ] 150/150 VUs  4m39.5s/5m20.0s
+
+running (4m41.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  88% ] 150/150 VUs  4m40.5s/5m20.0s
+
+running (4m42.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  88% ] 150/150 VUs  4m41.5s/5m20.0s
+
+running (4m43.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  88% ] 150/150 VUs  4m42.5s/5m20.0s
+
+running (4m44.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  89% ] 150/150 VUs  4m43.5s/5m20.0s
+
+running (4m45.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  89% ] 150/150 VUs  4m44.5s/5m20.0s
+
+running (4m46.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  89% ] 150/150 VUs  4m45.5s/5m20.0s
+
+running (4m47.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  90% ] 150/150 VUs  4m46.5s/5m20.0s
+
+running (4m48.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  90% ] 150/150 VUs  4m47.5s/5m20.0s
+
+running (4m49.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  90% ] 150/150 VUs  4m48.5s/5m20.0s
+
+running (4m50.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  90% ] 150/150 VUs  4m49.5s/5m20.0s
+
+running (4m51.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  91% ] 150/150 VUs  4m50.5s/5m20.0s
+
+running (4m52.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  91% ] 150/150 VUs  4m51.5s/5m20.0s
+
+running (4m53.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  91% ] 150/150 VUs  4m52.5s/5m20.0s
+
+running (4m54.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  92% ] 150/150 VUs  4m53.5s/5m20.0s
+
+running (4m55.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  92% ] 150/150 VUs  4m54.5s/5m20.0s
+
+running (4m56.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  92% ] 150/150 VUs  4m55.5s/5m20.0s
+
+running (4m57.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  93% ] 150/150 VUs  4m56.5s/5m20.0s
+
+running (4m58.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  93% ] 150/150 VUs  4m57.5s/5m20.0s
+
+running (4m59.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  93% ] 150/150 VUs  4m58.5s/5m20.0s
+time="2026-10-01T20:22:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (5m00.0s), 150/150 VUs, 1700 complete and 0 interrupted iterations
+stress   [  94% ] 150/150 VUs  4m59.5s/5m20.0s
+time="2026-10-01T20:22:38+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+
+running (5m01.0s), 150/150 VUs, 1701 complete and 0 interrupted iterations
+stress   [  94% ] 150/150 VUs  5m00.5s/5m20.0s
+time="2026-10-01T20:22:38+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:39+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/82/history?days=7\": request timeout"
+
+running (5m02.0s), 150/150 VUs, 1702 complete and 0 interrupted iterations
+stress   [  94% ] 150/150 VUs  5m01.5s/5m20.0s
+time="2026-10-01T20:22:39+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:39+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/38/decisions\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/40\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/20/history?days=7\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/82/decisions\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+
+running (5m03.0s), 149/150 VUs, 1713 complete and 0 interrupted iterations
+stress   [  95% ] 149/150 VUs  5m02.5s/5m20.0s
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/66/history?days=7\": request timeout"
+time="2026-10-01T20:22:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/53\": request timeout"
+time="2026-10-01T20:22:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (5m04.0s), 149/150 VUs, 1734 complete and 0 interrupted iterations
+stress   [  95% ] 149/150 VUs  5m03.5s/5m20.0s
+time="2026-10-01T20:22:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/81/history?days=7\": request timeout"
+time="2026-10-01T20:22:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+
+running (5m05.0s), 149/150 VUs, 1737 complete and 0 interrupted iterations
+stress   [  95% ] 149/150 VUs  5m04.5s/5m20.0s
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/38/decisions\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (5m06.0s), 148/150 VUs, 1740 complete and 0 interrupted iterations
+stress   [  95% ] 148/150 VUs  5m05.5s/5m20.0s
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/43/decisions\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/81\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/36\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/52/decisions\": request timeout"
+time="2026-10-01T20:22:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/49\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/93\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/4/decisions\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (5m07.0s), 144/150 VUs, 1752 complete and 0 interrupted iterations
+stress   [  96% ] 144/150 VUs  5m06.5s/5m20.0s
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/51/decisions\": request timeout"
+time="2026-10-01T20:22:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (5m08.0s), 140/150 VUs, 1767 complete and 0 interrupted iterations
+stress   [  96% ] 140/150 VUs  5m07.5s/5m20.0s
+time="2026-10-01T20:22:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/48/history?days=7\": request timeout"
+time="2026-10-01T20:22:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/92/history?days=7\": request timeout"
+time="2026-10-01T20:22:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/13/our-price-history\": request timeout"
+time="2026-10-01T20:22:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (5m09.0s), 136/150 VUs, 1773 complete and 0 interrupted iterations
+stress   [  96% ] 136/150 VUs  5m08.5s/5m20.0s
+time="2026-10-01T20:22:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:46+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:47+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:47+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (5m10.0s), 133/150 VUs, 1778 complete and 0 interrupted iterations
+stress   [  97% ] 133/150 VUs  5m09.5s/5m20.0s
+time="2026-10-01T20:22:47+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:47+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:47+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:48+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/35/our-price-history\": request timeout"
+
+running (5m11.0s), 128/150 VUs, 1785 complete and 0 interrupted iterations
+stress   [  97% ] 128/150 VUs  5m10.5s/5m20.0s
+time="2026-10-01T20:22:48+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:22:48+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:22:48+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:49+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/75/decisions\": request timeout"
+
+running (5m12.0s), 124/150 VUs, 1789 complete and 0 interrupted iterations
+stress   [  97% ] 124/150 VUs  5m11.5s/5m20.0s
+time="2026-10-01T20:22:49+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:22:49+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:22:50+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (5m13.0s), 120/150 VUs, 1793 complete and 0 interrupted iterations
+stress   [  98% ] 120/150 VUs  5m12.5s/5m20.0s
+time="2026-10-01T20:22:50+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/77\": request timeout"
+time="2026-10-01T20:31:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:31:42+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (14m05.8s), 117/150 VUs, 1796 complete and 0 interrupted iterations
+stress   [  98% ] 117/150 VUs  5m13.5s/5m20.0s
+time="2026-10-01T20:31:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/79\": request timeout"
+time="2026-10-01T20:31:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:31:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/28/our-price-history\": request timeout"
+time="2026-10-01T20:31:43+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:31:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/95\": request timeout"
+
+running (14m06.8s), 114/150 VUs, 1799 complete and 0 interrupted iterations
+stress   [  98% ] 114/150 VUs  5m14.5s/5m20.0s
+time="2026-10-01T20:31:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:31:44+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:31:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/2\": request timeout"
+
+running (14m07.8s), 109/150 VUs, 1804 complete and 0 interrupted iterations
+stress   [  99% ] 109/150 VUs  5m15.5s/5m20.0s
+time="2026-10-01T20:31:45+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/55/our-price-history\": request timeout"
+
+running (14m08.8s), 106/150 VUs, 1807 complete and 0 interrupted iterations
+stress   [  99% ] 106/150 VUs  5m16.5s/5m20.0s
+
+running (14m09.8s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress   [  99% ] 105/150 VUs  5m17.5s/5m20.0s
+
+running (14m10.8s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress   [ 100% ] 105/150 VUs  5m18.5s/5m20.0s
+
+running (14m11.8s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress   [ 100% ] 105/150 VUs  5m19.5s/5m20.0s
+
+running (14m12.8s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m19.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m20.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m21.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m22.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m23.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m24.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m25.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m26.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (14m27.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:32:05+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+
+running (14m28.0s), 105/150 VUs, 1808 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (15m52.2s), 104/150 VUs, 1809 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/78/history?days=7\": request timeout"
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/30/history?days=7\": request timeout"
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/1\": request timeout"
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/health\": request timeout"
+time="2026-10-01T20:33:30+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/80/history?days=7\": request timeout"
+
+running (15m53.2s), 104/150 VUs, 1809 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/35/decisions\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/97\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/6/history?days=7\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/60/history?days=7\": request timeout"
+time="2026-10-01T20:33:31+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/21\": request timeout"
+
+running (15m54.2s), 096/150 VUs, 1817 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:33:32+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/50/decisions\": request timeout"
+time="2026-10-01T20:33:32+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/health\": request timeout"
+time="2026-10-01T20:33:32+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+
+running (15m55.2s), 084/150 VUs, 1829 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:33:33+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:33+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:33:33+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:33+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:33:33+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (15m56.2s), 081/150 VUs, 1832 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:33:33+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:33:34+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:34+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/39/history?days=7\": request timeout"
+time="2026-10-01T20:33:34+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/2\": request timeout"
+time="2026-10-01T20:33:34+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:33:34+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:33:34+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (15m57.2s), 076/150 VUs, 1837 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:33:34+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/94\": request timeout"
+time="2026-10-01T20:33:35+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:35+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/3/decisions\": request timeout"
+time="2026-10-01T20:33:35+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:33:35+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+
+running (15m58.2s), 069/150 VUs, 1844 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+time="2026-10-01T20:33:35+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (15m59.2s), 064/150 VUs, 1849 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m00.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m01.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m02.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m03.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m04.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m05.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m06.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m07.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m08.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m09.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+running (16m10.2s), 063/150 VUs, 1850 complete and 0 interrupted iterations
+stress ↓ [ 100% ] 105/150 VUs  5m20s
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<1500' p(95)=1m0s
+
+      {name:/api/activity}
+      ✓ 'max>=0' max=11m20s
+
+      {name:/api/monitoring}
+      ✓ 'max>=0' max=11m20s
+
+      {name:/api/products}
+      ✓ 'max>=0' max=11m20s
+
+      {name:/api/products/:id}
+      ✓ 'max>=0' max=11m20s
+
+      {name:/api/products/:id/decisions}
+      ✓ 'max>=0' max=11m20s
+
+      {name:/api/products/:id/history}
+      ✓ 'max>=0' max=11m20s
+
+      {name:/api/products/:id/our-price-history}
+      ✓ 'max>=0' max=9m51s
+
+      {name:/api/proposals}
+      ✓ 'max>=0' max=11m20s
+
+      {name:/health}
+      ✓ 'max>=0' max=11m20s
+
+    http_req_failed
+    ✗ 'rate<0.01' rate=13.50%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 1850   1.90575/s
+    checks_succeeded...: 86.48% 1600 out of 1850
+    checks_failed......: 13.51% 250 out of 1850
+
+    ✗ status is 200
+      ↳  86% — ✓ 1600 / ✗ 250
+
+    HTTP
+    http_req_duration................................: avg=27.63s min=1.18ms   med=1.93s    p(90)=59.98s p(95)=1m0s  p(99)=11m20s max=11m20s count=1851
+      { expected_response:true }.....................: avg=3.18s  min=1.18ms   med=1.34s    p(90)=5.76s  p(95)=7.09s p(99)=58.07s max=59.98s count=1601
+      { name:/api/activity }.........................: avg=37.66s min=3.84ms   med=628.43ms p(90)=59.99s p(95)=1m0s  p(99)=11m20s max=11m20s count=175 
+      { name:/api/monitoring }.......................: avg=24.3s  min=164.99ms med=1.93s    p(90)=59.99s p(95)=1m0s  p(99)=11m20s max=11m20s count=135 
+      { name:/api/products }.........................: avg=30.54s min=443.77ms med=5.28s    p(90)=1m0s   p(95)=1m0s  p(99)=11m20s max=11m20s count=389 
+      { name:/api/products/:id }.....................: avg=30.29s min=6.14ms   med=515.19ms p(90)=59.65s p(95)=1m0s  p(99)=11m20s max=11m20s count=224 
+      { name:/api/products/:id/decisions }...........: avg=28.64s min=2.19ms   med=690.52ms p(90)=59.99s p(95)=1m0s  p(99)=11m20s max=11m20s count=100 
+      { name:/api/products/:id/history }.............: avg=24.77s min=2.51ms   med=489.87ms p(90)=53.76s p(95)=1m0s  p(99)=11m20s max=11m20s count=223 
+      { name:/api/products/:id/our-price-history }...: avg=27.5s  min=2.36ms   med=136.87ms p(90)=43.84s p(95)=1m0s  p(99)=9m51s  max=9m51s  count=53  
+      { name:/api/proposals }........................: avg=23.62s min=143.45ms med=2.31s    p(90)=56.72s p(95)=1m0s  p(99)=11m20s max=11m20s count=459 
+      { name:/health }...............................: avg=20.95s min=1.18ms   med=797.17ms p(90)=30.66s p(95)=56.4s p(99)=11m20s max=11m20s count=92  
+    http_req_failed..................................: 13.50% 250 out of 1851
+    http_reqs........................................: 1851   1.90678/s
+
+    EXECUTION
+    iteration_duration...............................: avg=11.45s min=1s       med=2.93s    p(90)=1m0s   p(95)=1m1s  p(99)=1m1s   max=1m1s   count=1850
+    iterations.......................................: 1850   1.90575/s
+    vus..............................................: 63     min=0           max=150
+    vus_max..........................................: 150    min=150         max=150
+
+    NETWORK
+    data_received....................................: 86 MB  88 kB/s
+    data_sent........................................: 173 kB 178 B/s
+
+
+
+
+running (16m10.7s), 000/150 VUs, 1850 complete and 63 interrupted iterations
+stress ✓ [ 100% ] 063/150 VUs  5m20s
+time="2026-10-01T20:33:48+05:30" level=error msg="thresholds on metrics 'http_req_duration, http_req_failed' have been crossed"

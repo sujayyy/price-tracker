@@ -1,0 +1,15 @@
+$kind: http-request
+description: |-
+  Finds the same product on Amazon.in and Flipkart. The intake agent scores each real search result (match_score); without a model it falls back to plain search and reports per-marketplace errors (e.g. Flipkart blocked).
+url: "{{base_url}}/api/search?q=boAt Airdopes 141 Gen 2 Active Black"
+method: GET
+queryParams:
+  - key: q
+    value: "boAt Airdopes 141 Gen 2 Active Black"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      console.log(pm.response.json().candidates.map(c => `${c.marketplace} ${c.match_score} ₹${c.price_inr} ${c.url}`));
+    language: text/javascript
+order: 500

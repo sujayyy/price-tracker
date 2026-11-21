@@ -1,0 +1,1070 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/ivar/Documents/price-tracker/perf/k6/api_spike.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 100 max VUs, 4m40s max duration (incl. graceful stop):
+              * spike: Up to 100 looping VUs for 4m10s over 5 stages (gracefulRampDown: 1m0s, gracefulStop: 30s)
+
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+Run     [ 100% ] setup()
+spike   [   0% ]
+
+running (0m45.0s), 010/100 VUs, 0 complete and 0 interrupted iterations
+spike   [   0% ] 010/100 VUs  0m00.3s/4m10.0s
+
+running (0m46.0s), 010/100 VUs, 3 complete and 0 interrupted iterations
+spike   [   1% ] 010/100 VUs  0m01.3s/4m10.0s
+
+running (0m47.0s), 010/100 VUs, 12 complete and 0 interrupted iterations
+spike   [   1% ] 010/100 VUs  0m02.3s/4m10.0s
+
+running (0m48.0s), 010/100 VUs, 18 complete and 0 interrupted iterations
+spike   [   1% ] 010/100 VUs  0m03.3s/4m10.0s
+
+running (0m49.0s), 010/100 VUs, 27 complete and 0 interrupted iterations
+spike   [   2% ] 010/100 VUs  0m04.3s/4m10.0s
+
+running (0m50.0s), 010/100 VUs, 35 complete and 0 interrupted iterations
+spike   [   2% ] 010/100 VUs  0m05.3s/4m10.0s
+
+running (0m51.0s), 010/100 VUs, 42 complete and 0 interrupted iterations
+spike   [   3% ] 010/100 VUs  0m06.3s/4m10.0s
+
+running (0m52.0s), 010/100 VUs, 50 complete and 0 interrupted iterations
+spike   [   3% ] 010/100 VUs  0m07.3s/4m10.0s
+
+running (0m53.0s), 010/100 VUs, 58 complete and 0 interrupted iterations
+spike   [   3% ] 010/100 VUs  0m08.3s/4m10.0s
+
+running (0m54.0s), 010/100 VUs, 66 complete and 0 interrupted iterations
+spike   [   4% ] 010/100 VUs  0m09.3s/4m10.0s
+
+running (0m55.0s), 010/100 VUs, 73 complete and 0 interrupted iterations
+spike   [   4% ] 010/100 VUs  0m10.3s/4m10.0s
+
+running (0m56.0s), 010/100 VUs, 83 complete and 0 interrupted iterations
+spike   [   5% ] 010/100 VUs  0m11.3s/4m10.0s
+
+running (0m57.0s), 010/100 VUs, 91 complete and 0 interrupted iterations
+spike   [   5% ] 010/100 VUs  0m12.3s/4m10.0s
+
+running (0m58.0s), 010/100 VUs, 100 complete and 0 interrupted iterations
+spike   [   5% ] 010/100 VUs  0m13.3s/4m10.0s
+
+running (0m59.0s), 010/100 VUs, 109 complete and 0 interrupted iterations
+spike   [   6% ] 010/100 VUs  0m14.3s/4m10.0s
+
+running (1m00.0s), 010/100 VUs, 119 complete and 0 interrupted iterations
+spike   [   6% ] 010/100 VUs  0m15.3s/4m10.0s
+
+running (1m01.0s), 010/100 VUs, 127 complete and 0 interrupted iterations
+spike   [   7% ] 010/100 VUs  0m16.3s/4m10.0s
+
+running (1m02.0s), 010/100 VUs, 136 complete and 0 interrupted iterations
+spike   [   7% ] 010/100 VUs  0m17.3s/4m10.0s
+
+running (1m03.0s), 010/100 VUs, 142 complete and 0 interrupted iterations
+spike   [   7% ] 010/100 VUs  0m18.3s/4m10.0s
+
+running (1m04.0s), 010/100 VUs, 149 complete and 0 interrupted iterations
+spike   [   8% ] 010/100 VUs  0m19.3s/4m10.0s
+
+running (1m05.0s), 010/100 VUs, 158 complete and 0 interrupted iterations
+spike   [   8% ] 010/100 VUs  0m20.3s/4m10.0s
+
+running (1m06.0s), 010/100 VUs, 167 complete and 0 interrupted iterations
+spike   [   9% ] 010/100 VUs  0m21.3s/4m10.0s
+
+running (1m07.0s), 010/100 VUs, 175 complete and 0 interrupted iterations
+spike   [   9% ] 010/100 VUs  0m22.3s/4m10.0s
+
+running (1m08.0s), 010/100 VUs, 182 complete and 0 interrupted iterations
+spike   [   9% ] 010/100 VUs  0m23.3s/4m10.0s
+
+running (1m09.0s), 010/100 VUs, 192 complete and 0 interrupted iterations
+spike   [  10% ] 010/100 VUs  0m24.3s/4m10.0s
+
+running (1m10.0s), 010/100 VUs, 197 complete and 0 interrupted iterations
+spike   [  10% ] 010/100 VUs  0m25.3s/4m10.0s
+
+running (1m11.0s), 010/100 VUs, 204 complete and 0 interrupted iterations
+spike   [  11% ] 010/100 VUs  0m26.3s/4m10.0s
+
+running (1m12.0s), 010/100 VUs, 212 complete and 0 interrupted iterations
+spike   [  11% ] 010/100 VUs  0m27.3s/4m10.0s
+
+running (1m13.0s), 010/100 VUs, 221 complete and 0 interrupted iterations
+spike   [  11% ] 010/100 VUs  0m28.3s/4m10.0s
+
+running (1m14.0s), 010/100 VUs, 229 complete and 0 interrupted iterations
+spike   [  12% ] 010/100 VUs  0m29.3s/4m10.0s
+
+running (1m15.0s), 010/100 VUs, 237 complete and 0 interrupted iterations
+spike   [  12% ] 010/100 VUs  0m30.3s/4m10.0s
+
+running (1m16.0s), 010/100 VUs, 246 complete and 0 interrupted iterations
+spike   [  13% ] 010/100 VUs  0m31.3s/4m10.0s
+
+running (1m17.0s), 010/100 VUs, 255 complete and 0 interrupted iterations
+spike   [  13% ] 010/100 VUs  0m32.3s/4m10.0s
+
+running (1m18.0s), 010/100 VUs, 261 complete and 0 interrupted iterations
+spike   [  13% ] 010/100 VUs  0m33.3s/4m10.0s
+
+running (1m19.0s), 010/100 VUs, 263 complete and 0 interrupted iterations
+spike   [  14% ] 010/100 VUs  0m34.3s/4m10.0s
+
+running (1m20.0s), 010/100 VUs, 269 complete and 0 interrupted iterations
+spike   [  14% ] 010/100 VUs  0m35.3s/4m10.0s
+
+running (1m21.0s), 010/100 VUs, 279 complete and 0 interrupted iterations
+spike   [  15% ] 010/100 VUs  0m36.3s/4m10.0s
+
+running (1m22.0s), 010/100 VUs, 286 complete and 0 interrupted iterations
+spike   [  15% ] 010/100 VUs  0m37.3s/4m10.0s
+
+running (1m23.0s), 010/100 VUs, 293 complete and 0 interrupted iterations
+spike   [  15% ] 010/100 VUs  0m38.3s/4m10.0s
+
+running (1m24.0s), 010/100 VUs, 302 complete and 0 interrupted iterations
+spike   [  16% ] 010/100 VUs  0m39.3s/4m10.0s
+
+running (1m25.0s), 010/100 VUs, 310 complete and 0 interrupted iterations
+spike   [  16% ] 010/100 VUs  0m40.3s/4m10.0s
+
+running (1m26.0s), 010/100 VUs, 319 complete and 0 interrupted iterations
+spike   [  17% ] 010/100 VUs  0m41.3s/4m10.0s
+
+running (1m27.0s), 010/100 VUs, 329 complete and 0 interrupted iterations
+spike   [  17% ] 010/100 VUs  0m42.3s/4m10.0s
+
+running (1m28.0s), 010/100 VUs, 334 complete and 0 interrupted iterations
+spike   [  17% ] 010/100 VUs  0m43.3s/4m10.0s
+
+running (1m29.0s), 010/100 VUs, 344 complete and 0 interrupted iterations
+spike   [  18% ] 010/100 VUs  0m44.3s/4m10.0s
+
+running (1m30.0s), 010/100 VUs, 350 complete and 0 interrupted iterations
+spike   [  18% ] 010/100 VUs  0m45.3s/4m10.0s
+
+running (1m31.0s), 010/100 VUs, 360 complete and 0 interrupted iterations
+spike   [  19% ] 010/100 VUs  0m46.3s/4m10.0s
+
+running (1m32.0s), 010/100 VUs, 369 complete and 0 interrupted iterations
+spike   [  19% ] 010/100 VUs  0m47.3s/4m10.0s
+
+running (1m33.0s), 010/100 VUs, 379 complete and 0 interrupted iterations
+spike   [  19% ] 010/100 VUs  0m48.3s/4m10.0s
+
+running (1m34.0s), 010/100 VUs, 382 complete and 0 interrupted iterations
+spike   [  20% ] 010/100 VUs  0m49.3s/4m10.0s
+
+running (1m35.0s), 010/100 VUs, 387 complete and 0 interrupted iterations
+spike   [  20% ] 010/100 VUs  0m50.3s/4m10.0s
+
+running (1m36.0s), 010/100 VUs, 397 complete and 0 interrupted iterations
+spike   [  21% ] 010/100 VUs  0m51.3s/4m10.0s
+
+running (1m37.0s), 010/100 VUs, 405 complete and 0 interrupted iterations
+spike   [  21% ] 010/100 VUs  0m52.3s/4m10.0s
+
+running (1m38.0s), 010/100 VUs, 414 complete and 0 interrupted iterations
+spike   [  21% ] 010/100 VUs  0m53.3s/4m10.0s
+
+running (1m39.0s), 010/100 VUs, 420 complete and 0 interrupted iterations
+spike   [  22% ] 010/100 VUs  0m54.3s/4m10.0s
+
+running (1m40.0s), 010/100 VUs, 426 complete and 0 interrupted iterations
+spike   [  22% ] 010/100 VUs  0m55.3s/4m10.0s
+
+running (1m41.0s), 010/100 VUs, 435 complete and 0 interrupted iterations
+spike   [  23% ] 010/100 VUs  0m56.3s/4m10.0s
+
+running (1m42.0s), 010/100 VUs, 444 complete and 0 interrupted iterations
+spike   [  23% ] 010/100 VUs  0m57.3s/4m10.0s
+
+running (1m43.0s), 010/100 VUs, 452 complete and 0 interrupted iterations
+spike   [  23% ] 010/100 VUs  0m58.3s/4m10.0s
+
+running (1m44.0s), 010/100 VUs, 461 complete and 0 interrupted iterations
+spike   [  24% ] 010/100 VUs  0m59.3s/4m10.0s
+
+running (1m45.0s), 014/100 VUs, 469 complete and 0 interrupted iterations
+spike   [  24% ] 014/100 VUs  1m00.3s/4m10.0s
+
+running (1m46.0s), 032/100 VUs, 480 complete and 0 interrupted iterations
+spike   [  25% ] 032/100 VUs  1m01.3s/4m10.0s
+
+running (1m47.0s), 050/100 VUs, 498 complete and 0 interrupted iterations
+spike   [  25% ] 050/100 VUs  1m02.3s/4m10.0s
+
+running (1m48.0s), 068/100 VUs, 504 complete and 0 interrupted iterations
+spike   [  25% ] 068/100 VUs  1m03.3s/4m10.0s
+
+running (1m49.0s), 086/100 VUs, 507 complete and 0 interrupted iterations
+spike   [  26% ] 086/100 VUs  1m04.3s/4m10.0s
+
+running (1m50.0s), 100/100 VUs, 520 complete and 0 interrupted iterations
+spike   [  26% ] 100/100 VUs  1m05.3s/4m10.0s
+
+running (1m51.0s), 100/100 VUs, 522 complete and 0 interrupted iterations
+spike   [  27% ] 100/100 VUs  1m06.3s/4m10.0s
+
+running (1m52.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  27% ] 100/100 VUs  1m07.3s/4m10.0s
+
+running (1m53.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  27% ] 100/100 VUs  1m08.3s/4m10.0s
+
+running (1m54.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  28% ] 100/100 VUs  1m09.3s/4m10.0s
+
+running (1m55.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  28% ] 100/100 VUs  1m10.3s/4m10.0s
+
+running (1m56.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  29% ] 100/100 VUs  1m11.3s/4m10.0s
+
+running (1m57.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  29% ] 100/100 VUs  1m12.3s/4m10.0s
+
+running (1m58.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  29% ] 100/100 VUs  1m13.3s/4m10.0s
+
+running (1m59.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  30% ] 100/100 VUs  1m14.3s/4m10.0s
+
+running (2m00.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  30% ] 100/100 VUs  1m15.3s/4m10.0s
+
+running (2m01.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  31% ] 100/100 VUs  1m16.3s/4m10.0s
+
+running (2m02.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  31% ] 100/100 VUs  1m17.3s/4m10.0s
+
+running (2m03.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  31% ] 100/100 VUs  1m18.3s/4m10.0s
+
+running (2m04.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  32% ] 100/100 VUs  1m19.3s/4m10.0s
+
+running (2m05.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  32% ] 100/100 VUs  1m20.3s/4m10.0s
+
+running (2m06.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  33% ] 100/100 VUs  1m21.3s/4m10.0s
+
+running (2m07.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  33% ] 100/100 VUs  1m22.3s/4m10.0s
+
+running (2m08.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  33% ] 100/100 VUs  1m23.3s/4m10.0s
+
+running (2m09.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  34% ] 100/100 VUs  1m24.3s/4m10.0s
+
+running (2m10.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  34% ] 100/100 VUs  1m25.3s/4m10.0s
+
+running (2m11.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  35% ] 100/100 VUs  1m26.3s/4m10.0s
+
+running (2m12.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  35% ] 100/100 VUs  1m27.3s/4m10.0s
+
+running (2m13.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  35% ] 100/100 VUs  1m28.3s/4m10.0s
+
+running (2m14.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  36% ] 100/100 VUs  1m29.3s/4m10.0s
+
+running (2m15.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  36% ] 100/100 VUs  1m30.3s/4m10.0s
+
+running (2m16.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  37% ] 100/100 VUs  1m31.3s/4m10.0s
+
+running (2m17.0s), 100/100 VUs, 525 complete and 0 interrupted iterations
+spike   [  37% ] 100/100 VUs  1m32.3s/4m10.0s
+
+running (2m18.0s), 100/100 VUs, 531 complete and 0 interrupted iterations
+spike   [  37% ] 100/100 VUs  1m33.3s/4m10.0s
+
+running (2m19.0s), 100/100 VUs, 556 complete and 0 interrupted iterations
+spike   [  38% ] 100/100 VUs  1m34.3s/4m10.0s
+
+running (2m20.0s), 100/100 VUs, 556 complete and 0 interrupted iterations
+spike   [  38% ] 100/100 VUs  1m35.3s/4m10.0s
+
+running (2m21.0s), 100/100 VUs, 559 complete and 0 interrupted iterations
+spike   [  39% ] 100/100 VUs  1m36.3s/4m10.0s
+
+running (2m22.0s), 100/100 VUs, 561 complete and 0 interrupted iterations
+spike   [  39% ] 100/100 VUs  1m37.3s/4m10.0s
+
+running (2m23.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  39% ] 100/100 VUs  1m38.3s/4m10.0s
+
+running (2m24.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  40% ] 100/100 VUs  1m39.3s/4m10.0s
+
+running (2m25.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  40% ] 100/100 VUs  1m40.3s/4m10.0s
+
+running (2m26.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  41% ] 100/100 VUs  1m41.3s/4m10.0s
+
+running (2m27.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  41% ] 100/100 VUs  1m42.3s/4m10.0s
+
+running (2m28.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  41% ] 100/100 VUs  1m43.3s/4m10.0s
+
+running (2m29.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  42% ] 100/100 VUs  1m44.3s/4m10.0s
+
+running (2m30.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  42% ] 100/100 VUs  1m45.3s/4m10.0s
+
+running (2m31.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  43% ] 100/100 VUs  1m46.3s/4m10.0s
+
+running (2m32.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  43% ] 100/100 VUs  1m47.3s/4m10.0s
+
+running (2m33.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  43% ] 100/100 VUs  1m48.3s/4m10.0s
+
+running (2m34.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  44% ] 100/100 VUs  1m49.3s/4m10.0s
+
+running (2m35.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  44% ] 100/100 VUs  1m50.3s/4m10.0s
+
+running (2m36.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  45% ] 100/100 VUs  1m51.3s/4m10.0s
+
+running (2m37.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  45% ] 100/100 VUs  1m52.3s/4m10.0s
+
+running (2m38.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  45% ] 100/100 VUs  1m53.3s/4m10.0s
+
+running (2m39.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  46% ] 100/100 VUs  1m54.3s/4m10.0s
+
+running (2m40.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  46% ] 100/100 VUs  1m55.3s/4m10.0s
+
+running (2m41.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  47% ] 100/100 VUs  1m56.3s/4m10.0s
+
+running (2m42.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  47% ] 100/100 VUs  1m57.3s/4m10.0s
+
+running (2m43.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  47% ] 100/100 VUs  1m58.3s/4m10.0s
+
+running (2m44.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  48% ] 100/100 VUs  1m59.3s/4m10.0s
+
+running (2m45.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  48% ] 100/100 VUs  2m00.3s/4m10.0s
+
+running (2m46.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  49% ] 100/100 VUs  2m01.3s/4m10.0s
+
+running (2m47.0s), 100/100 VUs, 568 complete and 0 interrupted iterations
+spike   [  49% ] 100/100 VUs  2m02.3s/4m10.0s
+time="2026-10-01T20:37:05+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:05+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:05+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/34/our-price-history\": request timeout"
+time="2026-10-01T20:37:05+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (2m48.0s), 100/100 VUs, 574 complete and 0 interrupted iterations
+spike   [  49% ] 100/100 VUs  2m03.3s/4m10.0s
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/66/history?days=7\": request timeout"
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/62/our-price-history\": request timeout"
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/18\": request timeout"
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/19/history?days=7\": request timeout"
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+
+running (2m49.0s), 100/100 VUs, 590 complete and 0 interrupted iterations
+spike   [  50% ] 100/100 VUs  2m04.3s/4m10.0s
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/19\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/6/decisions\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/56/our-price-history\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/10\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/9/our-price-history\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/10/our-price-history\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/90/decisions\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/19/history?days=7\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/34/history?days=7\": request timeout"
+
+running (2m50.0s), 100/100 VUs, 597 complete and 0 interrupted iterations
+spike   [  50% ] 100/100 VUs  2m05.3s/4m10.0s
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/82/history?days=7\": request timeout"
+time="2026-10-01T20:37:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+
+running (2m51.0s), 092/100 VUs, 619 complete and 0 interrupted iterations
+spike   [  51% ] 092/100 VUs  2m06.3s/4m10.0s
+time="2026-10-01T20:37:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/19\": request timeout"
+time="2026-10-01T20:37:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (2m52.0s), 092/100 VUs, 622 complete and 0 interrupted iterations
+spike   [  51% ] 092/100 VUs  2m07.3s/4m10.0s
+
+running (2m53.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  51% ] 092/100 VUs  2m08.3s/4m10.0s
+
+running (2m54.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  52% ] 092/100 VUs  2m09.3s/4m10.0s
+
+running (2m55.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  52% ] 092/100 VUs  2m10.3s/4m10.0s
+
+running (2m56.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  53% ] 092/100 VUs  2m11.3s/4m10.0s
+
+running (2m57.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  53% ] 092/100 VUs  2m12.3s/4m10.0s
+
+running (2m58.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  53% ] 092/100 VUs  2m13.3s/4m10.0s
+
+running (2m59.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  54% ] 092/100 VUs  2m14.3s/4m10.0s
+
+running (3m00.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  54% ] 092/100 VUs  2m15.3s/4m10.0s
+
+running (3m01.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  55% ] 092/100 VUs  2m16.3s/4m10.0s
+
+running (3m02.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  55% ] 092/100 VUs  2m17.3s/4m10.0s
+
+running (3m03.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  55% ] 092/100 VUs  2m18.3s/4m10.0s
+
+running (3m04.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  56% ] 092/100 VUs  2m19.3s/4m10.0s
+
+running (3m05.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  56% ] 092/100 VUs  2m20.3s/4m10.0s
+
+running (3m06.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  57% ] 092/100 VUs  2m21.3s/4m10.0s
+
+running (3m07.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  57% ] 092/100 VUs  2m22.3s/4m10.0s
+
+running (3m08.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  57% ] 092/100 VUs  2m23.3s/4m10.0s
+
+running (3m09.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  58% ] 092/100 VUs  2m24.3s/4m10.0s
+
+running (3m10.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  58% ] 092/100 VUs  2m25.3s/4m10.0s
+
+running (3m11.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  59% ] 092/100 VUs  2m26.3s/4m10.0s
+
+running (3m12.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  59% ] 092/100 VUs  2m27.3s/4m10.0s
+
+running (3m13.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  59% ] 092/100 VUs  2m28.3s/4m10.0s
+
+running (3m14.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  60% ] 092/100 VUs  2m29.3s/4m10.0s
+
+running (3m15.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  60% ] 092/100 VUs  2m30.3s/4m10.0s
+
+running (3m16.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  61% ] 092/100 VUs  2m31.3s/4m10.0s
+
+running (3m17.0s), 092/100 VUs, 625 complete and 0 interrupted iterations
+spike   [  61% ] 092/100 VUs  2m32.3s/4m10.0s
+time="2026-10-01T20:37:36+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:36+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:36+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:36+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (3m18.0s), 089/100 VUs, 628 complete and 0 interrupted iterations
+spike   [  61% ] 089/100 VUs  2m33.3s/4m10.0s
+time="2026-10-01T20:37:36+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:36+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/11\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/39\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/76\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/50\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/90/decisions\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/53\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:37+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+
+running (3m19.0s), 083/100 VUs, 636 complete and 0 interrupted iterations
+spike   [  62% ] 083/100 VUs  2m34.3s/4m10.0s
+
+running (3m20.0s), 066/100 VUs, 657 complete and 0 interrupted iterations
+spike   [  62% ] 066/100 VUs  2m35.3s/4m10.0s
+time="2026-10-01T20:37:38+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:37:38+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/3/our-price-history\": request timeout"
+time="2026-10-01T20:37:38+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/75/history?days=7\": request timeout"
+
+running (3m21.0s), 066/100 VUs, 657 complete and 0 interrupted iterations
+spike   [  63% ] 066/100 VUs  2m36.3s/4m10.0s
+time="2026-10-01T20:37:39+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/72/history?days=7\": request timeout"
+time="2026-10-01T20:37:40+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (3m22.0s), 063/100 VUs, 660 complete and 0 interrupted iterations
+spike   [  63% ] 063/100 VUs  2m37.3s/4m10.0s
+time="2026-10-01T20:37:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/29/history?days=7\": request timeout"
+time="2026-10-01T20:37:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:37:41+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+
+running (3m23.0s), 059/100 VUs, 664 complete and 0 interrupted iterations
+spike   [  63% ] 059/100 VUs  2m38.3s/4m10.0s
+
+running (3m24.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  64% ] 054/100 VUs  2m39.3s/4m10.0s
+
+running (3m25.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  64% ] 054/100 VUs  2m40.3s/4m10.0s
+
+running (3m26.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  65% ] 054/100 VUs  2m41.3s/4m10.0s
+
+running (3m27.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  65% ] 054/100 VUs  2m42.3s/4m10.0s
+
+running (3m28.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  65% ] 054/100 VUs  2m43.3s/4m10.0s
+
+running (3m29.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  66% ] 054/100 VUs  2m44.3s/4m10.0s
+
+running (3m30.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  66% ] 054/100 VUs  2m45.3s/4m10.0s
+
+running (3m31.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  67% ] 054/100 VUs  2m46.3s/4m10.0s
+
+running (3m32.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  67% ] 054/100 VUs  2m47.3s/4m10.0s
+
+running (3m33.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  67% ] 054/100 VUs  2m48.3s/4m10.0s
+
+running (3m34.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  68% ] 054/100 VUs  2m49.3s/4m10.0s
+
+running (3m35.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  68% ] 054/100 VUs  2m50.3s/4m10.0s
+
+running (3m36.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  69% ] 054/100 VUs  2m51.3s/4m10.0s
+
+running (3m37.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  69% ] 054/100 VUs  2m52.3s/4m10.0s
+
+running (3m38.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  69% ] 054/100 VUs  2m53.3s/4m10.0s
+
+running (3m39.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  70% ] 054/100 VUs  2m54.3s/4m10.0s
+
+running (3m40.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  70% ] 054/100 VUs  2m55.3s/4m10.0s
+
+running (3m41.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  71% ] 054/100 VUs  2m56.3s/4m10.0s
+
+running (3m42.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  71% ] 054/100 VUs  2m57.3s/4m10.0s
+
+running (3m43.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  71% ] 054/100 VUs  2m58.3s/4m10.0s
+
+running (3m44.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  72% ] 054/100 VUs  2m59.3s/4m10.0s
+
+running (3m45.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  72% ] 054/100 VUs  3m00.3s/4m10.0s
+
+running (3m46.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  73% ] 054/100 VUs  3m01.3s/4m10.0s
+
+running (3m47.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  73% ] 054/100 VUs  3m02.3s/4m10.0s
+time="2026-10-01T20:38:05+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+
+running (3m48.0s), 054/100 VUs, 669 complete and 0 interrupted iterations
+spike   [  73% ] 054/100 VUs  3m03.3s/4m10.0s
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/59/history?days=7\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/activity?days=14\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/96/history?days=7\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products/96/decisions\": request timeout"
+time="2026-10-01T20:38:06+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (3m49.0s), 045/100 VUs, 678 complete and 0 interrupted iterations
+spike   [  74% ] 045/100 VUs  3m04.3s/4m10.0s
+time="2026-10-01T20:38:07+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:08+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/proposals?status=pending\": request timeout"
+
+running (3m50.0s), 024/100 VUs, 701 complete and 0 interrupted iterations
+spike   [  74% ] 024/100 VUs  3m05.3s/4m10.0s
+time="2026-10-01T20:38:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+time="2026-10-01T20:38:09+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/monitoring\": request timeout"
+
+running (3m51.0s), 017/100 VUs, 709 complete and 1 interrupted iterations
+spike   [  75% ] 017/100 VUs  3m06.3s/4m10.0s
+
+running (3m52.0s), 012/100 VUs, 718 complete and 1 interrupted iterations
+spike   [  75% ] 012/100 VUs  3m07.3s/4m10.0s
+time="2026-10-01T20:38:10+05:30" level=warning msg="Request Failed" error="Get \"http://localhost:8100/api/products\": request timeout"
+
+running (3m53.0s), 011/100 VUs, 724 complete and 1 interrupted iterations
+spike   [  75% ] 011/100 VUs  3m08.3s/4m10.0s
+
+running (3m54.0s), 010/100 VUs, 728 complete and 1 interrupted iterations
+spike   [  76% ] 010/100 VUs  3m09.3s/4m10.0s
+
+running (3m55.0s), 010/100 VUs, 730 complete and 1 interrupted iterations
+spike   [  76% ] 010/100 VUs  3m10.3s/4m10.0s
+
+running (3m56.0s), 010/100 VUs, 734 complete and 1 interrupted iterations
+spike   [  77% ] 010/100 VUs  3m11.3s/4m10.0s
+
+running (3m57.0s), 010/100 VUs, 744 complete and 1 interrupted iterations
+spike   [  77% ] 010/100 VUs  3m12.3s/4m10.0s
+
+running (3m58.0s), 010/100 VUs, 753 complete and 1 interrupted iterations
+spike   [  77% ] 010/100 VUs  3m13.3s/4m10.0s
+
+running (3m59.0s), 010/100 VUs, 761 complete and 1 interrupted iterations
+spike   [  78% ] 010/100 VUs  3m14.3s/4m10.0s
+
+running (4m00.0s), 010/100 VUs, 770 complete and 1 interrupted iterations
+spike   [  78% ] 010/100 VUs  3m15.3s/4m10.0s
+
+running (4m01.0s), 010/100 VUs, 778 complete and 1 interrupted iterations
+spike   [  79% ] 010/100 VUs  3m16.3s/4m10.0s
+
+running (4m02.0s), 010/100 VUs, 788 complete and 1 interrupted iterations
+spike   [  79% ] 010/100 VUs  3m17.3s/4m10.0s
+
+running (4m03.0s), 010/100 VUs, 796 complete and 1 interrupted iterations
+spike   [  79% ] 010/100 VUs  3m18.3s/4m10.0s
+
+running (4m04.0s), 010/100 VUs, 806 complete and 1 interrupted iterations
+spike   [  80% ] 010/100 VUs  3m19.3s/4m10.0s
+
+running (4m05.0s), 010/100 VUs, 814 complete and 1 interrupted iterations
+spike   [  80% ] 010/100 VUs  3m20.3s/4m10.0s
+
+running (4m06.0s), 010/100 VUs, 820 complete and 1 interrupted iterations
+spike   [  81% ] 010/100 VUs  3m21.3s/4m10.0s
+
+running (4m07.0s), 010/100 VUs, 829 complete and 1 interrupted iterations
+spike   [  81% ] 010/100 VUs  3m22.3s/4m10.0s
+
+running (4m08.0s), 010/100 VUs, 839 complete and 1 interrupted iterations
+spike   [  81% ] 010/100 VUs  3m23.3s/4m10.0s
+
+running (4m09.0s), 010/100 VUs, 845 complete and 1 interrupted iterations
+spike   [  82% ] 010/100 VUs  3m24.3s/4m10.0s
+
+running (4m10.0s), 010/100 VUs, 853 complete and 1 interrupted iterations
+spike   [  82% ] 010/100 VUs  3m25.3s/4m10.0s
+
+running (4m11.0s), 010/100 VUs, 863 complete and 1 interrupted iterations
+spike   [  83% ] 010/100 VUs  3m26.3s/4m10.0s
+
+running (4m12.0s), 010/100 VUs, 871 complete and 1 interrupted iterations
+spike   [  83% ] 010/100 VUs  3m27.3s/4m10.0s
+
+running (4m13.0s), 010/100 VUs, 880 complete and 1 interrupted iterations
+spike   [  83% ] 010/100 VUs  3m28.3s/4m10.0s
+
+running (4m14.0s), 010/100 VUs, 889 complete and 1 interrupted iterations
+spike   [  84% ] 010/100 VUs  3m29.3s/4m10.0s
+
+running (4m15.0s), 010/100 VUs, 898 complete and 1 interrupted iterations
+spike   [  84% ] 010/100 VUs  3m30.3s/4m10.0s
+
+running (4m16.0s), 010/100 VUs, 903 complete and 1 interrupted iterations
+spike   [  85% ] 010/100 VUs  3m31.3s/4m10.0s
+
+running (4m17.0s), 010/100 VUs, 908 complete and 1 interrupted iterations
+spike   [  85% ] 010/100 VUs  3m32.3s/4m10.0s
+
+running (4m18.0s), 010/100 VUs, 917 complete and 1 interrupted iterations
+spike   [  85% ] 010/100 VUs  3m33.3s/4m10.0s
+
+running (4m19.0s), 010/100 VUs, 926 complete and 1 interrupted iterations
+spike   [  86% ] 010/100 VUs  3m34.3s/4m10.0s
+
+running (4m20.0s), 010/100 VUs, 933 complete and 1 interrupted iterations
+spike   [  86% ] 010/100 VUs  3m35.3s/4m10.0s
+
+running (4m21.0s), 010/100 VUs, 943 complete and 1 interrupted iterations
+spike   [  87% ] 010/100 VUs  3m36.3s/4m10.0s
+
+running (4m22.0s), 010/100 VUs, 951 complete and 1 interrupted iterations
+spike   [  87% ] 010/100 VUs  3m37.3s/4m10.0s
+
+running (4m23.0s), 010/100 VUs, 960 complete and 1 interrupted iterations
+spike   [  87% ] 010/100 VUs  3m38.3s/4m10.0s
+
+running (4m24.0s), 010/100 VUs, 965 complete and 1 interrupted iterations
+spike   [  88% ] 010/100 VUs  3m39.3s/4m10.0s
+
+running (4m25.0s), 010/100 VUs, 975 complete and 1 interrupted iterations
+spike   [  88% ] 010/100 VUs  3m40.3s/4m10.0s
+
+running (4m26.0s), 010/100 VUs, 981 complete and 1 interrupted iterations
+spike   [  89% ] 010/100 VUs  3m41.3s/4m10.0s
+
+running (4m27.0s), 010/100 VUs, 988 complete and 1 interrupted iterations
+spike   [  89% ] 010/100 VUs  3m42.3s/4m10.0s
+
+running (4m28.0s), 010/100 VUs, 996 complete and 1 interrupted iterations
+spike   [  89% ] 010/100 VUs  3m43.3s/4m10.0s
+
+running (4m29.0s), 010/100 VUs, 1005 complete and 1 interrupted iterations
+spike   [  90% ] 010/100 VUs  3m44.3s/4m10.0s
+
+running (4m30.0s), 010/100 VUs, 1007 complete and 1 interrupted iterations
+spike   [  90% ] 010/100 VUs  3m45.3s/4m10.0s
+
+running (4m31.0s), 010/100 VUs, 1017 complete and 1 interrupted iterations
+spike   [  91% ] 010/100 VUs  3m46.3s/4m10.0s
+
+running (4m32.0s), 010/100 VUs, 1021 complete and 1 interrupted iterations
+spike   [  91% ] 010/100 VUs  3m47.3s/4m10.0s
+
+running (4m33.0s), 010/100 VUs, 1030 complete and 1 interrupted iterations
+spike   [  91% ] 010/100 VUs  3m48.3s/4m10.0s
+
+running (4m34.0s), 010/100 VUs, 1039 complete and 1 interrupted iterations
+spike   [  92% ] 010/100 VUs  3m49.3s/4m10.0s
+
+running (4m35.0s), 010/100 VUs, 1049 complete and 1 interrupted iterations
+spike   [  92% ] 010/100 VUs  3m50.3s/4m10.0s
+
+running (4m36.0s), 010/100 VUs, 1058 complete and 1 interrupted iterations
+spike   [  93% ] 010/100 VUs  3m51.3s/4m10.0s
+
+running (4m37.0s), 010/100 VUs, 1063 complete and 1 interrupted iterations
+spike   [  93% ] 010/100 VUs  3m52.3s/4m10.0s
+
+running (4m38.0s), 010/100 VUs, 1073 complete and 1 interrupted iterations
+spike   [  93% ] 010/100 VUs  3m53.3s/4m10.0s
+
+running (4m39.0s), 010/100 VUs, 1081 complete and 1 interrupted iterations
+spike   [  94% ] 010/100 VUs  3m54.3s/4m10.0s
+
+running (4m40.0s), 010/100 VUs, 1089 complete and 1 interrupted iterations
+spike   [  94% ] 010/100 VUs  3m55.3s/4m10.0s
+
+running (4m41.0s), 010/100 VUs, 1095 complete and 1 interrupted iterations
+spike   [  95% ] 010/100 VUs  3m56.3s/4m10.0s
+
+running (4m42.0s), 010/100 VUs, 1100 complete and 1 interrupted iterations
+spike   [  95% ] 010/100 VUs  3m57.3s/4m10.0s
+
+running (4m43.0s), 010/100 VUs, 1109 complete and 1 interrupted iterations
+spike   [  95% ] 010/100 VUs  3m58.3s/4m10.0s
+
+running (4m44.0s), 010/100 VUs, 1117 complete and 1 interrupted iterations
+spike   [  96% ] 010/100 VUs  3m59.3s/4m10.0s
+
+running (4m45.0s), 010/100 VUs, 1125 complete and 1 interrupted iterations
+spike   [  96% ] 010/100 VUs  4m00.3s/4m10.0s
+
+running (4m46.0s), 010/100 VUs, 1133 complete and 1 interrupted iterations
+spike   [  97% ] 010/100 VUs  4m01.3s/4m10.0s
+
+running (4m47.0s), 010/100 VUs, 1142 complete and 1 interrupted iterations
+spike   [  97% ] 010/100 VUs  4m02.3s/4m10.0s
+
+running (4m48.0s), 010/100 VUs, 1151 complete and 1 interrupted iterations
+spike   [  97% ] 010/100 VUs  4m03.3s/4m10.0s
+
+running (4m49.0s), 010/100 VUs, 1159 complete and 1 interrupted iterations
+spike   [  98% ] 010/100 VUs  4m04.3s/4m10.0s
+
+running (4m50.0s), 010/100 VUs, 1168 complete and 1 interrupted iterations
+spike   [  98% ] 010/100 VUs  4m05.3s/4m10.0s
+
+running (4m51.0s), 010/100 VUs, 1175 complete and 1 interrupted iterations
+spike   [  99% ] 010/100 VUs  4m06.3s/4m10.0s
+
+running (4m52.0s), 010/100 VUs, 1185 complete and 1 interrupted iterations
+spike   [  99% ] 010/100 VUs  4m07.3s/4m10.0s
+
+running (4m53.0s), 010/100 VUs, 1193 complete and 1 interrupted iterations
+spike   [  99% ] 010/100 VUs  4m08.3s/4m10.0s
+
+running (4m54.0s), 010/100 VUs, 1201 complete and 1 interrupted iterations
+spike   [ 100% ] 010/100 VUs  4m09.3s/4m10.0s
+
+running (4m55.0s), 005/100 VUs, 1211 complete and 1 interrupted iterations
+spike ↓ [ 100% ] 010/100 VUs  4m10s
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<1500' p(95)=1m0s
+
+      {name:/api/activity}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/api/monitoring}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/api/products}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/api/products/:id}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/api/products/:id/decisions}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/api/products/:id/history}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/api/products/:id/our-price-history}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/api/proposals}
+      ✓ 'max>=0' max=1m0s
+
+      {name:/health}
+      ✓ 'max>=0' max=58.93s
+
+    http_req_failed
+    ✗ 'rate<0.01' rate=11.24%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 1217   4.116657/s
+    checks_succeeded...: 88.74% 1080 out of 1217
+    checks_failed......: 11.25% 137 out of 1217
+
+    ✗ status is 200
+      ↳  88% — ✓ 1080 / ✗ 137
+
+    HTTP
+    http_req_duration................................: avg=8.83s  min=1.07ms   med=226.49ms p(90)=58.83s p(95)=1m0s   p(99)=1m0s   max=1m0s   count=1218
+      { expected_response:true }.....................: avg=3.03s  min=1.07ms   med=177.45ms p(90)=1.28s  p(95)=30.9s  p(99)=59.18s max=59.99s count=1081
+      { name:/api/activity }.........................: avg=7.96s  min=3.61ms   med=9ms      p(90)=58.42s p(95)=59.99s p(99)=1m0s   max=1m0s   count=140 
+      { name:/api/monitoring }.......................: avg=5.81s  min=155.07ms med=312.86ms p(90)=2.67s  p(95)=59.77s p(99)=1m0s   max=1m0s   count=93  
+      { name:/api/products }.........................: avg=11.36s min=422.67ms med=885.68ms p(90)=59.99s p(95)=1m0s   p(99)=1m0s   max=1m0s   count=245 
+      { name:/api/products/:id }.....................: avg=8.26s  min=6.29ms   med=16.92ms  p(90)=57.84s p(95)=59.99s p(99)=1m0s   max=1m0s   count=146 
+      { name:/api/products/:id/decisions }...........: avg=7.57s  min=1.51ms   med=5.11ms   p(90)=58.46s p(95)=59.96s p(99)=1m0s   max=1m0s   count=67  
+      { name:/api/products/:id/history }.............: avg=8.87s  min=2.25ms   med=7.91ms   p(90)=58.46s p(95)=1m0s   p(99)=1m0s   max=1m0s   count=128 
+      { name:/api/products/:id/our-price-history }...: avg=11.67s min=1.35ms   med=7.72ms   p(90)=1m0s   p(95)=1m0s   p(99)=1m0s   max=1m0s   count=41  
+      { name:/api/proposals }........................: avg=8.68s  min=138.93ms med=292.04ms p(90)=59.51s p(95)=1m0s   p(99)=1m0s   max=1m0s   count=288 
+      { name:/health }...............................: avg=6.48s  min=1.07ms   med=3.53ms   p(90)=29.93s p(95)=58.07s p(99)=58.91s max=58.93s count=69  
+    http_req_failed..................................: 11.24% 137 out of 1218
+    http_reqs........................................: 1218   4.120039/s
+
+    EXECUTION
+    iteration_duration...............................: avg=9.76s  min=1s       med=1.22s    p(90)=59.82s p(95)=1m1s   p(99)=1m1s   max=1m1s   count=1216
+    iterations.......................................: 1216   4.113274/s
+    vus..............................................: 5      min=0           max=100
+    vus_max..........................................: 100    min=100         max=100
+
+    NETWORK
+    data_received....................................: 57 MB  192 kB/s
+    data_sent........................................: 110 kB 372 B/s
+
+
+
+
+running (4m55.6s), 000/100 VUs, 1216 complete and 1 interrupted iterations
+spike ✓ [ 100% ] 000/100 VUs  4m10s
+time="2026-10-01T20:39:14+05:30" level=error msg="thresholds on metrics 'http_req_duration, http_req_failed' have been crossed"

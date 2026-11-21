@@ -1,0 +1,31 @@
+{
+  "db": "tracker_perf",
+  "args": {
+    "db": "tracker_perf",
+    "products": 100,
+    "history": 60,
+    "drop_share": 0.4,
+    "pending": 30
+  },
+  "seed_seconds": 2.55,
+  "run_once": {
+    "run_id": 1,
+    "items_checked": 200,
+    "agent_invocations": 40,
+    "errors": 0,
+    "alerts_sent": 0
+  },
+  "resolved": {
+    "approved": 5,
+    "rejected": 5
+  },
+  "counts": {
+    "products": 100,
+    "listings": 200,
+    "observations": 12200,
+    "decisions": 40,
+    "proposals": 40,
+    "price_changes": 105,
+    "pending_proposals": 30
+  }
+}

@@ -1,0 +1,48 @@
+name: check-prices
+
+# Calls the backend's /internal/run-once on a schedule. The backend decides which items are
+# due (per-item check_every_hours), so an hourly trigger is cheap: most runs fetch a few
+# pages and make zero LLM calls.
+#
+# Repository secrets required:
+#   BACKEND_URL          e.g. https://tracker.example.com (must be reachable from GitHub)
+#   INTERNAL_RUN_SECRET  same value as the backend's INTERNAL_RUN_SECRET
+
+on:
+  schedule:
+    - cron: "17 * * * *" # hourly, off the top of the hour
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Check every active item regardless of its interval"
+        type: boolean
+        default: false
+
+concurrency:
+  group: check-prices
+  cancel-in-progress: false
+
+jobs:
+  run-once:
+    # The hourly schedule stays off until a hosted backend exists, so it doesn't fail every hour.
+    # Turn it on with the repository variable PRICE_CHECKS_ENABLED=true. "Run workflow" always runs.
+    if: github.event_name == 'workflow_dispatch' || vars.PRICE_CHECKS_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Trigger one scheduler cycle
+        env:
+          BACKEND_URL: ${{ secrets.BACKEND_URL }}
+          INTERNAL_RUN_SECRET: ${{ secrets.INTERNAL_RUN_SECRET }}
+          FORCE: ${{ github.event.inputs.force || 'false' }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BACKEND_URL}" ] || [ -z "${INTERNAL_RUN_SECRET}" ]; then
+            echo "::error::BACKEND_URL and INTERNAL_RUN_SECRET repository secrets must be set"
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error --max-time 900 \
+            -X POST "${BACKEND_URL%/}/internal/run-once?force=${FORCE}" \
+            -H "X-Internal-Secret: ${INTERNAL_RUN_SECRET}" | tee run.json
+          echo
+          python3 -c "import json;r=json.load(open('run.json'));print(f\"checked={r['items_checked']} agent_calls={r['agent_invocations']} alerts={r['alerts_sent']} errors={r['errors']}\")"

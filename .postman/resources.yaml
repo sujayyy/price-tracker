@@ -1,0 +1,9 @@
+# Use this workspace to collaborate
+workspace:
+  id: 6a250c1f-c18e-41ab-88f8-7aeb972a5d3c
+
+localResources:
+  collections:
+    - ../infra/postman/Price Tracker API
+  environments:
+    - ../infra/postman/Price Tracker (local).environment.yaml

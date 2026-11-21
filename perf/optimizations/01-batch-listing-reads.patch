@@ -1,0 +1,545 @@
+--- backend/app/db/repo.py	2026-10-01 20:40:32
++++ backend/app/db/repo.py	2026-10-01 21:58:13
+@@ -3,11 +3,15 @@
+ from __future__ import annotations
+ 
+ import statistics
++from dataclasses import dataclass, field
+ from datetime import UTC, datetime, timedelta
+ from decimal import Decimal
++from functools import cache
++from typing import Any
+ 
+-from sqlalchemy import delete, func, literal, select, update
+-from sqlalchemy.orm import Session
++from sqlalchemy import BigInteger, Select, bindparam, delete, func, literal, select, true, update
++from sqlalchemy.dialects.postgresql import ARRAY
++from sqlalchemy.orm import Session, aliased
+ 
+ from app.ai import ListingSnapshot, build_pricing_context
+ from app.ai.schemas import (
+@@ -54,7 +58,9 @@
+     return product if product is not None and product.deleted_at is None else None
+ 
+ 
+-def product_settings(session: Session, product: Product) -> ProductSettings:
++def product_settings(session: Session, product: Product, listings: list[TrackedItem] | None = None) -> ProductSettings:
++    """`listings` are the product's active listings, if the caller already has them."""
++    listings = listings if listings is not None else product_listings(session, product.id)
+     return ProductSettings(
+         product_id=product.id,
+         title=product.title,
+@@ -70,37 +76,55 @@
+         auto_apply_max_pct=float(product.auto_apply_max_pct),
+         listings=[
+             ListingInfo(listing_id=listing.id, marketplace=listing.marketplace, title=listing.title)  # type: ignore[arg-type]
+-            for listing in product_listings(session, product.id)
++            for listing in listings
+         ],
+     )
+ 
+ 
+ def listing_snapshot(session: Session, listing: TrackedItem) -> ListingSnapshot:
+-    latest = latest_observation(session, listing.id, ok_only=True)
+-    priced = session.execute(
+-        select(PriceObservation.id, PriceObservation.price_inr)
+-        .where(
+-            PriceObservation.item_id == listing.id,
+-            PriceObservation.ok.is_(True),
+-            PriceObservation.price_inr.is_not(None),
+-        )
+-        .order_by(PriceObservation.fetched_at.desc(), PriceObservation.id.desc())
+-        .limit(2)
+-    ).all()
++    return snapshot_from(listing, listing_reads(session, [listing.id])[listing.id])
++
++
++def snapshot_from(listing: TrackedItem, reads: ListingReads, days: int = 90) -> ListingSnapshot:
++    latest = reads.latest_ok
++    priced = reads.priced[:2]
+     return ListingSnapshot(
+         listing_id=listing.id,
+         marketplace=listing.marketplace,  # type: ignore[arg-type]
+         latest=to_view(latest) if latest else None,
+         previous_price=next((_f(p) for oid, p in priced if latest is None or oid != latest.id), None),
+-        last_known_price=_f(priced[0].price_inr) if priced else None,
+-        stats=history_stats(session, listing.id),
++        last_known_price=_f(priced[0][1]) if priced else None,
++        stats=stats_from(listing.id, days, reads),
+     )
+ 
+ 
+ def pricing_context(session: Session, product: Product) -> PricingContext:
+     """Our price vs every active listing, with the moves the guardrails allow."""
+-    snaps = [listing_snapshot(session, listing) for listing in product_listings(session, product.id)]
+-    return build_pricing_context(product.id, product_settings(session, product), snaps)
++    return pricing_contexts(session, [product])[product.id]
++
++
++def pricing_contexts(
++    session: Session,
++    products: list[Product],
++    *,
++    listings: dict[int, list[TrackedItem]] | None = None,
++    reads: dict[int, ListingReads] | None = None,
++) -> dict[int, PricingContext]:
++    """`pricing_context` for many products in a fixed number of queries. Pass `listings` (from
++    `listings_by_product`, paused included or not) and `reads` if the caller already has them."""
++    if listings is None:
++        listings = listings_by_product(session, [p.id for p in products])
++    active = {p.id: [x for x in listings.get(p.id, []) if x.active] for p in products}
++    if reads is None:
++        reads = listing_reads(session, [x.id for xs in active.values() for x in xs])
++    return {
++        p.id: build_pricing_context(
++            p.id,
++            product_settings(session, p, active[p.id]),
++            [snapshot_from(x, reads[x.id]) for x in active[p.id]],
++        )
++        for p in products
++    }
+ 
+ 
+ # --------------------------------------------------------------------------- competitor listings
+@@ -117,10 +141,22 @@
+ 
+ 
+ def product_listings(session: Session, product_id: int, *, include_paused: bool = False) -> list[TrackedItem]:
+-    stmt = select(TrackedItem).where(TrackedItem.product_id == product_id, TrackedItem.deleted_at.is_(None))
++    return listings_by_product(session, [product_id], include_paused=include_paused)[product_id]
++
++
++def listings_by_product(
++    session: Session, product_ids: list[int], *, include_paused: bool = False
++) -> dict[int, list[TrackedItem]]:
++    """Each product's listings (oldest first) in one query."""
++    out: dict[int, list[TrackedItem]] = {pid: [] for pid in product_ids}
++    if not out:
++        return out
++    stmt = select(TrackedItem).where(TrackedItem.product_id.in_(list(out)), TrackedItem.deleted_at.is_(None))
+     if not include_paused:
+         stmt = stmt.where(TrackedItem.active.is_(True))
+-    return list(session.scalars(stmt.order_by(TrackedItem.id)))
++    for listing in session.scalars(stmt.order_by(TrackedItem.id)):
++        out[listing.product_id].append(listing)
++    return out
+ 
+ 
+ def _monitored():
+@@ -268,30 +304,15 @@
+ 
+ def history_stats(session: Session, item_id: int, days: int = 90) -> HistoryStats:
+     """Stats over successful readings, excluding the most recent one (see HistoryStats)."""
+-    latest = latest_observation(session, item_id, ok_only=True)
+-    exclude_id = latest.id if latest else -1
+-    now = utcnow()
++    return stats_from(item_id, days, listing_reads(session, [item_id], days=days, series=False)[item_id])
+ 
+-    prior = select(PriceObservation.price_inr, PriceObservation.fetched_at).where(
+-        PriceObservation.item_id == item_id,
+-        PriceObservation.ok.is_(True),
+-        PriceObservation.price_inr.is_not(None),
+-        PriceObservation.id != exclude_id,
+-    )
+-    atl, ath = session.execute(
+-        select(func.min(PriceObservation.price_inr), func.max(PriceObservation.price_inr)).where(
+-            PriceObservation.item_id == item_id,
+-            PriceObservation.ok.is_(True),
+-            PriceObservation.id != exclude_id,
+-        )
+-    ).one()
+ 
+-    window_start = now - timedelta(days=max(days, 30))
+-    rows = session.execute(prior.where(PriceObservation.fetched_at >= window_start)).all()
+-    window = [float(p) for p, t in rows if t >= now - timedelta(days=days)]
+-    last30 = [float(p) for p, t in rows if t >= now - timedelta(days=30)]
+-
+-    recent = [o for o in latest_observations(session, item_id, 20) if o.ok][:10]
++def stats_from(item_id: int, days: int, reads: ListingReads) -> HistoryStats:
++    latest = reads.latest_ok
++    window = [float(p) for p, t in reads.prior if t >= reads.now - timedelta(days=days)]
++    last30 = [float(p) for p, t in reads.prior if t >= reads.now - timedelta(days=30)]
++    recent = [o for o in reads.recent[:RECENT_READINGS] if o.ok][:10]
++    atl, ath = reads.low_high
+     latest_price = _f(latest.price_inr) if latest else None
+     return HistoryStats(
+         listing_id=item_id,
+@@ -311,6 +332,128 @@
+     )
+ 
+ 
++# --------------------------------------------------------------------------- per-listing reads, batched
++#
++# Lists (products, proposals, monitoring) show each listing's latest reading, history stats and
++# sparkline. Read one listing at a time that was ~9 round trips per listing (1,800 for
++# /api/products with 100 products); `listing_reads` gets all of it in at most five queries, however
++# many listings there are. The single-listing helpers above call it too, so the numbers come from one
++# code path; for a single listing the queries are the plain indexed ones (see perf/REPORT.md).
++
++RECENT_READINGS = 20  # newest readings kept per listing (any outcome)
++SERIES_READINGS = 24  # newest priced readings kept per listing (sparkline, previous price)
++_NEWEST = (PriceObservation.fetched_at.desc(), PriceObservation.id.desc())
++
++
++@dataclass
++class ListingReads:
++    now: datetime
++    recent: list[PriceObservation] = field(default_factory=list)  # newest first, any outcome
++    latest_ok: PriceObservation | None = None
++    priced: list[tuple[int, Decimal]] = field(default_factory=list)  # newest first: (id, price), ok + priced
++    low_high: tuple[Decimal | None, Decimal | None] = (None, None)  # all-time, latest ok reading excluded
++    prior: list[tuple[Decimal, datetime]] = field(default_factory=list)  # (price, at) in the stats window, ditto
++
++
++_FILTERS = {
++    "any": (),
++    "ok": (PriceObservation.ok.is_(True),),
++    "priced": (PriceObservation.ok.is_(True), PriceObservation.price_inr.is_not(None)),
++}
++
++
++@cache
++def _newest(n: int, which: str, many: bool) -> Select:
++    """Each listing's newest `n` readings (filter `which`), newest first per listing.
++
++    One listing (the scheduler and the AI tools ask for one at a time) is a plain indexed
++    `ORDER BY … LIMIT n` on :item_id. Several are `unnest(:item_ids)` with a LATERAL `… LIMIT n` per
++    id, so each listing still walks the (item_id, fetched_at) index instead of sorting every reading.
++    Built once per shape: building the aliased ORM query costs more than running it.
++    """
++    where = _FILTERS[which]
++    if not many:
++        stmt = select(PriceObservation).where(PriceObservation.item_id == bindparam("item_id"), *where)
++        return _columns(PriceObservation, stmt.order_by(*_NEWEST).limit(n), which)
++    listing = func.unnest(bindparam("item_ids", type_=ARRAY(BigInteger))).table_valued("item_id").render_derived()
++    top = (
++        select(PriceObservation)
++        .where(PriceObservation.item_id == listing.c.item_id, *where)
++        .order_by(*_NEWEST)
++        .limit(n)
++        .lateral()
++    )
++    row = aliased(PriceObservation, top)
++    stmt = select(row).select_from(listing).join(top, true())
++    return _columns(row, stmt.order_by(row.item_id, row.fetched_at.desc(), row.id.desc()), which)
++
++
++def _columns(row: Any, stmt: Select, which: str) -> Select:
++    """Priced readings only feed sparklines and previous prices: (item_id, id, price) rows, not objects."""
++    return stmt.with_only_columns(row.item_id, row.id, row.price_inr) if which == "priced" else stmt
++
++
++def listing_reads(
++    session: Session, item_ids: list[int], *, days: int = 90, series: bool = True
++) -> dict[int, ListingReads]:
++    """`series=False` skips the priced readings (sparkline, previous price) when only stats are needed."""
++    now = utcnow()
++    reads = {i: ListingReads(now=now) for i in dict.fromkeys(item_ids)}
++    if not reads:
++        return reads
++    ids = list(reads)
++    ok = PriceObservation.ok.is_(True)
++    priced = _FILTERS["priced"]
++    many = len(ids) > 1
++    params = {"item_ids": ids} if many else {"item_id": ids[0]}
++
++    for obs in session.scalars(_newest(RECENT_READINGS, "any", many), params):
++        reads[obs.item_id].recent.append(obs)
++    for obs in session.scalars(_newest(1, "ok", many), params):
++        reads[obs.item_id].latest_ok = obs
++    if series:
++        for item_id, oid, price in session.execute(_newest(SERIES_READINGS, "priced", many), params):
++            reads[item_id].priced.append((oid, price))
++
++    # Ids are unique across listings, so excluding every listing's latest ok reading at once
++    # excludes exactly each listing's own.
++    latest_ids = [r.latest_ok.id for r in reads.values() if r.latest_ok]
++    not_latest = (
++        PriceObservation.id != latest_ids[0] if len(latest_ids) == 1 else PriceObservation.id.not_in(latest_ids)
++    )
++    of_ids = PriceObservation.item_id == ids[0] if len(ids) == 1 else PriceObservation.item_id.in_(ids)
++    rows = session.execute(
++        select(PriceObservation.item_id, func.min(PriceObservation.price_inr), func.max(PriceObservation.price_inr))
++        .where(of_ids, ok, not_latest)
++        .group_by(PriceObservation.item_id)
++    )
++    for item_id, low, high in rows:
++        reads[item_id].low_high = (low, high)
++    rows = session.execute(
++        select(PriceObservation.item_id, PriceObservation.price_inr, PriceObservation.fetched_at).where(
++            of_ids, *priced, not_latest, PriceObservation.fetched_at >= now - timedelta(days=max(days, 30))
++        )
++    )
++    for item_id, price, at in rows:
++        reads[item_id].prior.append((price, at))
++    return reads
++
++
++def failure_streak(session: Session, item_id: int, reads: ListingReads) -> int:
++    """`consecutive_failures` from already-read readings; reads further only if all were failures."""
++    streak = next((i for i, o in enumerate(reads.recent) if o.ok), None)
++    if streak is not None:
++        return streak
++    if len(reads.recent) < RECENT_READINGS:
++        return len(reads.recent)
++    return consecutive_failures(session, item_id)
++
++
++def series_from(reads: ListingReads, n: int = SERIES_READINGS) -> list[float]:
++    """`price_series` from already-read readings."""
++    return [float(p) for _, p in reversed(reads.priced[:n])]
++
++
+ # --------------------------------------------------------------------------- decisions & alerts
+ 
+ 
+--- backend/app/services/products.py	2026-10-01 20:40:32
++++ backend/app/services/products.py	2026-10-01 20:22:33
+@@ -6,6 +6,7 @@
+ 
+ from sqlalchemy.orm import Session
+ 
++from app.ai.schemas import PricingContext
+ from app.db import repo
+ from app.db.models import Product, RepriceProposal, TrackedItem
+ from app.schemas.product import (
+@@ -113,8 +114,10 @@
+     return next((x.image_url for x in ordered if x.image_url), None)
+ 
+ 
+-def listing_out(session: Session, listing: TrackedItem, is_lowest: bool = False, suspect: bool = False) -> ListingOut:
+-    recent = repo.latest_observations(session, listing.id, 10)
++def listing_out(
++    listing: TrackedItem, reads: repo.ListingReads, is_lowest: bool = False, suspect: bool = False
++) -> ListingOut:
++    recent = reads.recent[:10]
+     latest_ok = next((o for o in recent if o.ok), None)
+     prev_ok = next((o for o in recent if o.ok and o is not latest_ok and o.price_inr is not None), None)
+     return ListingOut(
+@@ -134,19 +137,36 @@
+ 
+ 
+ def to_out(session: Session, product: Product, pending: RepriceProposal | None | bool = False) -> ProductOut:
+-    """`pending` may be passed in (bulk listing); by default it is looked up."""
++    """`pending` may be passed in; by default it is looked up."""
+     if pending is False:
+         pending = repo.pending_proposals_by_product(session, [product.id]).get(product.id)
+-    ctx = repo.pricing_context(session, product)
++    return to_out_many(session, [product], {product.id: pending} if pending else {})[0]
++
++
++def to_out_many(session: Session, products: list[Product], pending: dict[int, RepriceProposal]) -> list[ProductOut]:
++    """Many products in a fixed number of queries (see repo.listing_reads)."""
++    listings = repo.listings_by_product(session, [p.id for p in products], include_paused=True)
++    reads = repo.listing_reads(session, [x.id for xs in listings.values() for x in xs])
++    contexts = repo.pricing_contexts(session, products, listings=listings, reads=reads)
++    return [_product_out(p, contexts[p.id], listings[p.id], reads, pending.get(p.id)) for p in products]
++
++
++def _product_out(
++    product: Product,
++    ctx: PricingContext,
++    product_listings: list[TrackedItem],
++    reads: dict[int, repo.ListingReads],
++    pending: RepriceProposal | None,
++) -> ProductOut:
+     flags = {c.listing_id: c for c in ctx.competitors}
+     listings = [
+         listing_out(
+-            session,
+             listing,
++            reads[listing.id],
+             is_lowest=flags[listing.id].is_reference if listing.id in flags else False,
+             suspect=flags[listing.id].suspect if listing.id in flags else False,
+         )
+-        for listing in repo.product_listings(session, product.id, include_paused=True)
++        for listing in product_listings
+     ]
+     checked = [x.last_checked_at for x in listings if x.last_checked_at]
+     spark_listing = ctx.reference_listing_id or next((x.id for x in listings if x.active), None)
+@@ -175,7 +195,7 @@
+         position=ctx.position,
+         gap_inr=ctx.gap_inr,
+         gap_pct=ctx.gap_pct,
+-        pending_proposal=brief(pending or None),
++        pending_proposal=brief(pending),
+         last_checked_at=max(checked) if checked else None,
+-        sparkline=repo.price_series(session, spark_listing) if spark_listing else [],
++        sparkline=repo.series_from(reads[spark_listing]) if spark_listing in reads else [],
+     )
+--- backend/app/api/routes/products.py	2026-10-01 20:40:32
++++ backend/app/api/routes/products.py	2026-10-01 20:21:57
+@@ -24,7 +24,7 @@
+ )
+ from app.services import ai_bridge
+ from app.services.pricing import PriceRejected, set_our_price
+-from app.services.products import ListingAlreadyTracked, attach_listing, create_product, to_out
++from app.services.products import ListingAlreadyTracked, attach_listing, create_product, to_out, to_out_many
+ from app.services.runner import run_once
+ from app.services.sources import SOURCES, UnsupportedURL, images, source_for_url
+ 
+@@ -56,7 +56,7 @@
+ def list_products(session: SessionDep):
+     products = repo.list_products(session)
+     pending = repo.pending_proposals_by_product(session, [p.id for p in products])
+-    return [to_out(session, p, pending.get(p.id)) for p in products]
++    return to_out_many(session, products, pending)
+ 
+ 
+ @router.get("/products/{product_id}", response_model=ProductOut)
+--- backend/app/api/routes/proposals.py	2026-10-01 20:40:32
++++ backend/app/api/routes/proposals.py	2026-10-01 20:22:33
+@@ -4,6 +4,7 @@
+ 
+ import structlog
+ from fastapi import APIRouter, HTTPException, Query, status
++from sqlalchemy import select
+ 
+ from app import ai
+ from app.ai.schemas import ReviewAnswer
+@@ -68,48 +69,70 @@
+ 
+ 
+ def _out(session, p: RepriceProposal, *, fresh: bool = True) -> ProposalOut:
+-    product = session.get(Product, p.product_id)
+-    listing = session.get(TrackedItem, p.item_id) if p.item_id else None
+-    decision = session.get(Decision, p.decision_id) if p.decision_id else None
+-    freshness = {}
+-    if fresh and p.status == "pending":
+-        ctx = repo.pricing_context(session, product)
+-        checked = [
+-            o.fetched_at
+-            for x in repo.product_listings(session, product.id)
+-            if (o := repo.latest_observation(session, x.id)) is not None
+-        ]
+-        freshness = dict(
+-            latest_competitor_price_inr=ctx.competitor_price_inr,
+-            latest_checked_at=max(checked) if checked else None,
+-            competitor_changed=ctx.competitor_price_inr != num(p.competitor_price_inr),
+-            our_price_changed=num(product.our_price_inr) != float(p.from_price_inr),
++    return _outs(session, [p], fresh=fresh)[0]
++
++
++def _outs(session, ps: list[RepriceProposal], *, fresh: bool = True) -> list[ProposalOut]:
++    """Proposals with their product, listing and decision and, for pending ones, how the market has
++    moved since, in a fixed number of queries however many there are (see repo.listing_reads)."""
++    if not ps:
++        return []
++    products = {x.id: x for x in session.scalars(select(Product).where(Product.id.in_({p.product_id for p in ps})))}
++    item_ids = {p.item_id for p in ps if p.item_id}
++    sources = {x.id: x for x in session.scalars(select(TrackedItem).where(TrackedItem.id.in_(item_ids)))}
++    decisions = {
++        x.id: x
++        for x in session.scalars(select(Decision).where(Decision.id.in_({p.decision_id for p in ps if p.decision_id})))
++    }
++    listings = repo.listings_by_product(session, list(products), include_paused=True)
++    live = [products[i] for i in dict.fromkeys(p.product_id for p in ps if fresh and p.status == "pending")]
++    reads = repo.listing_reads(session, [x.id for product in live for x in listings[product.id] if x.active])
++    contexts = repo.pricing_contexts(session, live, listings=listings, reads=reads)
++    out = []
++    for p in ps:
++        product = products[p.product_id]
++        freshness = {}
++        if p.product_id in contexts and p.status == "pending":
++            ctx = contexts[p.product_id]
++            checked = [
++                reads[x.id].recent[0].fetched_at for x in listings[product.id] if x.active and reads[x.id].recent
++            ]
++            freshness = dict(
++                latest_competitor_price_inr=ctx.competitor_price_inr,
++                latest_checked_at=max(checked) if checked else None,
++                competitor_changed=ctx.competitor_price_inr != num(p.competitor_price_inr),
++                our_price_changed=num(product.our_price_inr) != float(p.from_price_inr),
++            )
++        listing = sources.get(p.item_id) if p.item_id else None
++        decision = decisions.get(p.decision_id) if p.decision_id else None
++        out.append(
++            ProposalOut(
++                id=p.id,
++                product_id=p.product_id,
++                product_title=product.title,
++                product_image_url=product_image_url(listings[product.id]),
++                our_sku=product.our_sku,
++                listing_id=p.item_id,
++                marketplace=listing.marketplace if listing else None,
++                status=p.status,
++                action=p.action,
++                competitor_price_inr=num(p.competitor_price_inr),
++                from_price_inr=float(p.from_price_inr),
++                to_price_inr=float(p.to_price_inr),
++                final_price_inr=num(p.final_price_inr),
++                change_pct=float(p.change_pct),
++                limited_by=p.limited_by,
++                floor_price_inr=num(product.floor_price_inr),
++                created_at=p.created_at,
++                resolved_at=p.resolved_at,
++                resolved_by=p.resolved_by,
++                resolution_note=p.resolution_note,
++                decision=read_decision(p.product_id, decision.decision) if decision else None,
++                guardrails=guardrail_checks(p, product),
++                **freshness,
++            )
+         )
+-    return ProposalOut(
+-        id=p.id,
+-        product_id=p.product_id,
+-        product_title=product.title,
+-        product_image_url=product_image_url(repo.product_listings(session, product.id, include_paused=True)),
+-        our_sku=product.our_sku,
+-        listing_id=p.item_id,
+-        marketplace=listing.marketplace if listing else None,
+-        status=p.status,
+-        action=p.action,
+-        competitor_price_inr=num(p.competitor_price_inr),
+-        from_price_inr=float(p.from_price_inr),
+-        to_price_inr=float(p.to_price_inr),
+-        final_price_inr=num(p.final_price_inr),
+-        change_pct=float(p.change_pct),
+-        limited_by=p.limited_by,
+-        floor_price_inr=num(product.floor_price_inr),
+-        created_at=p.created_at,
+-        resolved_at=p.resolved_at,
+-        resolved_by=p.resolved_by,
+-        resolution_note=p.resolution_note,
+-        decision=read_decision(p.product_id, decision.decision) if decision else None,
+-        guardrails=guardrail_checks(p, product),
+-        **freshness,
+-    )
++    return out
+ 
+ 
+ @router.get("/proposals", response_model=list[ProposalOut])
+@@ -118,12 +141,12 @@
+     status_: str | None = Query(default=None, alias="status", description="e.g. pending"),
+     limit: int = Query(default=100, ge=1, le=500),
+ ):
+-    return [_out(session, p) for p in repo.list_proposals(session, status=status_, limit=limit)]
++    return _outs(session, repo.list_proposals(session, status=status_, limit=limit))
+ 
+ 
+ @router.get("/products/{product_id}/proposals", response_model=list[ProposalOut])
+ def product_proposals(product: ProductDep, session: SessionDep, limit: int = Query(default=50, ge=1, le=500)):
+-    return [_out(session, p) for p in repo.list_proposals(session, product_id=product.id, limit=limit)]
++    return _outs(session, repo.list_proposals(session, product_id=product.id, limit=limit))
+ 
+ 
+ def _review(proposal_id: int, answer: ReviewAnswer, session) -> ProposalOut:
+--- backend/app/api/routes/monitoring.py	2026-10-01 20:40:32
++++ backend/app/api/routes/monitoring.py	2026-10-01 20:22:06
+@@ -28,11 +28,13 @@
+         .where(TrackedItem.deleted_at.is_(None), Product.deleted_at.is_(None))
+         .order_by(Product.title, TrackedItem.id)
+     ).all()
++    reads = repo.listing_reads(session, [listing.id for listing, _ in rows])
+     listings = []
+     for listing, product in rows:
+-        latest = repo.latest_observation(session, listing.id)
+-        latest_ok = repo.latest_observation(session, listing.id, ok_only=True)
+-        failures = repo.consecutive_failures(session, listing.id)
++        r = reads[listing.id]
++        latest = r.recent[0] if r.recent else None
++        latest_ok = r.latest_ok
++        failures = repo.failure_streak(session, listing.id, r)
+         active = listing.active and product.active
+         status = "paused" if not active else "not_checked" if latest is None else "failing" if failures else "ok"
+         listings.append(

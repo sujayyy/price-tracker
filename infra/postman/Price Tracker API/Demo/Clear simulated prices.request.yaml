@@ -1,0 +1,16 @@
+$kind: http-request
+description: |-
+  Deletes the simulated (source=demo) readings of every listing of the product, so the real competitor history is clean again. Decisions, proposals and our price log are kept.
+url: "{{base_url}}/internal/demo/price?product_id={{product_id}}"
+method: DELETE
+headers:
+  X-Internal-Secret: "{{internal_secret}}"
+queryParams:
+  - key: product_id
+    value: "{{product_id}}"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 5000

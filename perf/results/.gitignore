@@ -1,0 +1,6 @@
+# Bulky raw outputs; perf/run.sh measure regenerates them. The summaries REPORT.md cites are kept:
+# <test>-<label>.json/.txt, -sampler.csv, -timeline.md, -levels.md, parity-summary.txt.
+*-points.json.gz
+server-*.log
+server-*.pid
+parity/

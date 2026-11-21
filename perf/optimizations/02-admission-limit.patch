@@ -1,0 +1,88 @@
+--- backend/app/core/admission.py	1970-01-01 05:30:00
++++ backend/app/core/admission.py	2026-10-01 21:19:56
+@@ -0,0 +1,47 @@
++"""Admission control: a bound on how many /api requests run at once.
++
++Endpoints are sync, so each request hops between the event loop and the shared worker-thread pool
++(40 threads): once to run the endpoint and once more to validate its response. Its database session
++holds a pooled connection (15 at most) across those hops. Under a burst, all 40 threads can end up
++blocked waiting for a connection while the 15 connections belong to requests waiting for a thread
++to finish on; nothing moves until the pool's 30 s timeout fails requests. The stress test hit
++exactly that (perf/REPORT.md).
++
++Letting at most `limit` requests in at a time keeps both pools from running dry: the rest wait
++here, on the event loop, without holding a thread or a connection, and get a quick 503 with
++Retry-After if they wait longer than `max_wait_s`.
++"""
++
++from __future__ import annotations
++
++import anyio
++from starlette.responses import JSONResponse
++from starlette.types import ASGIApp, Receive, Scope, Send
++
++
++class AdmissionLimit:
++    def __init__(self, app: ASGIApp, *, limit: int, max_wait_s: float, prefix: str = "/api/"):
++        self.app = app
++        self.limit = limit
++        self.max_wait_s = max_wait_s
++        self.prefix = prefix
++        self._slots: anyio.Semaphore | None = None  # created on first use, inside the event loop
++
++    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
++        if scope["type"] != "http" or not scope["path"].startswith(self.prefix):
++            await self.app(scope, receive, send)
++            return
++        if self._slots is None:
++            self._slots = anyio.Semaphore(self.limit)
++        admitted = False
++        with anyio.move_on_after(self.max_wait_s):
++            await self._slots.acquire()
++            admitted = True
++        if not admitted:
++            busy = JSONResponse({"detail": "Server busy, retry shortly"}, status_code=503, headers={"Retry-After": "1"})
++            await busy(scope, receive, send)
++            return
++        try:
++            await self.app(scope, receive, send)
++        finally:
++            self._slots.release()
+--- backend/app/core/config.py	2026-09-29 18:35:35
++++ backend/app/core/config.py	2026-10-01 21:19:56
+@@ -41,6 +41,11 @@
+     # POST/DELETE /internal/demo/price: simulate a marketplace price for demos and tests.
+     demo_endpoints_enabled: bool = False
+     source_min_interval_seconds: float = 5.0
++    # Admission control for /api (app/core/admission.py): at most this many requests run at once, so
++    # the 40 worker threads and the 15 pooled DB connections can't deadlock under a burst. The rest
++    # wait up to api_queue_timeout_seconds, then get 503 + Retry-After.
++    api_max_concurrency: int = 10
++    api_queue_timeout_seconds: float = 10.0
+     cors_origins: Annotated[list[str], NoDecode] = ["http://localhost:5173"]
+ 
+     @field_validator("cors_origins", "ops_alert_emails", mode="before")
+--- backend/app/main.py	2026-09-30 11:10:02
++++ backend/app/main.py	2026-10-01 21:19:56
+@@ -6,6 +6,7 @@
+ from fastapi.middleware.cors import CORSMiddleware
+ 
+ from app.api.routes import history, internal, monitoring, products, proposals, settings
++from app.core.admission import AdmissionLimit
+ from app.core.config import get_settings
+ from app.core.logging import configure_logging
+ from app.db import repo
+@@ -27,7 +28,13 @@
+ 
+ 
+ app = FastAPI(title="AI Price Tracker · Ops", version="0.1.0", lifespan=lifespan)
++# Added first so it sits inside CORS: a 503 from it still carries the CORS headers the dashboard needs.
+ app.add_middleware(
++    AdmissionLimit,
++    limit=get_settings().api_max_concurrency,
++    max_wait_s=get_settings().api_queue_timeout_seconds,
++)
++app.add_middleware(
+     CORSMiddleware,
+     allow_origins=get_settings().cors_origins,
+     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],

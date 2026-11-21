@@ -1,0 +1,21 @@
+$kind: http-request
+description: |-
+  Approve with an override price. 422 if it is below the item's floor.
+url: "{{base_url}}/api/proposals/{{proposal_id}}/approve"
+method: POST
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "by": "{{reviewer}}",
+      "price_inr": 799,
+      "note": "Stay a little above"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200 or 409 or 422', () => pm.expect(pm.response.code).to.be.oneOf([200, 409, 422]));
+    language: text/javascript
+order: 4000

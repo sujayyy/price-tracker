@@ -1,0 +1,184 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/ivar/Documents/price-tracker/perf/k6/smoke.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 1 max VUs, 1m0s max duration (incl. graceful stop):
+              * default: 1 looping VUs for 30s (gracefulStop: 30s)
+
+
+running (0m01.0s), 1/1 VUs, 0 complete and 0 interrupted iterations
+default   [   2% ] 1 VUs  00.6s/30s
+
+running (0m02.0s), 1/1 VUs, 1 complete and 0 interrupted iterations
+default   [   5% ] 1 VUs  01.6s/30s
+
+running (0m03.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+default   [   9% ] 1 VUs  02.6s/30s
+
+running (0m04.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+default   [  12% ] 1 VUs  03.6s/30s
+
+running (0m05.0s), 1/1 VUs, 2 complete and 0 interrupted iterations
+default   [  15% ] 1 VUs  04.6s/30s
+
+running (0m06.0s), 1/1 VUs, 3 complete and 0 interrupted iterations
+default   [  19% ] 1 VUs  05.6s/30s
+
+running (0m07.0s), 1/1 VUs, 3 complete and 0 interrupted iterations
+default   [  22% ] 1 VUs  06.6s/30s
+
+running (0m08.0s), 1/1 VUs, 4 complete and 0 interrupted iterations
+default   [  25% ] 1 VUs  07.6s/30s
+
+running (0m09.0s), 1/1 VUs, 5 complete and 0 interrupted iterations
+default   [  29% ] 1 VUs  08.6s/30s
+
+running (0m10.0s), 1/1 VUs, 5 complete and 0 interrupted iterations
+default   [  32% ] 1 VUs  09.6s/30s
+
+running (0m11.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+default   [  35% ] 1 VUs  10.6s/30s
+
+running (0m12.0s), 1/1 VUs, 6 complete and 0 interrupted iterations
+default   [  39% ] 1 VUs  11.6s/30s
+
+running (0m13.0s), 1/1 VUs, 7 complete and 0 interrupted iterations
+default   [  42% ] 1 VUs  12.6s/30s
+
+running (0m14.0s), 1/1 VUs, 7 complete and 0 interrupted iterations
+default   [  45% ] 1 VUs  13.6s/30s
+
+running (0m15.0s), 1/1 VUs, 8 complete and 0 interrupted iterations
+default   [  49% ] 1 VUs  14.6s/30s
+
+running (0m16.0s), 1/1 VUs, 9 complete and 0 interrupted iterations
+default   [  52% ] 1 VUs  15.6s/30s
+
+running (0m17.0s), 1/1 VUs, 9 complete and 0 interrupted iterations
+default   [  55% ] 1 VUs  16.6s/30s
+
+running (0m18.0s), 1/1 VUs, 10 complete and 0 interrupted iterations
+default   [  59% ] 1 VUs  17.6s/30s
+
+running (0m19.0s), 1/1 VUs, 10 complete and 0 interrupted iterations
+default   [  62% ] 1 VUs  18.6s/30s
+
+running (0m20.0s), 1/1 VUs, 11 complete and 0 interrupted iterations
+default   [  65% ] 1 VUs  19.6s/30s
+
+running (0m21.0s), 1/1 VUs, 11 complete and 0 interrupted iterations
+default   [  69% ] 1 VUs  20.6s/30s
+
+running (0m22.0s), 1/1 VUs, 11 complete and 0 interrupted iterations
+default   [  72% ] 1 VUs  21.6s/30s
+
+running (0m23.0s), 1/1 VUs, 12 complete and 0 interrupted iterations
+default   [  75% ] 1 VUs  22.6s/30s
+
+running (0m24.0s), 1/1 VUs, 13 complete and 0 interrupted iterations
+default   [  79% ] 1 VUs  23.6s/30s
+
+running (0m25.0s), 1/1 VUs, 13 complete and 0 interrupted iterations
+default   [  82% ] 1 VUs  24.6s/30s
+
+running (0m26.0s), 1/1 VUs, 13 complete and 0 interrupted iterations
+default   [  85% ] 1 VUs  25.6s/30s
+
+running (0m27.0s), 1/1 VUs, 14 complete and 0 interrupted iterations
+default   [  89% ] 1 VUs  26.6s/30s
+
+running (0m28.0s), 1/1 VUs, 15 complete and 0 interrupted iterations
+default   [  92% ] 1 VUs  27.6s/30s
+
+running (0m29.0s), 1/1 VUs, 15 complete and 0 interrupted iterations
+default   [  95% ] 1 VUs  28.6s/30s
+
+running (0m30.0s), 1/1 VUs, 16 complete and 0 interrupted iterations
+default   [  99% ] 1 VUs  29.6s/30s
+
+running (0m31.0s), 1/1 VUs, 17 complete and 0 interrupted iterations
+default ↓ [ 100% ] 1 VUs  30s
+
+
+  █ THRESHOLDS 
+
+    checks
+    ✓ 'rate==1' rate=100.00%
+
+    http_req_duration{name:/api/activity}
+    ✓ 'max>=0' max=12.61ms
+
+    http_req_duration{name:/api/monitoring}
+    ✓ 'max>=0' max=460.63ms
+
+    http_req_duration{name:/api/products}
+    ✓ 'max>=0' max=1.56s
+
+    http_req_duration{name:/api/products/:id}
+    ✓ 'max>=0' max=22.72ms
+
+    http_req_duration{name:/api/products/:id/decisions}
+    ✓ 'max>=0' max=7.22ms
+
+    http_req_duration{name:/api/products/:id/history}
+    ✓ 'max>=0' max=6.34ms
+
+    http_req_duration{name:/api/products/:id/our-price-history}
+    ✓ 'max>=0' max=3.57ms
+
+    http_req_duration{name:/api/proposals}
+    ✓ 'max>=0' max=534.62ms
+
+    http_req_duration{name:/health}
+    ✓ 'max>=0' max=2.63ms
+
+    http_req_failed
+    ✓ 'rate==0' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 162     5.141052/s
+    checks_succeeded...: 100.00% 162 out of 162
+    checks_failed......: 0.00%   0 out of 162
+
+    ✓ status is 200
+
+    HTTP
+    http_req_duration................................: avg=170.97ms min=888µs    med=6.11ms   p(90)=498.4ms  p(95)=1.21s    p(99)=1.49s    max=1.56s    count=163
+      { expected_response:true }.....................: avg=170.97ms min=888µs    med=6.11ms   p(90)=498.4ms  p(95)=1.21s    p(99)=1.49s    max=1.56s    count=163
+      { name:/api/activity }.........................: avg=5.8ms    min=3.57ms   med=3.92ms   p(90)=11.52ms  p(95)=11.9ms   p(99)=12.47ms  max=12.61ms  count=18 
+      { name:/api/monitoring }.......................: avg=229.54ms min=142.35ms med=175.23ms p(90)=429.44ms p(95)=449.05ms p(99)=458.32ms max=460.63ms count=18 
+      { name:/api/products }.........................: avg=1.03s    min=460.12ms med=1.17s    p(90)=1.48s    p(95)=1.5s     p(99)=1.55s    max=1.56s    count=18 
+      { name:/api/products/:id }.....................: avg=9.56ms   min=6.49ms   med=7.11ms   p(90)=19.08ms  p(95)=20.22ms  p(99)=22.22ms  max=22.72ms  count=18 
+      { name:/api/products/:id/decisions }...........: avg=2.28ms   min=1.26ms   med=1.42ms   p(90)=4.64ms   p(95)=5.12ms   p(99)=6.8ms    max=7.22ms   count=18 
+      { name:/api/products/:id/history }.............: avg=3.07ms   min=2.06ms   med=2.33ms   p(90)=6.17ms   p(95)=6.31ms   p(99)=6.33ms   max=6.34ms   count=18 
+      { name:/api/products/:id/our-price-history }...: avg=1.78ms   min=1.22ms   med=1.36ms   p(90)=3.45ms   p(95)=3.54ms   p(99)=3.57ms   max=3.57ms   count=18 
+      { name:/api/proposals }........................: avg=238.66ms min=145.17ms med=158.11ms p(90)=436.33ms p(95)=454.55ms p(99)=518.61ms max=534.62ms count=18 
+      { name:/health }...............................: avg=1.28ms   min=888µs    med=1.02ms   p(90)=2.3ms    p(95)=2.46ms   p(99)=2.6ms    max=2.63ms   count=18 
+    http_req_failed..................................: 0.00%  0 out of 163
+    http_reqs........................................: 163    5.172787/s
+
+    EXECUTION
+    iteration_duration...............................: avg=1.72s    min=1.01s    med=1.71s    p(90)=2.49s    p(95)=2.58s    p(99)=2.69s    max=2.71s    count=18 
+    iterations.......................................: 18     0.571228/s
+    vus..............................................: 1      min=1        max=1
+    vus_max..........................................: 1      min=1        max=1
+
+    NETWORK
+    data_received....................................: 5.9 MB 187 kB/s
+    data_sent........................................: 15 kB  467 B/s
+
+
+
+
+running (0m31.5s), 0/1 VUs, 18 complete and 0 interrupted iterations
+default ✓ [ 100% ] 1 VUs  30s

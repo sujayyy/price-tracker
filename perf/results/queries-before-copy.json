@@ -1,0 +1,66 @@
+[
+  {
+    "endpoint": "/api/products",
+    "statements": 1802,
+    "wall_ms": 439.0,
+    "db_ms": 243.9,
+    "db_share": 0.56,
+    "response_kb": 178.1
+  },
+  {
+    "endpoint": "/api/proposals?status=pending",
+    "statements": 631,
+    "wall_ms": 151.9,
+    "db_ms": 87.1,
+    "db_share": 0.57,
+    "response_kb": 36.4
+  },
+  {
+    "endpoint": "/api/monitoring",
+    "statements": 604,
+    "wall_ms": 156.2,
+    "db_ms": 84.6,
+    "db_share": 0.54,
+    "response_kb": 67.0
+  },
+  {
+    "endpoint": "/api/activity?days=14",
+    "statements": 5,
+    "wall_ms": 4.5,
+    "db_ms": 1.4,
+    "db_share": 0.31,
+    "response_kb": 21.1
+  },
+  {
+    "endpoint": "/api/products/{id}",
+    "statements": 20,
+    "wall_ms": 6.9,
+    "db_ms": 3.2,
+    "db_share": 0.47,
+    "response_kb": 1.7
+  },
+  {
+    "endpoint": "/api/products/{id}/history?days=7",
+    "statements": 4,
+    "wall_ms": 2.7,
+    "db_ms": 0.8,
+    "db_share": 0.28,
+    "response_kb": 3.0
+  },
+  {
+    "endpoint": "/api/products/{id}/decisions",
+    "statements": 4,
+    "wall_ms": 2.5,
+    "db_ms": 0.7,
+    "db_share": 0.29,
+    "response_kb": 0.5
+  },
+  {
+    "endpoint": "/health",
+    "statements": 1,
+    "wall_ms": 1.4,
+    "db_ms": 0.3,
+    "db_share": 0.19,
+    "response_kb": 0.1
+  }
+]

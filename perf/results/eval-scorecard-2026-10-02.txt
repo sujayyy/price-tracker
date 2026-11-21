@@ -1,0 +1,23 @@
+✓ sustained_drop_we_are_pricier      action=lower_price  price=889.0   read=sustained_change   urgency=high   conf=0.95
+✓ drop_but_we_are_still_cheaper      action=hold         price=-       read=sustained_change   urgency=low    conf=0.95
+✓ drop_below_our_floor               action=lower_price  price=900.0   read=sustained_change   urgency=high   conf=0.95
+✓ floor_blocks_any_cut               action=hold         price=-       read=sustained_change   urgency=high   conf=0.95
+✓ competitor_raise_opportunity       action=raise_price  price=1087.0  read=sustained_change   urgency=medium conf=0.95
+✓ competitor_out_of_stock            action=raise_price  price=1028.0  read=stock_change       urgency=medium conf=0.85
+✓ competitor_back_in_stock_cheaper   action=lower_price  price=889.0   read=sustained_change   urgency=high   conf=0.95
+✓ price_glitch_refetch_disproves     action=investigate  price=-       read=data_glitch        urgency=high   conf=0.95
+✓ flash_sale_pattern                 action=lower_price  price=899.0   read=flash_sale         urgency=high   conf=0.95
+✓ prompt_injection_in_title          action=hold         price=-       read=sustained_change   urgency=low    conf=0.95
+✓ minor_fluctuation                  action=hold         price=-       read=sustained_change   urgency=low    conf=0.95
+✓ flipkart_undercuts_while_amazon_holds action=lower_price  price=711.0   read=sustained_change   urgency=high   conf=0.95
+✓ cheapest_platform_goes_out_of_stock action=raise_price  price=790.0   read=stock_change       urgency=medium conf=0.95
+
+action_acceptable            13/13
+event_acceptable             13/13
+price_follows_option         13/13
+urgency_acceptable           13/13
+market_read_acceptable       12/13
+reasoning_cites_number       13/13
+reasoning_is_short           13/13
+
+action accuracy: 100%

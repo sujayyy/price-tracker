@@ -1,0 +1,76 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: /Users/ivar/Documents/price-tracker/perf/k6/approval_concurrency.js
+        output: json (/Users/ivar/Documents/price-tracker/perf/results/approval-after2-points.json.gz)
+
+     scenarios: (100.00%) 1 scenario, 4 max VUs, 5m30s max duration (incl. graceful stop):
+              * race: 20 iterations shared among 4 VUs (maxDuration: 5m0s, gracefulStop: 30s)
+
+
+
+  █ THRESHOLDS 
+
+    approval_double_applied
+    ✓ 'count==0' count=0
+
+    approval_unexpected_status
+    ✓ 'count==0' count=0
+
+    checks
+    ✓ 'rate==1' rate=100.00%
+
+    http_req_duration{name:/api/proposals/:id/approve,status:200}
+    ✓ 'max>=0' max=500.66ms
+
+    http_req_duration{name:/api/proposals/:id/approve,status:409}
+    ✓ 'max>=0' max=515.18ms
+
+    http_req_duration{name:/api/proposals/:id/approve}
+    ✓ 'max>=0' max=515.18ms
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 60      70.593135/s
+    checks_succeeded...: 100.00% 60 out of 60
+    checks_failed......: 0.00%   0 out of 60
+
+    ✓ exactly one click wins
+    ✓ every other click gets 409
+    ✓ audit log has one change per approval
+
+    CUSTOM
+    approval_conflicts.................................: 180    211.779406/s
+    approval_double_applied............................: 0      0/s
+    approval_unexpected_status.........................: 0      0/s
+    approval_winners...................................: 20     23.531045/s
+
+    HTTP
+    http_req_duration..................................: avg=124.54ms min=1.92ms  med=48.33ms p(90)=502.48ms p(95)=511.71ms p(99)=514.76ms max=515.18ms count=221
+      { expected_response:true }.......................: avg=76.88ms  min=1.92ms  med=33.9ms  p(90)=66.02ms  p(95)=497.91ms p(99)=499.71ms max=500.66ms count=41 
+      { name:/api/proposals/:id/approve,status:200 }...: avg=135.23ms min=21.77ms med=51.91ms p(90)=497.95ms p(95)=498.41ms p(99)=500.21ms max=500.66ms count=20 
+      { name:/api/proposals/:id/approve,status:409 }...: avg=135.4ms  min=17.05ms med=50.16ms p(90)=506.49ms p(95)=511.75ms p(99)=515.03ms max=515.18ms count=180
+      { name:/api/proposals/:id/approve }..............: avg=135.38ms min=17.05ms med=50.37ms p(90)=505.85ms p(95)=511.71ms p(99)=514.99ms max=515.18ms count=200
+    http_req_failed....................................: 81.44% 180 out of 221
+    http_reqs..........................................: 221    260.018048/s
+
+    EXECUTION
+    iteration_duration.................................: avg=161.63ms min=66.83ms med=71.3ms  p(90)=523.91ms p(95)=524.35ms p(99)=527.56ms max=528.36ms count=20 
+    iterations.........................................: 20     23.531045/s
+
+    NETWORK
+    data_received......................................: 110 kB 129 kB/s
+    data_sent..........................................: 41 kB  48 kB/s
+
+
+
+
+running (0m00.8s), 0/4 VUs, 20 complete and 0 interrupted iterations
+race ✓ [ 100% ] 4 VUs  0m00.8s/5m0s  20/20 shared iters

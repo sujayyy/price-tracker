@@ -1,0 +1,14 @@
+$kind: http-request
+description: |-
+  Competitor price points for the last 30 days, one series per listing.
+url: "{{base_url}}/api/products/{{product_id}}/history?days=30"
+method: GET
+queryParams:
+  - key: days
+    value: "30"
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 1000

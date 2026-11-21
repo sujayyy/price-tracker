@@ -1,0 +1,18 @@
+name: Price Tracker (local)
+values:
+  - key: base_url
+    value: 'http://localhost:8000'
+  - key: internal_secret
+    value: ''
+  - key: reviewer
+    value: Ops reviewer
+  - key: amazon_url
+    value: 'https://www.amazon.in/dp/B0F8BVSK21'
+  - key: flipkart_url
+    value: 'https://www.flipkart.com/boat-airdopes-141-gen-2-4-mics-enx-tech-48h-battery-asap-charge-low-latency-bt-v5-4-bluetooth/p/itm97186a453279a?pid=ACCHGG7ND9BRXRGZ'
+  - key: product_id
+    value: '1'
+  - key: listing_id
+    value: '1'
+  - key: proposal_id
+    value: ''

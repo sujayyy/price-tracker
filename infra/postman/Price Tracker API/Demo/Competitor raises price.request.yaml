@@ -1,0 +1,25 @@
+$kind: http-request
+description: |-
+  Simulated competitor increase. Fires price_increase: a raise is proposed if we can move up and stay at or below them.
+url: "{{base_url}}/internal/demo/price"
+method: POST
+headers:
+  X-Internal-Secret: "{{internal_secret}}"
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "listing_id": {{listing_id}},
+      "price_inr": 949
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+      const r = pm.response.json();
+      console.log(`${r.marketplace} ${r.previous_price_inr} -> ${r.simulated_price_inr}; lowest ${r.lowest_price_inr} on ${r.lowest_marketplace}; ours ${r.our_price_before_inr} -> ${r.our_price_after_inr}`, r.run.triggers, r.decision);
+      const t = r.run.triggers[0];
+      if (t && t.proposal_id) { pm.environment.set('proposal_id', t.proposal_id); console.log('proposal_id =', t.proposal_id); }
+    language: text/javascript
+order: 3000

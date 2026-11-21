@@ -1,0 +1,19 @@
+$kind: http-request
+description: |-
+  Attach another competitor listing (e.g. the same product on Flipkart) to our product.
+url: "{{base_url}}/api/products/{{product_id}}/listings"
+method: POST
+headers:
+  Content-Type: "application/json"
+body:
+  type: json
+  content: |-
+    {
+      "url": "{{flipkart_url}}"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test('status is 201 or 409', () => pm.expect(pm.response.code).to.be.oneOf([201, 409]));
+    language: text/javascript
+order: 4000

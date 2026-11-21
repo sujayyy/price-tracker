@@ -1,0 +1,15 @@
+$kind: http-request
+description: Exactly what the GitHub Actions schedule calls. Fetches due items; LLM + email only if a rule fires.
+url: "{{base_url}}/internal/run-once?force=false"
+method: POST
+headers:
+  X-Internal-Secret: "{{internal_secret}}"
+queryParams:
+  - key: force
+    value: "false"
+    description: false = only items whose check_every_hours has elapsed
+scripts:
+  - type: afterResponse
+    code: pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 1000

@@ -1,0 +1,9 @@
+$kind: http-request
+description: Liveness check.
+url: "{{base_url}}/health"
+method: GET
+scripts:
+  - type: afterResponse
+    code: pm.test('status is 200', () => pm.expect(pm.response.code).to.be.oneOf([200]));
+    language: text/javascript
+order: 1000

@@ -1,0 +1,10 @@
+$kind: collection
+description: |-
+  Backend REST API for Price Tracker, AI competitor price monitoring & repricing across Amazon.in and Flipkart (FastAPI).
+
+  1. Select the "Price Tracker (local)" environment (top right).
+  2. Set `internal_secret` (same as INTERNAL_RUN_SECRET in infra/.env) and `reviewer` (your name, written to the price audit log).
+  3. Start Postgres and the backend (uvicorn on :8000).
+
+  `product_id`, `listing_id` and `proposal_id` are filled in automatically by the create, list and demo requests.
+  A typical run: Products → Search both marketplaces → Create product with Amazon + Flipkart listings, then Demo → Competitor cuts price (on the Flipkart listing), then Approvals → Approve proposal, then History → Our price log.
